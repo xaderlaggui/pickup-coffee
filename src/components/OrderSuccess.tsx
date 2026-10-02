@@ -1,6 +1,6 @@
 import React from "react"
 import { coffees } from "../data"
-import { CheckIcon } from "./Icons"
+import { CheckIcon } from "./icons"
 
 /* ============================================================
    ORDER SUCCESS — spring checkmark, glass summary, ring pulse
