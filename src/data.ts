@@ -1,8 +1,8 @@
 import { Coffee } from "./types"
 
-import latteImg from "../public/assets/iced-latte.png"
-import americanoImg from "../public/assets/iced-americano.png"
-import blackCoffeeImg from "../public/assets/brewed-coffee.png"
+import latteImg from "./assets/iced-latte.png"
+import americanoImg from "./assets/iced-americano.png"
+import blackCoffeeImg from "./assets/brewed-coffee.png"
 
 export const coffees: Coffee[] = [
   {
