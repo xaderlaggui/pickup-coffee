@@ -446,7 +446,7 @@ h6 {
   align-items: center;
   gap: 8px;
   height: 44px;
-  padding: 0 16px 0 12px;
+  padding: 0 14px;
   border: none;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.2);
@@ -746,7 +746,8 @@ h6 {
 
 .theme-toggle svg,
 .clock-icon svg,
-.checkout-button svg {
+.checkout-button svg,
+.desktop-cart-button svg {
   width: 20px;
   height: 20px;
   fill: none;
@@ -895,6 +896,7 @@ h6 {
     transform var(--dur-snappy) var(--spring-snappy),
     filter var(--dur-press) var(--ease-out),
     box-shadow var(--dur-snappy) var(--spring-snappy),
+    border-color var(--dur-snappy) var(--ease-out),
     background-color var(--dur-fade) var(--ease-in-out);
   cursor: pointer;
 }
@@ -937,6 +939,7 @@ h6 {
 @media (hover: hover) {
   .coffee-card:hover {
     transform: translateY(-3px);
+    border-color: #A0BA78;
     box-shadow:
       0 4px 12px rgba(33, 38, 34, 0.06),
       0 16px 40px rgba(33, 38, 34, 0.12);
@@ -2151,6 +2154,10 @@ h6 {
 
 .sheet-cta {
   margin-top: 12px;
+}
+
+.place-order-btn {
+  margin-top: 32px;
 }
 
 /* ============================================================

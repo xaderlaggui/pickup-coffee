@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { coffees } from "./data"
 import { Coffee } from "./types"
 import { prefersReducedMotion, motionDelay } from "./utils/motion"
-import { SunIcon, MoonIcon, ChevronIcon } from "./components/Icons"
+import { SunIcon, MoonIcon, ChevronIcon, CartIcon } from "./components/Icons"
 import { RollingNumber, CountPrice } from "./components/MotionText"
 import { GlassRefractionDefs } from "./components/GlassRefractionDefs"
 import { CoffeeCard } from "./components/CoffeeCard"
@@ -248,7 +248,7 @@ export default function App() {
 
 
           <div className="header-actions">
-            {cupCount > 0 && (
+            {cupCount > 0 && !checkout && (
               <button
                 className="desktop-cart-button"
                 onClick={() => {
@@ -265,9 +265,8 @@ export default function App() {
                   </span>
                 ) : (
                   <>
+                    <CartIcon />
                     <span className="cart-badge">{cupCount}</span>
-                    <span>{checkout ? "Place order" : "Checkout"}</span>
-                    <CountPrice value={total} />
                   </>
                 )}
               </button>
@@ -438,6 +437,25 @@ export default function App() {
                 </div>
               </fieldset>
             </section>
+
+            <button
+              type="submit"
+              className="primary-button place-order-btn"
+              disabled={loading}
+              aria-busy={loading}
+            >
+              {loading ? (
+                <span className="loading-dots" role="status" aria-label="Placing order">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+              ) : (
+                <>
+                  Place order · <CountPrice value={total} />
+                </>
+              )}
+            </button>
           </form>
         )}
       </main>
@@ -489,7 +507,7 @@ export default function App() {
 
       {/* ---- ORDER BAR — floating glass capsule ---- */}
       <aside
-        className={`order-bar ${cupCount > 0 ? "active" : ""} ${limit ? "at-limit" : ""} ${barHidden ? "bar-hidden" : ""}`}
+        className={`order-bar ${cupCount > 0 && !checkout ? "active" : ""} ${limit ? "at-limit" : ""} ${barHidden ? "bar-hidden" : ""}`}
       >
         <div
           key={limit ? `limit-${limit}` : "bar"}

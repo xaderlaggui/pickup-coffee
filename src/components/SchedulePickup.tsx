@@ -90,7 +90,7 @@ function WheelPicker({
     d.lastTime = performance.now()
     d.velocity = 0
     applyOffset(currentOffsetRef.current) // disable transition
-  }, [])
+  }, [disabled])
 
   const onMove = useCallback(
     (clientY: number) => {
