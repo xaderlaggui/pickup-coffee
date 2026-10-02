@@ -101,28 +101,29 @@ button:focus-visible {
    APP SHELL + COLOR TOKENS
    ============================================================ */
 .app {
-  --background: #f7f9f2;
-  --surface: #ffffff;
-  --surface-raised: #ffffff;
-  --text: #231f20;
-  --muted: #6c696a;
-  --subtle: #e9e9e9;
-  --line: #ccd5bd;
-  --green: #aac27f;
-  --green-pressed: #7a8b54;
-  --green-soft: #c6d6a9;
-  --yellow: #f7f9f2;
-  --header: rgba(247, 249, 242, 0.72);
+  --background: #EBE7DD;       /* Left panel cream */
+  --surface: #F7F5F0;          /* Bright clean surface */
+  --surface-raised: #FFFFFF;   /* Pure white for raised elements */
+  --text: #1C2715;             /* Very dark forest black */
+  --muted: #6B7763;            /* Soft greenish gray */
+  --subtle: #D8D4C8;           /* Slightly darker cream for soft backgrounds */
+  --line: #D5D1C6;             /* Subtle borders */
+  --green: #9DC374;            /* Brand green from logo */
+  --green-pressed: #86AB5D;    /* Darker green for hover */
+  --green-soft: rgba(157, 195, 116, 0.25);
+  --yellow: #FDF0CA;           /* Right panel yellow */
+  --header: rgba(235, 231, 221, 0.85);
+  --green-text: #4C6F24;
 
-  /* Richer card tones so glass has color to refract */
-  --tone-cream: #ede3d0;
-  --tone-rose: #e8d4d2;
-  --tone-green: #d3e8ce;
+  /* Card visual backgrounds matching the 3 panels */
+  --tone-cream: #EBE7DD;
+  --tone-rose: #FDF0CA;        /* Using pastel yellow here */
+  --tone-green: #A0BA78;       /* Middle panel green */
 
   min-height: 100vh;
   color: var(--text);
   background:
-    radial-gradient(circle at 85% 0%, rgba(170, 194, 127, 0.25), transparent 28rem),
+    radial-gradient(circle at 85% 0%, rgba(157, 195, 116, 0.15), transparent 28rem),
     var(--background);
   transition:
     background-color var(--dur-fade) var(--ease-in-out),
@@ -131,22 +132,23 @@ button:focus-visible {
 }
 
 .app.dark {
-  --background: #231f20;
-  --surface: #2b2728;
-  --surface-raised: #343031;
-  --text: #f7f9f2;
-  --muted: #a8be73;
-  --subtle: #413d3e;
-  --line: rgba(204, 213, 189, 0.15);
-  --green: #aac27f;
-  --green-pressed: #c6d6a9;
-  --green-soft: #344026;
-  --yellow: #4d493a;
-  --header: rgba(35, 31, 32, 0.72);
+  --background: #192113;
+  --surface: #242E1C;
+  --surface-raised: #2C3923;
+  --text: #F2F5ED;
+  --muted: #9BB08E;
+  --subtle: #313F27;
+  --line: #37472B;
+  --green: #9DC374;
+  --green-pressed: #B0D18C;
+  --green-soft: rgba(157, 195, 116, 0.2);
+  --yellow: #4E472D;
+  --header: rgba(25, 33, 19, 0.85);
+  --green-text: #C3DBA3;
 
-  --tone-cream: #3a342b;
-  --tone-rose: #3c2d2c;
-  --tone-green: #263427;
+  --tone-cream: #3A352A;
+  --tone-rose: #423C27;
+  --tone-green: #37462B;
 
   color-scheme: dark;
 }
@@ -411,6 +413,86 @@ h6 {
 
 .top-header.title-collapsed .header-inline-title {
   opacity: 1;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.desktop-cart-button {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px 0 12px;
+  border: none;
+  border-radius: 22px;
+  background: var(--green);
+  color: var(--background);
+  font-size: var(--type-subhead);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-fade) var(--ease-out);
+}
+.desktop-cart-button:active {
+  transform: scale(0.96);
+  background: var(--green-pressed);
+}
+.desktop-cart-button .cart-badge {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.15);
+  font-size: var(--type-caption1);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 1024px) {
+  .desktop-cart-button {
+    display: flex;
+  }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.app-footer {
+  margin-top: 64px;
+  padding: 48px 0;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  text-align: center;
+}
+.footer-content {
+  width: min(100% - 40px, 1080px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.app-footer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--type-footnote);
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+.footer-links a {
+  color: var(--green-text);
+  font-size: var(--type-subhead);
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer-links a:hover {
+  text-decoration: underline;
 }
 
 /* ============================================================
@@ -1168,6 +1250,12 @@ h6 {
   pointer-events: none;
   display: flex;
   justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .order-bar {
+    display: none;
+  }
 }
 
 .order-bar-inner {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import { ClockIcon } from "./icons"
+import { ClockIcon } from "./Icons"
 
 /* ============================================================
    CONSTANTS

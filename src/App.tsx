@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { coffees } from "./data"
 import { Coffee } from "./types"
 import { prefersReducedMotion, motionDelay } from "./utils/motion"
-import { SunIcon, MoonIcon, ChevronIcon } from "./components/icons"
+import { SunIcon, MoonIcon, ChevronIcon } from "./components/Icons"
 import { RollingNumber, CountPrice } from "./components/MotionText"
 import { GlassRefractionDefs } from "./components/GlassRefractionDefs"
 import { CoffeeCard } from "./components/CoffeeCard"
@@ -231,23 +231,49 @@ export default function App() {
             PICKUP COFFEE
           </span>
 
-          <button
-            aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
-            className="theme-toggle"
-            onClick={() => setDarkMode((current) => !current)}
-            type="button"
-          >
-            <span
-              className={`theme-icon ${darkMode ? "visible" : "hidden-icon"}`}
+          <div className="header-actions">
+            {cupCount > 0 && (
+              <button
+                className="desktop-cart-button"
+                onClick={() => {
+                  if (!checkout) navigate(true)
+                }}
+                type={checkout ? "submit" : "button"}
+                form={checkout ? "checkout-form" : undefined}
+                disabled={loading}
+                aria-busy={loading}
+              >
+                {loading ? (
+                  <span className="loading-dots">
+                    <i /><i /><i />
+                  </span>
+                ) : (
+                  <>
+                    <span className="cart-badge">{cupCount}</span>
+                    <span>{checkout ? "Place order" : "Checkout"}</span>
+                    <CountPrice value={total} />
+                  </>
+                )}
+              </button>
+            )}
+            <button
+              aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+              className="theme-toggle"
+              onClick={() => setDarkMode((current) => !current)}
+              type="button"
             >
-              <SunIcon />
-            </span>
-            <span
-              className={`theme-icon ${darkMode ? "hidden-icon" : "visible"}`}
-            >
-              <MoonIcon />
-            </span>
-          </button>
+              <span
+                className={`theme-icon ${darkMode ? "visible" : "hidden-icon"}`}
+              >
+                <SunIcon />
+              </span>
+              <span
+                className={`theme-icon ${darkMode ? "hidden-icon" : "visible"}`}
+              >
+                <MoonIcon />
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -398,6 +424,17 @@ export default function App() {
           </form>
         )}
       </main>
+
+      {/* ---- FOOTER ---- */}
+      <footer className="app-footer">
+        <div className="footer-content">
+          <p>&copy; {new Date().getFullYear()} Pickup Coffee. All rights reserved.</p>
+          <div className="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+          </div>
+        </div>
+      </footer>
 
       {/* ---- ORDER BAR — floating glass capsule ---- */}
       <aside
