@@ -1,28 +1,32 @@
 import { Coffee } from "./types"
 
+import latteImg from "../public/assets/iced-latte.png"
+import americanoImg from "../public/assets/iced-americano.png"
+import blackCoffeeImg from "../public/assets/brewed-coffee.png"
+
 export const coffees: Coffee[] = [
   {
     id: 1,
-    name: "Iced Latte",
+    name: "Latte",
     detail: "Espresso · fresh milk",
-    price: 110,
-    image: "/assets/iced-latte.png",
+    price: 85,
+    image: latteImg,
     tone: "cream",
   },
   {
     id: 2,
-    name: "Iced Americano",
+    name: "Americano",
     detail: "Double espresso · water",
-    price: 85,
-    image: "/assets/iced-americano.png",
+    price: 75,
+    image: americanoImg,
     tone: "rose",
   },
   {
     id: 3,
-    name: "Brewed Coffee",
+    name: "Black Coffee",
     detail: "Freshly brewed · hot",
-    price: 75,
-    image: "/assets/brewed-coffee.png",
+    price: 65,
+    image: blackCoffeeImg,
     tone: "green",
   },
 ]
