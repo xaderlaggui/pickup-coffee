@@ -101,18 +101,18 @@ button:focus-visible {
    APP SHELL + COLOR TOKENS
    ============================================================ */
 .app {
-  --background: #f2f2f7;
+  --background: #f7f9f2;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --text: #231F20;
-  --muted: rgba(35, 31, 32, 0.6);
-  --subtle: #e8eae8;
-  --line: rgba(35, 31, 32, 0.08);
-  --green: #AAC27F;
-  --green-pressed: #9BB174;
-  --green-soft: #EFF7DA;
-  --yellow: #FFF2CC;
-  --header: rgba(242, 242, 247, 0.72);
+  --text: #231f20;
+  --muted: #6c696a;
+  --subtle: #e9e9e9;
+  --line: #ccd5bd;
+  --green: #aac27f;
+  --green-pressed: #7a8b54;
+  --green-soft: #c6d6a9;
+  --yellow: #f7f9f2;
+  --header: rgba(247, 249, 242, 0.72);
 
   /* Richer card tones so glass has color to refract */
   --tone-cream: #ede3d0;
@@ -131,18 +131,18 @@ button:focus-visible {
 }
 
 .app.dark {
-  --background: #0d0f0e;
-  --surface: #191c1a;
-  --surface-raised: #222523;
-  --text: #f6f7f6;
-  --muted: #9da19e;
-  --subtle: #2b2f2c;
-  --line: rgba(255, 255, 255, 0.09);
-  --green: #9BB174;
-  --green-pressed: #AAC27F;
-  --green-soft: #263427;
+  --background: #231f20;
+  --surface: #2b2728;
+  --surface-raised: #343031;
+  --text: #f7f9f2;
+  --muted: #a8be73;
+  --subtle: #413d3e;
+  --line: rgba(204, 213, 189, 0.15);
+  --green: #aac27f;
+  --green-pressed: #c6d6a9;
+  --green-soft: #344026;
   --yellow: #4d493a;
-  --header: rgba(13, 15, 14, 0.72);
+  --header: rgba(35, 31, 32, 0.72);
 
   --tone-cream: #3a342b;
   --tone-rose: #3c2d2c;
@@ -1246,7 +1246,7 @@ h6 {
   gap: 2px;
 }
 
-.order-copy span {
+.order-copy>span {
   color: var(--muted);
   font-size: 10px;
   font-weight: 700;
@@ -1443,6 +1443,65 @@ h6 {
   font-size: var(--type-title2);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+
+/* Hero image pop */
+.sheet-hero-img {
+  animation: hero-pop 500ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes hero-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.sheet-layer.closing .sheet-hero-img {
+  animation: none;
+}
+
+/* Temperature toggle row */
+.temp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.temp-row>span {
+  font-weight: 600;
+  font-size: var(--type-headline);
+  letter-spacing: -0.43px;
+}
+
+.temp-toggle {
+  min-width: 180px;
+}
+
+/* Cart temp badge */
+.cart-temp-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--subtle);
+  color: var(--muted);
+  font-size: var(--type-caption2);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  vertical-align: middle;
 }
 
 .quantity-row {
@@ -2441,7 +2500,7 @@ h6 {
   animation: sheet-up var(--dur-smooth) var(--spring-smooth) both;
 }
 
-.bottom-sheet> :is(.sheet-visual, p, .sheet-title, .quantity-row, .sheet-cta) {
+.bottom-sheet> :is(.sheet-visual, p, .sheet-title, .temp-row, .quantity-row, .sheet-cta) {
   animation: rise-8 var(--dur-snappy) var(--ease-out) 300ms both;
 }
 
@@ -2457,12 +2516,16 @@ h6 {
   animation: motion-fade var(--dur-snappy) var(--ease-out) 380ms both;
 }
 
+.bottom-sheet .temp-row {
+  animation-delay: 380ms;
+}
+
 .bottom-sheet .quantity-row {
-  animation-delay: 400ms;
+  animation-delay: 410ms;
 }
 
 .bottom-sheet .sheet-cta {
-  animation-delay: 430ms;
+  animation-delay: 450ms;
 }
 
 /* Closing */
@@ -2479,6 +2542,17 @@ h6 {
 }
 
 /* Rolling number */
+.rolling-number,
+.crossfade-text {
+  display: inline-grid;
+  vertical-align: baseline;
+}
+
+.rolling-number>*,
+.crossfade-text>* {
+  grid-area: 1 / 1;
+}
+
 .roll-old {
   animation: roll-away var(--dur-snappy) var(--spring-snappy) both;
 }
@@ -2869,7 +2943,7 @@ button:focus-visible {
     font-size: 14px;
   }
 
-  .order-copy span {
+  .order-copy>span {
     font-size: 9px;
   }
 

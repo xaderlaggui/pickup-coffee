@@ -17,6 +17,8 @@ export function BottomSheet({
   existing,
   closing,
   onLimit,
+  temp,
+  setTemp,
 }: {
   coffee: Coffee
   quantity: number
@@ -27,6 +29,8 @@ export function BottomSheet({
   existing: number
   closing: boolean
   onLimit: () => void
+  temp: "Iced" | "Hot"
+  setTemp: (temp: "Iced" | "Hot") => void
 }) {
   const sheetRef = useRef<HTMLElement>(null)
   const backdropRef = useRef<HTMLButtonElement>(null)
@@ -189,7 +193,7 @@ export function BottomSheet({
           ×
         </button>
         <div className={`sheet-visual ${coffee.tone}`}>
-          <img src={coffee.image} alt="" />
+          <img className="sheet-hero-img" src={coffee.image} alt="" />
         </div>
         <p className="sheet-description">
           {coffee.detail}.{" "}
@@ -206,6 +210,29 @@ export function BottomSheet({
           </div>
           <strong className="tabular">₱{coffee.price}</strong>
         </div>
+
+        {/* Iced / Hot toggle */}
+        <div className="temp-row">
+          <span>Temperature</span>
+          <div className={`segmented-control temp-toggle ${temp === "Hot" ? "tomorrow" : ""}`}>
+            <div className="segment-pill" />
+            <button
+              type="button"
+              className={temp === "Iced" ? "selected" : ""}
+              onClick={() => setTemp("Iced")}
+            >
+              Iced
+            </button>
+            <button
+              type="button"
+              className={temp === "Hot" ? "selected" : ""}
+              onClick={() => setTemp("Hot")}
+            >
+              Hot
+            </button>
+          </div>
+        </div>
+
         <div className="quantity-row">
           <div>
             <span>Quantity</span>
@@ -238,4 +265,3 @@ export function BottomSheet({
     </div>
   )
 }
-

@@ -17,7 +17,9 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false)
   const [activeCoffee, setActiveCoffee] = useState<Coffee | null>(null)
   const [sheetQuantity, setSheetQuantity] = useState(1)
+  const [sheetTemp, setSheetTemp] = useState<"Iced" | "Hot">("Iced")
   const [cart, setCart] = useState<Record<number, number>>({})
+  const [cartTemps, setCartTemps] = useState<Record<number, "Iced" | "Hot">>({})
   const [day, setDay] = useState<"Today" | "Tomorrow">("Today")
   const [time, setTime] = useState("ASAP")
   const [confirmed, setConfirmed] = useState(false)
@@ -145,20 +147,24 @@ export default function App() {
     setClosing(false)
     setActiveCoffee(coffee)
     setSheetQuantity(cart[coffee.id] || (cupCount < 5 ? 1 : 0))
+    setSheetTemp(cartTemps[coffee.id] || "Iced")
   }
 
   const addToCart = () => {
     if (!activeCoffee || closing) return
     const coffeeId = activeCoffee.id
+    const selectedTemp = sheetTemp
     later(
-      () =>
+      () => {
         setCart((current) => ({
           ...current,
           [coffeeId]: Math.min(
             sheetQuantity,
             5 - cupCount + (current[coffeeId] || 0),
           ),
-        })),
+        }))
+        setCartTemps((current) => ({ ...current, [coffeeId]: selectedTemp }))
+      },
       motionDelay(380),
     )
     closeSheet()
@@ -168,6 +174,7 @@ export default function App() {
     setTransition("screen-out")
     later(() => {
       setCart({})
+      setCartTemps({})
       setDay("Today")
       setTime("ASAP")
       setConfirmed(false)
@@ -318,6 +325,7 @@ export default function App() {
                   >
                     <span>
                       {cart[coffee.id]} × {coffee.name}
+                      <span className="cart-temp-badge">{cartTemps[coffee.id] || "Iced"}</span>
                       <span className="cart-edit-hint">Edit</span>
                     </span>
                     <strong className="tabular">₱{cart[coffee.id] * coffee.price}</strong>
@@ -470,6 +478,8 @@ export default function App() {
           onClose={closeSheet}
           quantity={sheetQuantity}
           setQuantity={setSheetQuantity}
+          temp={sheetTemp}
+          setTemp={setSheetTemp}
         />
       )}
     </div>
