@@ -441,7 +441,7 @@ export default function App() {
         <div className="footer-content">
           <div className="footer-col footer-logo-col">
             <img
-              src="/src/assets/footer/pickupcoffee-vertical.svg"
+              src="/assets/footer/pickupcoffee-vertical.svg"
               alt="Pickup Coffee"
               className="footer-logo"
             />
@@ -450,22 +450,22 @@ export default function App() {
           <div className="footer-col footer-nav-col">
             <nav className="footer-socials" aria-label="Social media links">
               <a href="https://x.com/pickupcoffeeph" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                <img src="/src/assets/footer/x.svg" alt="" />
+                <img src="/assets/footer/x.svg" alt="" />
               </a>
               <a href="https://www.instagram.com/pickupcoffeeph/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <img src="/src/assets/footer/instagram.svg" alt="" />
+                <img src="/assets/footer/instagram.svg" alt="" />
               </a>
               <a href="https://www.youtube.com/@pickupcoffeeph" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                <img src="/src/assets/footer/youtube.svg" alt="" />
+                <img src="/assets/footer/youtube.svg" alt="" />
               </a>
               <a href="https://www.tiktok.com/@pickupcoffee%20" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                <img src="/src/assets/footer/tiktok.svg" alt="" />
+                <img src="/assets/footer/tiktok.svg" alt="" />
               </a>
             </nav>
             <div className="footer-copyright">
               <span className="footer-copyright-c">&copy;</span>
               <img
-                src="/src/assets/footer/pickupcoffee-horizontal.svg"
+                src="/assets/footer/pickupcoffee-horizontal.svg"
                 alt="Pickup Coffee"
                 className="footer-logo-horizontal"
               />
