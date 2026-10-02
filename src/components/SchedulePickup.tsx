@@ -210,12 +210,13 @@ function WheelPicker({
 }
 
 /* ============================================================
-   SCHEDULE PICKUP — dynamic time filtering
+   SCHEDULE PICKUP — ASAP is now a day option
    ============================================================ */
-const days = ["Today", "Tomorrow"] as const
+const days = ["ASAP", "Today", "Tomorrow"] as const
+type Day = typeof days[number]
 
 function generateTimeSlots(isToday: boolean) {
-  const slots: string[] = isToday ? ["ASAP"] : []
+  const slots: string[] = []
   const now = new Date()
   const startHour = 8 // 8:00 AM
   const endHour = 18 // 6:00 PM
@@ -223,7 +224,7 @@ function generateTimeSlots(isToday: boolean) {
   for (let h = startHour; h <= endHour; h++) {
     for (let m = 0; m < 60; m += 15) {
       if (h === endHour && m > 0) continue // stop at exactly 6:00 PM
-      
+
       const isPast = isToday && (now.getHours() > h || (now.getHours() === h && now.getMinutes() >= m))
       if (!isPast) {
         const ampm = h >= 12 ? "PM" : "AM"
@@ -242,30 +243,23 @@ export function SchedulePickup({
   time,
   setTime,
 }: {
-  day: "Today" | "Tomorrow"
-  setDay: (d: "Today" | "Tomorrow") => void
+  day: Day
+  setDay: (d: Day) => void
   time: string
   setTime: (t: string) => void
 }) {
+  const isAsap = day === "ASAP"
   const availableTimes = generateTimeSlots(day === "Today")
-  
-  // Auto-correct time if current selection is no longer available (e.g. past time or switched to Tomorrow with ASAP selected)
+
+  // Auto-correct time when day changes and current time is no longer valid
   useEffect(() => {
-    if (!availableTimes.includes(time)) {
+    if (!isAsap && !availableTimes.includes(time)) {
       setTime(availableTimes[0])
     }
-  }, [availableTimes, time, setTime])
-
-  // Lock day to Today if ASAP is selected
-  useEffect(() => {
-    if (time === "ASAP" && day !== "Today") {
-      setDay("Today")
-    }
-  }, [time, day, setDay])
+  }, [availableTimes, time, setTime, isAsap])
 
   const dayIndex = days.indexOf(day)
   const timeIndex = Math.max(0, availableTimes.indexOf(time))
-  const isDayDisabled = time === "ASAP"
 
   return (
     <section className="schedule-section">
@@ -286,8 +280,7 @@ export function SchedulePickup({
             label="Pickup day"
             items={[...days]}
             selectedIndex={dayIndex}
-            onChange={(i) => !isDayDisabled && setDay(days[i])}
-            disabled={isDayDisabled}
+            onChange={(i) => setDay(days[i])}
           />
         </div>
         <div className="wheel-divider" aria-hidden="true" />
@@ -298,12 +291,13 @@ export function SchedulePickup({
             items={availableTimes}
             selectedIndex={timeIndex}
             onChange={(i) => setTime(availableTimes[i])}
+            disabled={isAsap}
           />
         </div>
       </div>
 
       <p className="picker-hint">
-        {time === "ASAP"
+        {isAsap
           ? "We'll start brewing as soon as your order arrives."
           : time === "Closed"
           ? "We are currently closed for the day."
@@ -312,3 +306,4 @@ export function SchedulePickup({
     </section>
   )
 }
+

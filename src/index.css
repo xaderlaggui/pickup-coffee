@@ -1795,6 +1795,19 @@ h6 {
   vertical-align: middle;
 }
 
+.cart-note-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(160, 186, 120, 0.15);
+  color: var(--green);
+  font-size: var(--type-caption2);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  vertical-align: middle;
+}
+
 .quantity-row {
   display: flex;
   align-items: center;
@@ -1819,6 +1832,39 @@ h6 {
   color: var(--muted);
   font-size: var(--type-footnote);
   letter-spacing: -0.08px;
+}
+
+/* Note Row */
+.note-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 0 16px;
+}
+
+.note-row label {
+  font-weight: 600;
+  font-size: var(--type-footnote);
+  color: var(--muted);
+  letter-spacing: -0.08px;
+}
+
+.note-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--type-body);
+  resize: none;
+  transition: border-color var(--dur-snappy) var(--ease-out);
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: var(--green);
 }
 
 /* ============================================================
@@ -2791,7 +2837,7 @@ h6 {
   animation: sheet-up var(--dur-smooth) var(--spring-smooth) both;
 }
 
-.bottom-sheet> :is(.sheet-visual, p, .sheet-title, .temp-row, .quantity-row, .sheet-cta) {
+.bottom-sheet> :is(.sheet-visual, p, .sheet-title, .temp-row, .quantity-row, .note-row, .sheet-cta) {
   animation: rise-8 var(--dur-snappy) var(--ease-out) 300ms both;
 }
 

@@ -19,6 +19,8 @@ export function BottomSheet({
   onLimit,
   temp,
   setTemp,
+  note,
+  setNote,
 }: {
   coffee: Coffee
   quantity: number
@@ -31,6 +33,8 @@ export function BottomSheet({
   onLimit: () => void
   temp: "Iced" | "Hot"
   setTemp: (temp: "Iced" | "Hot") => void
+  note: string
+  setNote: (note: string) => void
 }) {
   const sheetRef = useRef<HTMLElement>(null)
   const backdropRef = useRef<HTMLButtonElement>(null)
@@ -243,6 +247,18 @@ export function BottomSheet({
             quantity={quantity}
             setQuantity={setQuantity}
             onLimit={onLimit}
+          />
+        </div>
+
+        <div className="note-row">
+          <label htmlFor="drink-note">Special Instructions (optional)</label>
+          <textarea
+            id="drink-note"
+            className="note-input"
+            placeholder="e.g. Less ice, extra hot, oat milk..."
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            rows={2}
           />
         </div>
         <button

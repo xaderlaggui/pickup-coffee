@@ -11,7 +11,7 @@ export const coffees: Coffee[] = [
     detail: "Espresso · fresh milk",
     price: 85,
     image: latteImg,
-    tone: "cream",
+    tone: "rose",
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ export const coffees: Coffee[] = [
     detail: "Freshly brewed · hot",
     price: 65,
     image: blackCoffeeImg,
-    tone: "green",
+    tone: "rose",
   },
 ]
 

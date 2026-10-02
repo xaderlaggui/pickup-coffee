@@ -20,8 +20,10 @@ export default function App() {
   const [sheetTemp, setSheetTemp] = useState<"Iced" | "Hot">("Iced")
   const [cart, setCart] = useState<Record<number, number>>({})
   const [cartTemps, setCartTemps] = useState<Record<number, "Iced" | "Hot">>({})
-  const [day, setDay] = useState<"Today" | "Tomorrow">("Today")
-  const [time, setTime] = useState("ASAP")
+  const [cartNotes, setCartNotes] = useState<Record<number, string>>({})
+  const [sheetNote, setSheetNote] = useState("")
+  const [day, setDay] = useState<"ASAP" | "Today" | "Tomorrow">("ASAP")
+  const [time, setTime] = useState("")
   const [confirmed, setConfirmed] = useState(false)
   const [checkout, setCheckout] = useState(false)
   const [name, setName] = useState("")
@@ -163,6 +165,7 @@ export default function App() {
     setActiveCoffee(coffee)
     setSheetQuantity(cart[coffee.id] || (cupCount < 5 ? 1 : 0))
     setSheetTemp(cartTemps[coffee.id] || "Iced")
+    setSheetNote(cartNotes[coffee.id] || "")
   }
 
   const addToCart = () => {
@@ -179,6 +182,7 @@ export default function App() {
           ),
         }))
         setCartTemps((current) => ({ ...current, [coffeeId]: selectedTemp }))
+        setCartNotes((current) => ({ ...current, [coffeeId]: sheetNote.trim() }))
       },
       motionDelay(380),
     )
@@ -190,8 +194,9 @@ export default function App() {
     later(() => {
       setCart({})
       setCartTemps({})
-      setDay("Today")
-      setTime("ASAP")
+      setCartNotes({})
+      setDay("ASAP")
+      setTime("")
       setConfirmed(false)
       setCheckout(false)
       setName("")
@@ -210,7 +215,7 @@ export default function App() {
           amount={total}
           cups={cupCount}
           onRestart={restart}
-          pickup={`${day} · ${time}`}
+          pickup={day === "ASAP" ? "ASAP" : `${day} · ${time}`}
           name={name.trim()}
           payment={payment}
           cart={cart}
@@ -363,6 +368,7 @@ export default function App() {
                     <span>
                       {cart[coffee.id]} × {coffee.name}
                       <span className="cart-temp-badge">{cartTemps[coffee.id] || "Iced"}</span>
+                      {cartNotes[coffee.id] && <span className="cart-note-badge">Notes added</span>}
                       <span className="cart-edit-hint">Edit</span>
                     </span>
                     <strong className="tabular">₱{cart[coffee.id] * coffee.price}</strong>
@@ -568,6 +574,8 @@ export default function App() {
           setQuantity={setSheetQuantity}
           temp={sheetTemp}
           setTemp={setSheetTemp}
+          note={sheetNote}
+          setNote={setSheetNote}
         />
       )}
     </div>
