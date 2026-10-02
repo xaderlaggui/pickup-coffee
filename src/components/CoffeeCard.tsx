@@ -27,7 +27,14 @@ export function CoffeeCard({
         </span>
       )}
       <div className="product-visual">
-        <img src={coffee.image} alt={`${coffee.name} in a PICKUP COFFEE cup`} />
+        <img
+          src={coffee.image}
+          alt={`${coffee.name} in a PICKUP COFFEE cup`}
+          loading={coffee.id === 1 ? "eager" : "lazy"}
+          decoding="async"
+          width="240"
+          height="240"
+        />
       </div>
       <div className="card-copy">
         <p className="product-detail">{coffee.detail}</p>

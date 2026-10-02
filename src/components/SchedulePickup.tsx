@@ -23,11 +23,13 @@ function WheelPicker({
   selectedIndex,
   onChange,
   label,
+  disabled,
 }: {
   items: string[]
   selectedIndex: number
   onChange: (index: number) => void
   label: string
+  disabled?: boolean
 }) {
   // The offset that centers item N:
   //   offset(N) = PICKER_H/2 - ITEM_H/2 - N * ITEM_H
@@ -79,6 +81,7 @@ function WheelPicker({
 
   // ---- Drag lifecycle ----
   const onStart = useCallback((clientY: number) => {
+    if (disabled) return
     const d = drag.current
     d.active = true
     d.startClientY = clientY
@@ -174,7 +177,7 @@ function WheelPicker({
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
-      style={{ touchAction: "none", cursor: "grab" }}
+      style={{ touchAction: "none", cursor: disabled ? "not-allowed" : "grab", opacity: disabled ? 0.4 : 1, transition: "opacity 200ms" }}
     >
       {/* Scrollable track — items stacked vertically */}
       <div ref={trackRef} className="wheel-track">
@@ -207,21 +210,31 @@ function WheelPicker({
 }
 
 /* ============================================================
-   SCHEDULE PICKUP — two drum-roll pickers side by side
+   SCHEDULE PICKUP — dynamic time filtering
    ============================================================ */
 const days = ["Today", "Tomorrow"] as const
-const times = [
-  "ASAP",
-  "08:15 AM",
-  "08:30 AM",
-  "08:45 AM",
-  "09:00 AM",
-  "09:15 AM",
-  "09:30 AM",
-  "10:00 AM",
-  "10:30 AM",
-  "11:00 AM",
-]
+
+function generateTimeSlots(isToday: boolean) {
+  const slots: string[] = isToday ? ["ASAP"] : []
+  const now = new Date()
+  const startHour = 8 // 8:00 AM
+  const endHour = 18 // 6:00 PM
+
+  for (let h = startHour; h <= endHour; h++) {
+    for (let m = 0; m < 60; m += 15) {
+      if (h === endHour && m > 0) continue // stop at exactly 6:00 PM
+      
+      const isPast = isToday && (now.getHours() > h || (now.getHours() === h && now.getMinutes() >= m))
+      if (!isPast) {
+        const ampm = h >= 12 ? "PM" : "AM"
+        const hour12 = h > 12 ? h - 12 : h === 0 ? 12 : h
+        const mins = m.toString().padStart(2, "0")
+        slots.push(`${hour12}:${mins} ${ampm}`)
+      }
+    }
+  }
+  return slots.length > 0 ? slots : ["Closed"]
+}
 
 export function SchedulePickup({
   day,
@@ -234,8 +247,25 @@ export function SchedulePickup({
   time: string
   setTime: (t: string) => void
 }) {
+  const availableTimes = generateTimeSlots(day === "Today")
+  
+  // Auto-correct time if current selection is no longer available (e.g. past time or switched to Tomorrow with ASAP selected)
+  useEffect(() => {
+    if (!availableTimes.includes(time)) {
+      setTime(availableTimes[0])
+    }
+  }, [availableTimes, time, setTime])
+
+  // Lock day to Today if ASAP is selected
+  useEffect(() => {
+    if (time === "ASAP" && day !== "Today") {
+      setDay("Today")
+    }
+  }, [time, day, setDay])
+
   const dayIndex = days.indexOf(day)
-  const timeIndex = Math.max(0, times.indexOf(time))
+  const timeIndex = Math.max(0, availableTimes.indexOf(time))
+  const isDayDisabled = time === "ASAP"
 
   return (
     <section className="schedule-section">
@@ -256,7 +286,8 @@ export function SchedulePickup({
             label="Pickup day"
             items={[...days]}
             selectedIndex={dayIndex}
-            onChange={(i) => setDay(days[i])}
+            onChange={(i) => !isDayDisabled && setDay(days[i])}
+            disabled={isDayDisabled}
           />
         </div>
         <div className="wheel-divider" aria-hidden="true" />
@@ -264,9 +295,9 @@ export function SchedulePickup({
           <p className="wheel-column-label">Time</p>
           <WheelPicker
             label="Pickup time"
-            items={times}
+            items={availableTimes}
             selectedIndex={timeIndex}
-            onChange={(i) => setTime(times[i])}
+            onChange={(i) => setTime(availableTimes[i])}
           />
         </div>
       </div>
@@ -274,6 +305,8 @@ export function SchedulePickup({
       <p className="picker-hint">
         {time === "ASAP"
           ? "We'll start brewing as soon as your order arrives."
+          : time === "Closed"
+          ? "We are currently closed for the day."
           : `Ready by ${time} — ${day}.`}
       </p>
     </section>

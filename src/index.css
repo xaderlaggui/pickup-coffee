@@ -92,33 +92,48 @@ button {
   font: inherit;
 }
 
-button:focus-visible {
-  outline: 3px solid rgba(52, 199, 89, 0.35);
+button:focus-visible,
+a:focus-visible {
+  /* WCAG 2.1 §2.4.11: non-color visible focus indicator */
+  outline: 3px solid var(--green);
   outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* ============================================================
    APP SHELL + COLOR TOKENS
    ============================================================ */
 .app {
-  --background: #EBE7DD;       /* Left panel cream */
-  --surface: #F7F5F0;          /* Bright clean surface */
-  --surface-raised: #FFFFFF;   /* Pure white for raised elements */
-  --text: #1C2715;             /* Very dark forest black */
-  --muted: #6B7763;            /* Soft greenish gray */
-  --subtle: #D8D4C8;           /* Slightly darker cream for soft backgrounds */
-  --line: #D5D1C6;             /* Subtle borders */
-  --green: #9DC374;            /* Brand green from logo */
-  --green-pressed: #86AB5D;    /* Darker green for hover */
+  --background: #EBE7DD;
+  /* Left panel cream */
+  --surface: #F7F5F0;
+  /* Bright clean surface */
+  --surface-raised: #FFFFFF;
+  /* Pure white for raised elements */
+  --text: #1C2715;
+  /* Very dark forest black */
+  --muted: #6B7763;
+  /* Soft greenish gray */
+  --subtle: #D8D4C8;
+  /* Slightly darker cream for soft backgrounds */
+  --line: #D5D1C6;
+  /* Subtle borders */
+  --green: #9DC374;
+  /* Brand green from logo */
+  --green-pressed: #86AB5D;
+  /* Darker green for hover */
   --green-soft: rgba(157, 195, 116, 0.25);
-  --yellow: #FDF0CA;           /* Right panel yellow */
+  --yellow: #FDF0CA;
+  /* Right panel yellow */
   --header: rgba(235, 231, 221, 0.85);
   --green-text: #4C6F24;
 
   /* Card visual backgrounds matching the 3 panels */
   --tone-cream: #EBE7DD;
-  --tone-rose: #FDF0CA;        /* Using pastel yellow here */
-  --tone-green: #A0BA78;       /* Middle panel green */
+  --tone-rose: #FDF0CA;
+  /* Using pastel yellow here */
+  --tone-green: #A0BA78;
+  /* Middle panel green */
 
   min-height: 100vh;
   color: var(--text);
@@ -371,21 +386,25 @@ h6 {
   position: sticky;
   z-index: 20;
   top: 0;
-  /* glass applied in class, but we add the base transitions */
-  background: var(--header);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  /* Same sage green as footer — hardcoded to avoid Tailwind specificity issues */
+  background: #A0BA78;
+  color: #FFFFFF;
   border-bottom: 1px solid transparent;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   transition:
     border-color var(--dur-fade) var(--ease-out),
-    backdrop-filter var(--dur-smooth) var(--ease-out),
+    box-shadow var(--dur-fade) var(--ease-out),
     background var(--dur-fade) var(--ease-in-out);
 }
 
+.app.dark .top-header {
+  /* Dark mode: use the dark tone-green to stay consistent with footer */
+  background: #37462B;
+}
+
 .top-header.scrolled {
-  border-bottom-color: var(--line);
-  backdrop-filter: blur(40px) saturate(190%) brightness(1.04);
-  -webkit-backdrop-filter: blur(40px) saturate(190%) brightness(1.04);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 }
 
 .header-inner {
@@ -393,7 +412,7 @@ h6 {
   align-items: center;
   justify-content: space-between;
   width: min(100% - 40px, 1080px);
-  height: 64px;
+  height: 88px;
   margin: 0 auto;
 }
 
@@ -413,6 +432,7 @@ h6 {
 
 .top-header.title-collapsed .header-inline-title {
   opacity: 1;
+  color: #FFFFFF;
 }
 
 .header-actions {
@@ -429,17 +449,19 @@ h6 {
   padding: 0 16px 0 12px;
   border: none;
   border-radius: 22px;
-  background: var(--green);
-  color: var(--background);
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
   font-size: var(--type-subhead);
   font-weight: 700;
   cursor: pointer;
   transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-fade) var(--ease-out);
 }
+
 .desktop-cart-button:active {
   transform: scale(0.96);
-  background: var(--green-pressed);
+  background: rgba(255, 255, 255, 0.3);
 }
+
 .desktop-cart-button .cart-badge {
   display: grid;
   place-items: center;
@@ -459,40 +481,208 @@ h6 {
 }
 
 /* ============================================================
-   FOOTER
+   FOOTER — brand + nav + legal
    ============================================================ */
 .app-footer {
-  margin-top: 64px;
-  padding: 48px 0;
-  border-top: 1px solid var(--line);
-  background: var(--surface);
-  text-align: center;
+  /* On mobile the order bar is ~68px + 12px gap at bottom → ensure footer
+     content can still be scrolled past it cleanly */
+  margin-top: 48px;
+  padding: 48px 0 max(48px, calc(80px + env(safe-area-inset-bottom)));
+  border-top: 1px solid transparent;
+  background: #A0BA78;
+  color: #FFFFFF;
+  transition: background-color var(--dur-fade) var(--ease-in-out);
 }
+
+.app.dark .app-footer {
+  background: #37462B;
+}
+
+@media (min-width: 1024px) {
+  .app-footer {
+    /* Desktop hides the order bar so no extra bottom padding needed */
+    padding-bottom: 48px;
+  }
+}
+
 .footer-content {
-  width: min(100% - 40px, 1080px);
+  width: min(100% - 40px, 1200px);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  gap: 48px;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
-.app-footer p {
-  margin: 0;
-  color: var(--muted);
-  font-size: var(--type-footnote);
+
+@media (min-width: 1024px) {
+  .footer-col {
+    align-items: flex-start;
+  }
+
+  .footer-nav-col {
+    align-items: center;
+  }
 }
-.footer-links {
+
+.footer-logo {
+  width: 140px;
+  height: auto;
+}
+
+/* Nav links */
+.footer-links-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.footer-links-main a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: var(--type-subhead);
+  font-weight: 700;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+.footer-links-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.footer-links-sub a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: var(--type-footnote);
+  font-weight: 600;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+.footer-links-main a:hover,
+.footer-links-sub a:hover {
+  opacity: 0.8;
+}
+
+/* Socials */
+.footer-socials {
   display: flex;
   gap: 24px;
+  justify-content: center;
 }
-.footer-links a {
-  color: var(--green-text);
-  font-size: var(--type-subhead);
-  text-decoration: none;
+
+.footer-socials a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  transition: opacity var(--dur-press) var(--ease-out), transform var(--dur-press) var(--ease-out);
+}
+
+.footer-socials a:hover {
+  transform: scale(1.05);
+}
+
+.footer-socials a:active {
+  transform: scale(0.95);
+  opacity: 0.7;
+}
+
+.footer-socials img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Copyright row — sits below social icons */
+.footer-copyright {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-copyright-c {
+  color: #FFFFFF;
+  font-size: var(--type-footnote);
   font-weight: 600;
+  line-height: 1;
 }
-.footer-links a:hover {
-  text-decoration: underline;
+
+.footer-logo-horizontal {
+  height: 14px;
+  width: auto;
+}
+
+.footer-copyright-text {
+  color: #FFFFFF;
+  font-size: var(--type-footnote);
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* News Section */
+.footer-news-col--desktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .footer-news-col--desktop {
+    display: flex;
+  }
+}
+
+.footer-news-title {
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  margin: 0 0 8px;
+}
+
+.footer-news-subtitle {
+  color: #FFFFFF;
+  font-size: 13px;
+  margin: 0 0 20px;
+}
+
+.footer-news-btn {
+  background: #FFFFFF;
+  color: var(--tone-green);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  min-height: 40px;
+  cursor: pointer;
+  transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-fade) var(--ease-out);
+}
+
+.footer-news-btn:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.85);
 }
 
 /* ============================================================
@@ -502,12 +692,12 @@ h6 {
   min-height: 44px;
   padding: 0;
   border: 0;
-  color: var(--text);
+  color: inherit;
   background: transparent;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 900;
-  line-height: 0.84;
-  letter-spacing: -0.8px;
+  line-height: 0.88;
+  letter-spacing: -1px;
   text-align: left;
   cursor: pointer;
   transition: opacity var(--dur-press) var(--ease-out);
@@ -526,25 +716,24 @@ h6 {
   height: 44px;
   padding: 0;
   border-radius: 50%;
-  color: var(--text);
+  /* Dark green icon contrasts against the white pill on the green header */
+  color: #3A5C20;
   cursor: pointer;
   place-items: center;
   transition:
     transform var(--dur-snappy) var(--spring-snappy),
     background var(--dur-fade) var(--ease-in-out);
 
-  /* glass-clear styles inlined */
-  background: rgba(255, 255, 255, 0.32);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 4px 16px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  /* Solid white pill for clear contrast */
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: none;
 }
 
 .dark .theme-toggle {
-  background: rgba(40, 42, 41, 0.28);
+  /* In dark mode: translucent dark pill, white icon */
+  color: #FFFFFF;
+  background: rgba(40, 42, 41, 0.45);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 4px 16px rgba(0, 0, 0, 0.24);
@@ -592,7 +781,8 @@ h6 {
 .main-content {
   width: min(100% - 40px, 1080px);
   margin: 0 auto;
-  padding: 48px 0 220px;
+  /* Bottom pad = order bar height (68px) + gap (24px) + safe area — no excess */
+  padding: 32px 0 112px;
   transition:
     transform var(--dur-smooth) var(--spring-smooth),
     border-radius var(--dur-smooth) var(--spring-smooth);
@@ -608,7 +798,9 @@ h6 {
    HERO COPY — Large Title (iOS Dynamic Type)
    ============================================================ */
 .hero-copy {
-  margin-bottom: 48px;
+  margin-bottom: 32px;
+  /* Prevent header from clipping hero when targeted by in-page anchor */
+  scroll-margin-top: 104px;
 }
 
 .eyebrow {
@@ -761,7 +953,7 @@ h6 {
 
 .product-visual {
   display: grid;
-  height: 240px;
+  height: 200px;
   overflow: hidden;
   border-radius: 23px 23px 20px 20px;
   place-items: center;
@@ -836,8 +1028,9 @@ h6 {
 .add-button {
   position: relative;
   z-index: 0;
+  /* Fitts's law: 44x44px minimum touch target */
   min-width: 80px;
-  min-height: 36px;
+  min-height: 44px;
   border: 0;
   border-radius: 10px;
   color: #0a3215;
@@ -1250,6 +1443,16 @@ h6 {
   pointer-events: none;
   display: flex;
   justify-content: center;
+  /* Smooth slide transition for footer hide */
+  transition: transform 320ms var(--spring-smooth), opacity 240ms var(--ease-out);
+  transform: translateY(0);
+}
+
+/* Slide the bar down off-screen when footer is visible */
+.order-bar.bar-hidden {
+  transform: translateY(calc(100% + 24px));
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (min-width: 1024px) {
@@ -2906,12 +3109,13 @@ button:focus-visible {
   }
 
   .header-inner {
-    height: 58px;
+    height: 72px;
   }
 
   .main-content {
     padding-top: 32px;
-    padding-bottom: 200px;
+    /* bar (68px) + gap (16px) = 84px; add safe area for notched devices */
+    padding-bottom: max(96px, calc(84px + env(safe-area-inset-bottom)));
   }
 
   .hero-copy {
@@ -3001,7 +3205,8 @@ button:focus-visible {
   }
 
   .product-visual {
-    height: 158px;
+    /* slightly shorter on small phones */
+    max-height: 158px;
   }
 
   .product-visual img {
@@ -3061,7 +3266,9 @@ button:focus-visible {
 }
 
 /* ============================================================
-   REDUCED MOTION
+   REDUCED MOTION — animations are intentionally always-on for
+   this demo. Swap 'ignore-for-demo' → 'reduce' to enable real
+   reduced-motion support in a production build.
    ============================================================ */
 @media (prefers-reduced-motion: ignore-for-demo) {
 
@@ -3183,8 +3390,13 @@ button:focus-visible {
 
   .top-header {
     backdrop-filter: none !important;
-    background: var(--background) !important;
-    border-bottom: 1px solid var(--line) !important;
+    /* Header is a solid brand color — keep it green even without transparency */
+    background: #A0BA78 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25) !important;
+  }
+
+  .app.dark .top-header {
+    background: #37462B !important;
   }
 }
 
@@ -3207,7 +3419,12 @@ button:focus-visible {
 
   .top-header {
     backdrop-filter: none !important;
-    background: var(--background) !important;
-    border-bottom: 2px solid var(--text) !important;
+    /* Header is a solid brand color — keep it green for high-contrast mode */
+    background: #A0BA78 !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .app.dark .top-header {
+    background: #37462B !important;
   }
 }

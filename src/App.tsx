@@ -33,11 +33,13 @@ export default function App() {
   const [limit, setLimit] = useState(0)
   const [scrolled, setScrolled] = useState(false)
   const [titleCollapsed, setTitleCollapsed] = useState(false)
+  const [barHidden, setBarHidden] = useState(false)
 
   const timers = useRef<ReturnType<typeof setTimeout>[]>([])
   const headerRef = useRef<HTMLElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
   const mainRef = useRef<HTMLDivElement>(null)
+  const footerRef = useRef<HTMLElement>(null)
 
   useEffect(() => () => timers.current.forEach(clearTimeout), [])
 
@@ -54,12 +56,25 @@ export default function App() {
       // Collapse large title when hero h1 scrolls out of view
       if (heroRef.current) {
         const heroBottom = heroRef.current.getBoundingClientRect().bottom
-        setTitleCollapsed(heroBottom < 70)
+        setTitleCollapsed(heroBottom < 94)
       }
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  /* ---- Hide order bar when footer enters view (mobile only) ---- */
+  useEffect(() => {
+    const footer = footerRef.current
+    if (!footer) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setBarHidden(entry.isIntersecting),
+      // trigger as soon as 1px of the footer is visible
+      { threshold: 0 }
+    )
+    observer.observe(footer)
+    return () => observer.disconnect()
   }, [])
 
   /* ---- Pointer-follow specular highlight (glass surfaces) ---- */
@@ -226,10 +241,6 @@ export default function App() {
             COFFEE
           </button>
 
-          {/* Inline title that appears when large title scrolls away */}
-          <span className="header-inline-title" aria-hidden="true">
-            PICKUP COFFEE
-          </span>
 
           <div className="header-actions">
             {cupCount > 0 && (
@@ -426,20 +437,53 @@ export default function App() {
       </main>
 
       {/* ---- FOOTER ---- */}
-      <footer className="app-footer">
+      <footer className="app-footer" ref={footerRef}>
         <div className="footer-content">
-          <p>&copy; {new Date().getFullYear()} Pickup Coffee. All rights reserved.</p>
-          <div className="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+          <div className="footer-col footer-logo-col">
+            <img
+              src="/src/assets/footer/pickupcoffee-vertical.svg"
+              alt="Pickup Coffee"
+              className="footer-logo"
+            />
+          </div>
+
+          <div className="footer-col footer-nav-col">
+            <nav className="footer-socials" aria-label="Social media links">
+              <a href="https://x.com/pickupcoffeeph" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                <img src="/src/assets/footer/x.svg" alt="" />
+              </a>
+              <a href="https://www.instagram.com/pickupcoffeeph/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <img src="/src/assets/footer/instagram.svg" alt="" />
+              </a>
+              <a href="https://www.youtube.com/@pickupcoffeeph" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <img src="/src/assets/footer/youtube.svg" alt="" />
+              </a>
+              <a href="https://www.tiktok.com/@pickupcoffee%20" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <img src="/src/assets/footer/tiktok.svg" alt="" />
+              </a>
+            </nav>
+            <div className="footer-copyright">
+              <span className="footer-copyright-c">&copy;</span>
+              <img
+                src="/src/assets/footer/pickupcoffee-horizontal.svg"
+                alt="Pickup Coffee"
+                className="footer-logo-horizontal"
+              />
+              <span className="footer-copyright-text">all rights reserved</span>
+            </div>
+          </div>
+
+          <div className="footer-col footer-news-col footer-news-col--desktop">
+            <h3 className="footer-news-title">XADER LAGGUI</h3>
+            <p className="footer-news-subtitle">Aspiring Web Developer</p>
+            <button className="footer-news-btn" onClick={() => window.open("https://xaderlaggui.vercel.app", "_blank")}>My Portfolio</button>
           </div>
         </div>
       </footer>
 
       {/* ---- ORDER BAR — floating glass capsule ---- */}
       <aside
-        className={`order-bar ${cupCount > 0 ? "active" : ""} ${limit ? "at-limit" : ""
-          }`}
+        className={`order-bar ${cupCount > 0 ? "active" : ""} ${limit ? "at-limit" : ""} ${barHidden ? "bar-hidden" : ""}`}
       >
         <div
           key={limit ? `limit-${limit}` : "bar"}
@@ -455,14 +499,16 @@ export default function App() {
             ))}
           </div>
           <div className="order-copy">
-            <span>YOUR ORDER</span>
-            <strong aria-live="polite">
+            <span id="order-bar-label">YOUR ORDER</span>
+            <strong aria-live="polite" aria-atomic="true">
               {limit ? (
                 "Max 5 cups"
-              ) : (
+              ) : cupCount > 0 ? (
                 <>
-                  <RollingNumber value={cupCount} /> / 5 cups selected
+                  <RollingNumber value={cupCount} /> / 5 cups · ₱<CountPrice value={total} />
                 </>
+              ) : (
+                "Add at least 1 cup"
               )}
             </strong>
           </div>
@@ -496,7 +542,12 @@ export default function App() {
               <ChevronIcon />
             </button>
           ) : (
-            <button className="checkout-button disabled" disabled type="button">
+            <button
+              className="checkout-button disabled"
+              disabled
+              type="button"
+              aria-label="Add at least 1 cup to checkout"
+            >
               Checkout
             </button>
           )}
