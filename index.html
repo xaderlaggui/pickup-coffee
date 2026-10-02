@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Order ahead at Pickup Coffee. Skip the line - choose your drinks, pick a time, and your coffee will be ready when you arrive." />
+    <meta name="theme-color" content="#00A651" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1a10" media="(prefers-color-scheme: dark)" />
+    <meta property="og:title" content="Pickup Coffee - Order Ahead" />
+    <meta property="og:description" content="Order ahead and skip the line at Pickup Coffee." />
+    <title>Pickup Coffee - Order Ahead</title>
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      // Apply theme before first paint to avoid flash
+      (function () {
+        var stored;
+        try { stored = localStorage.getItem("pc-theme"); } catch (e) {}
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = stored === "dark" || stored === "light" ? stored : (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.setAttribute("data-theme-loading", "true");
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
