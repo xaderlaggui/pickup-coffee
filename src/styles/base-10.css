@@ -1,0 +1,245 @@
+
+.success-mark {
+  display: grid;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 28px;
+  border: 8px solid var(--green-soft);
+  border-radius: 50%;
+  color: var(--text);
+  background: var(--yellow);
+  box-shadow:
+    0 0 0 10px rgba(170, 194, 127, 0.25),
+    0 16px 44px rgba(170, 194, 127, 0.4);
+  place-items: center;
+  position: relative;
+}
+
+.success-mark svg {
+  width: 46px;
+  height: 46px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+}
+
+.success-content h1 {
+  margin: 0;
+  font-size: var(--type-large-title);
+  font-weight: 700;
+  line-height: 41px;
+  letter-spacing: 0.37px;
+  text-wrap: balance;
+}
+
+.success-lead {
+  max-width: 390px;
+  margin: 14px auto 28px;
+  color: var(--muted);
+  font-size: var(--type-subhead);
+  line-height: 1.6;
+  letter-spacing: -0.24px;
+}
+
+.success-summary {
+  margin-bottom: 24px;
+  padding: 4px 20px;
+  border-radius: 24px;
+  text-align: left;
+  position: relative;
+
+  /* glass-regular */
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 8px 32px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dark .success-summary {
+  background: rgba(40, 42, 41, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 8px 32px rgba(0, 0, 0, 0.24),
+    0 2px 8px rgba(0, 0, 0, 0.16);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.success-summary div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  border-bottom: 1px solid var(--line);
+}
+
+.success-summary div:last-child {
+  border-bottom: 0;
+}
+
+.success-summary span {
+  color: var(--muted);
+  font-size: var(--type-subhead);
+  letter-spacing: -0.24px;
+}
+
+.success-summary strong {
+  font-size: var(--type-subhead);
+  font-weight: 600;
+  letter-spacing: -0.24px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   ROLLING NUMBER + CROSSFADE
+   ============================================================ */
+.rolling-number {
+  display: inline-grid;
+  position: relative;
+  overflow: hidden;
+  vertical-align: bottom;
+  min-width: 1ch;
+  font-variant-numeric: tabular-nums;
+}
+
+.rolling-number>span {
+  grid-area: 1 / 1;
+}
+
+/* ============================================================
+   FORM ELEMENTS
+   ============================================================ */
+.name-field {
+  position: relative;
+}
+
+.name-field::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 48px;
+  border-radius: 12px;
+  box-shadow: 0 0 0 3px var(--green-soft);
+  opacity: 0;
+  transform: scale(0.98);
+  pointer-events: none;
+  transition:
+    transform var(--dur-snappy) var(--spring-snappy),
+    opacity var(--dur-snappy) var(--ease-out);
+}
+
+.name-field:focus-within::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.name-field:focus-within {
+  color: var(--green);
+}
+
+.name-field input {
+  color: var(--text);
+}
+
+.name-field input[aria-invalid="true"] {
+  border-color: #c96858;
+}
+
+.payment-card {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+  border-color: var(--line);
+}
+
+.payment-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--green);
+  border-radius: inherit;
+  background: var(--green-soft);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity var(--dur-snappy) var(--spring-snappy);
+}
+
+.payment-card:has(input:checked)::before {
+  opacity: 1;
+}
+
+.payment-card input {
+  appearance: none;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.payment-card input::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  transform: scale(0);
+  transition: transform var(--dur-snappy) var(--spring-snappy);
+}
+
+.payment-card input:checked::after {
+  transform: scale(1);
+}
+
+/* ============================================================
+   LOADING DOTS
+   ============================================================ */
+.loading-dots {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.loading-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ============================================================
+   CROSSFADE TEXT
+   ============================================================ */
+.crossfade-text {
+  display: inline-grid;
+}
+
+.crossfade-text>span {
+  grid-area: 1 / 1;
+}
+
+/* ============================================================
+   BACK BUTTON (checkout)
+   ============================================================ */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0 12px 0 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: var(--type-headline);
+  font-weight: 600;
+  letter-spacing: -0.43px;
+  cursor: pointer;
+  transition:
+    transform var(--dur-press) var(--spring-snappy),
+    opacity var(--dur-press) var(--ease-out);
+}

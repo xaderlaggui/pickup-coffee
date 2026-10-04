@@ -1,0 +1,240 @@
+
+.checkout-section-title {
+  margin: 0;
+  font-size: var(--type-title2);
+  font-weight: 700;
+  letter-spacing: -0.43px;
+  line-height: 1.2;
+}
+
+.checkout-cup-count {
+  font-size: var(--type-subhead);
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: -0.24px;
+}
+
+.cart-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  width: 100%;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  text-align: left;
+  font-size: var(--type-body);
+  color: var(--text);
+  cursor: pointer;
+  transition: opacity var(--dur-press) var(--ease-out);
+}
+
+.cart-row:active {
+  opacity: 0.7;
+}
+
+.cart-row:last-of-type {
+  border-bottom: 0;
+}
+
+.cart-edit-hint {
+  margin-left: 10px;
+  font-size: var(--type-footnote);
+  color: var(--muted);
+}
+
+.cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  font-weight: 700;
+  font-size: var(--type-headline);
+  letter-spacing: -0.43px;
+}
+
+.details-section {
+  margin-top: 0;
+}
+
+.name-input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--background);
+  color: var(--text);
+  font-size: var(--type-body);
+  font-family: inherit;
+  margin-top: 8px;
+  outline: none;
+  transition:
+    border-color var(--dur-press) var(--ease-out),
+    box-shadow var(--dur-snappy) var(--spring-snappy);
+}
+
+.name-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
+}
+
+.name-field {
+  display: grid;
+  font-size: var(--type-subhead);
+  font-weight: 600;
+  letter-spacing: -0.24px;
+  color: var(--text);
+}
+
+.payment-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.payment-legend {
+  font-size: var(--type-subhead);
+  font-weight: 600;
+  letter-spacing: -0.24px;
+  margin-bottom: 8px;
+}
+
+.payment-note {
+  margin: 4px 0 12px;
+  font-size: var(--type-footnote);
+  color: var(--muted);
+  letter-spacing: -0.08px;
+}
+
+.payment-options {
+  display: grid;
+  gap: 8px;
+}
+
+@media (min-width: 540px) {
+  .payment-options {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.payment-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: var(--type-subhead);
+  font-weight: 500;
+  transition:
+    border-color var(--dur-snappy) var(--spring-snappy),
+    background-color var(--dur-snappy) var(--spring-snappy);
+}
+
+.payment-card.selected {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+
+.payment-card input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--muted);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: border-color var(--dur-press) var(--ease-out);
+}
+
+.payment-card input[type="radio"]::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  transform: scale(0);
+  transition: transform var(--dur-snappy) var(--spring-bouncy);
+}
+
+.payment-card input[type="radio"]:checked {
+  border-color: var(--green);
+}
+
+.payment-card input[type="radio"]:checked::after {
+  transform: scale(1);
+}
+
+/* Sheet description */
+.sheet-description {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: var(--type-subhead);
+  letter-spacing: -0.24px;
+  line-height: 1.6;
+}
+
+/* Disabled primary button */
+.primary-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   PRIMARY BUTTON
+   ============================================================ */
+.primary-button {
+  width: 100%;
+  min-height: 54px;
+  border: 0;
+  border-radius: 14px;
+  color: var(--text);
+  background: var(--green);
+  font-size: var(--type-headline);
+  font-weight: 700;
+  letter-spacing: -0.43px;
+  cursor: pointer;
+  transition:
+    transform var(--dur-press) var(--spring-snappy),
+    background-color var(--dur-press) var(--ease-out);
+}
+
+.primary-button:active:not(:disabled) {
+  background: var(--green-pressed);
+  transform: scale(0.97);
+}
+
+.sheet-cta {
+  margin-top: 12px;
+}
+
+.place-order-btn {
+  margin-top: 32px;
+}
+
+/* ============================================================
+   SUCCESS SCREEN
+   ============================================================ */
+.success-screen {
+  display: grid;
+  min-height: 100vh;
+  padding: 32px 20px;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at 50% 80%, rgba(170, 194, 127, 0.25) 0%, transparent 60%),
+    var(--background);
+}
+
+.success-content {
+  width: min(100%, 480px);
+  text-align: center;
+}

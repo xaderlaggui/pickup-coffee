@@ -1,0 +1,240 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS â€” iOS Dynamic Type + Spring Physics
+   ============================================================ */
+:root {
+  /* SF Pro / Apple system font stack */
+  font-family:
+    -apple-system,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  /* Inter feature flags for non-Apple devices */
+  font-feature-settings:
+    "cv11",
+    "ss01";
+
+  /* iOS typography scale */
+  --type-large-title: 34px;
+  --type-title1: 28px;
+  --type-title2: 22px;
+  --type-headline: 17px;
+  --type-body: 17px;
+  --type-subhead: 15px;
+  --type-footnote: 13px;
+  --type-caption1: 12px;
+
+  /* Spring physics via linear() â€” generated from spring equation
+     spring(mass,stiffness,damping): sample every 16ms for 30+ pts
+     ---------------------------------------------------------- */
+
+  /* --spring-smooth: response 0.5s, damping 1.0 (no bounce) */
+  --spring-smooth: linear(0, 0.009, 0.036, 0.079, 0.134, 0.198, 0.268, 0.341,
+      0.414, 0.485, 0.552, 0.614, 0.670, 0.720, 0.764, 0.803,
+      0.836, 0.864, 0.888, 0.908, 0.924, 0.937, 0.948, 0.957,
+      0.964, 0.970, 0.975, 0.979, 0.982, 0.985, 0.988, 0.990,
+      0.992, 0.993, 0.995, 0.996, 0.997, 0.998, 0.999, 1);
+
+  /* --spring-snappy: response 0.35s, damping 0.85 (slight overshoot) */
+  --spring-snappy: linear(0, 0.016, 0.063, 0.137, 0.231, 0.338, 0.450, 0.557,
+      0.654, 0.738, 0.808, 0.862, 0.903, 0.932, 0.952, 0.965,
+      0.973, 0.978, 0.981, 0.983, 0.986, 0.989, 0.993, 0.997,
+      1.002, 1.006, 1.009, 1.010, 1.010, 1.009, 1.007, 1.005,
+      1.003, 1.001, 1);
+
+  /* --spring-bouncy: response 0.4s, damping 0.7 (clear overshoot) */
+  --spring-bouncy: linear(0, 0.024, 0.094, 0.199, 0.329, 0.465, 0.593, 0.702,
+      0.789, 0.854, 0.901, 0.933, 0.955, 0.970, 0.981, 0.992,
+      1.006, 1.023, 1.041, 1.057, 1.069, 1.076, 1.078, 1.076,
+      1.070, 1.062, 1.052, 1.042, 1.032, 1.023, 1.015, 1.009,
+      1.004, 1.000, 0.998, 0.997, 0.998, 0.999, 1);
+
+  /* Duration tokens */
+  --dur-smooth: 500ms;
+  --dur-snappy: 380ms;
+  --dur-bouncy: 520ms;
+  --dur-press: 120ms;
+  --dur-fade: 240ms;
+  --dur-stagger: 50ms;
+
+  /* Legacy ease for fades / opacity only */
+  --ease-out: cubic-bezier(0.2, 0.9, 0.25, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Glass pointer tracking */
+  --mx: 50%;
+  --my: 50%;
+
+  color: #151716;
+  background: #f2f2f7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Hide scrollbars globally */
+::-webkit-scrollbar {
+  display: none;
+}
+
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  scroll-behavior: smooth;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  /* WCAG 2.1 Â§2.4.11: non-color visible focus indicator */
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   APP SHELL + COLOR TOKENS
+   ============================================================ */
+.app {
+  --background: #EBE7DD;
+  /* Left panel cream */
+  --surface: #F7F5F0;
+  /* Bright clean surface */
+  --surface-raised: #FFFFFF;
+  /* Pure white for raised elements */
+  --text: #1C2715;
+  /* Very dark forest black */
+  --muted: #6B7763;
+  /* Soft greenish gray */
+  --subtle: #D8D4C8;
+  /* Slightly darker cream for soft backgrounds */
+  --line: #D5D1C6;
+  /* Subtle borders */
+  --green: #9DC374;
+  /* Brand green from logo */
+  --green-pressed: #86AB5D;
+  /* Darker green for hover */
+  --green-soft: rgba(157, 195, 116, 0.25);
+  --yellow: #FDF0CA;
+  /* Right panel yellow */
+  --header: rgba(235, 231, 221, 0.85);
+  --green-text: #4C6F24;
+
+  /* Card visual backgrounds matching the 3 panels */
+  --tone-cream: #EBE7DD;
+  --tone-rose: #FDF0CA;
+  /* Using pastel yellow here */
+  --tone-green: #A0BA78;
+  /* Middle panel green */
+
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 85% 0%, rgba(157, 195, 116, 0.15), transparent 28rem),
+    var(--background);
+  transition:
+    background-color var(--dur-fade) var(--ease-in-out),
+    color var(--dur-fade) var(--ease-in-out);
+  isolation: isolate;
+}
+
+.app.dark {
+  --background: #192113;
+  --surface: #242E1C;
+  --surface-raised: #2C3923;
+  --text: #F2F5ED;
+  --muted: #9BB08E;
+  --subtle: #313F27;
+  --line: #37472B;
+  --green: #9DC374;
+  --green-pressed: #B0D18C;
+  --green-soft: rgba(157, 195, 116, 0.2);
+  --yellow: #4E472D;
+  --header: rgba(25, 33, 19, 0.85);
+  --green-text: #C3DBA3;
+
+  --tone-cream: #3A352A;
+  --tone-rose: #423C27;
+  --tone-green: #37462B;
+
+  color-scheme: dark;
+}
+
+/* ============================================================
+   GLASS MATERIAL TOKENS
+   Three reusable glass classes + specular / shadow layers
+   ============================================================ */
+
+/* Hidden SVG refraction filter â€” used by order bar via @supports */
+.glass-refract-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ------ glass-regular ------ */
+.glass-regular {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dark .glass-regular {
+  background: rgba(40, 42, 41, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.24),
+    0 2px 8px rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ------ glass-thick ------ */
+.glass-thick {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(40px) saturate(190%) brightness(1.04);
+  -webkit-backdrop-filter: blur(40px) saturate(190%) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass-thick {
+  background: rgba(28, 30, 29, 0.68);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 32px rgba(0, 0, 0, 0.36),
+    0 2px 8px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}

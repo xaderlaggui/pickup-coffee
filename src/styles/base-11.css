@@ -1,0 +1,244 @@
+
+.dark .back-button {
+  color: var(--green);
+}
+
+.back-button:active {
+  transform: translateX(-4px);
+  opacity: 0.7;
+}
+
+.back-icon-only {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.back-icon-only:hover {
+  background: rgba(28, 39, 21, 0.08);
+}
+
+.dark .back-icon-only:hover {
+  background: var(--green-soft);
+}
+
+.back-icon-only svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+
+/* Entrance animations â€” from translateY with blur resolve */
+@keyframes header-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rise-28 {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes rise-16 {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes rise-8 {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes cup-arrive {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes motion-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Badge â€” bouncy pop */
+@keyframes tactile-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+
+  82% {
+    transform: scale(0.94);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Sheet */
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sheet-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* Rolling number */
+@keyframes roll-away {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+    filter: blur(4px);
+  }
+}
+
+@keyframes roll-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Shake */
+@keyframes limit-shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  15% {
+    transform: translateX(-5px);
+  }
+
+  35% {
+    transform: translateX(5px);
+  }
+
+  55% {
+    transform: translateX(-3px);
+  }
+
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+/* Order bar arrive */
+@keyframes bar-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(120%) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Capsule squash-stretch on cup add */
+@keyframes capsule-pop {
+  0% {
+    transform: scaleX(1) scaleY(1);
+  }
+
+  30% {
+    transform: scaleX(1.025) scaleY(0.975);
+  }
+
+  70% {
+    transform: scaleX(0.985) scaleY(1.015);
+  }
+
+  100% {
+    transform: scaleX(1) scaleY(1);
+  }
+}

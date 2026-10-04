@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { coffees } from "./data"
-import { Coffee } from "./types"
+import { Coffee, CoffeeSize } from "./types"
 import { prefersReducedMotion, motionDelay } from "./utils/motion"
 import { SunIcon, MoonIcon, ChevronIcon, ChevronLeftIcon, CartIcon, TrashIcon } from "./components/Icons"
 import { RollingNumber, CountPrice } from "./components/MotionText"
@@ -10,6 +10,8 @@ import { BottomSheet } from "./components/BottomSheet"
 import { OrderSuccess } from "./components/OrderSuccess"
 import { SchedulePickup } from "./components/SchedulePickup"
 
+const sizeAdjustment = (size: CoffeeSize) => size === "Small" ? -10 : size === "Large" ? 10 : 0
+
 /* ============================================================
    APP ROOT
    ============================================================ */
@@ -17,9 +19,10 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false)
   const [activeCoffee, setActiveCoffee] = useState<Coffee | null>(null)
   const [sheetQuantity, setSheetQuantity] = useState(1)
-  const [sheetTemp, setSheetTemp] = useState<"Iced" | "Hot">("Iced")
+  const [sheetTemp, setSheetTemp] = useState<"Iced" | "Hot">("Iced"); const [sheetSize, setSheetSize] = useState<"Small" | "Medium" | "Large">("Medium")
   const [cart, setCart] = useState<Record<number, number>>({})
   const [cartTemps, setCartTemps] = useState<Record<number, "Iced" | "Hot">>({})
+  const [cartSizes, setCartSizes] = useState<Record<number, CoffeeSize>>({})
   const [cartNotes, setCartNotes] = useState<Record<number, string>>({})
   const [sheetNote, setSheetNote] = useState("")
   const [day, setDay] = useState<"ASAP" | "Today" | "Tomorrow">("ASAP")
@@ -168,7 +171,7 @@ export default function App() {
   const total = useMemo(
     () =>
       coffees.reduce(
-        (sum, coffee) => sum + coffee.price * (cart[coffee.id] || 0),
+        (sum, coffee) => sum + (coffee.price + sizeAdjustment(cartSizes[coffee.id] || "Medium")) * (cart[coffee.id] || 0),
         0,
       ),
     [cart],
@@ -178,7 +181,7 @@ export default function App() {
     setClosing(false)
     setActiveCoffee(coffee)
     setSheetQuantity(cart[coffee.id] || (cupCount < 5 ? 1 : 0))
-    setSheetTemp(cartTemps[coffee.id] || "Iced")
+    setSheetTemp(cartTemps[coffee.id] || "Iced"); setSheetSize("Medium")
     setSheetNote(cartNotes[coffee.id] || "")
   }
 
@@ -186,6 +189,7 @@ export default function App() {
     if (!activeCoffee || closing) return
     const coffeeId = activeCoffee.id
     const selectedTemp = sheetTemp
+    const selectedSize = sheetSize
     later(
       () => {
         setCart((current) => ({
@@ -196,6 +200,7 @@ export default function App() {
           ),
         }))
         setCartTemps((current) => ({ ...current, [coffeeId]: selectedTemp }))
+        setCartSizes((current) => ({ ...current, [coffeeId]: selectedSize }))
         setCartNotes((current) => ({ ...current, [coffeeId]: sheetNote.trim() }))
       },
       motionDelay(380),
@@ -209,6 +214,7 @@ export default function App() {
       setCart({})
       setCartTemps({})
       setCartNotes({})
+      setCartSizes({})
       setDay("ASAP")
       setTime("")
       setConfirmed(false)
@@ -464,7 +470,7 @@ export default function App() {
                             {cartTemps[coffee.id] || "Iced"}
                             {cartNotes[coffee.id] && <span> · {cartNotes[coffee.id]}</span>}
                           </p>
-                          <p className="cart-item-price">₱{coffee.price * qty}</p>
+                          <p className="cart-item-price">₱{(coffee.price + sizeAdjustment(cartSizes[coffee.id] || "Medium")) * qty}</p>
                         </div>
                         <div className="cart-item-actions">
                           <div className="quantity-adjuster">
@@ -492,7 +498,7 @@ export default function App() {
               {coffees.filter((c) => cart[c.id] > 0).map((coffee) => (
                 <div key={coffee.id} className="cart-breakdown-row">
                   <span>{coffee.name} x{cart[coffee.id]}</span>
-                  <span>₱{coffee.price * cart[coffee.id]}</span>
+                  <span>₱{(coffee.price + sizeAdjustment(cartSizes[coffee.id] || "Medium")) * cart[coffee.id]}</span>
                 </div>
               ))}
               <div className="cart-breakdown-divider" />
@@ -755,6 +761,8 @@ export default function App() {
             setQuantity={setSheetQuantity}
             temp={sheetTemp}
             setTemp={setSheetTemp}
+            size={sheetSize}
+            setSize={setSheetSize}
             note={sheetNote}
             setNote={setSheetNote}
           />

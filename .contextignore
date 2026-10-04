@@ -1,0 +1,31 @@
+# Ignore generated and non-source artifacts that should not be read into active context
+
+dist/
+build/
+node_modules/
+.vite/
+.git/
+.cache/
+coverage/
+
+# Large binary/archive payloads
+*.zip
+*.exe
+*.dll
+*.dmg
+*.pkg
+*.tar
+*.gz
+*.bz2
+*.xz
+*.7z
+
+# Large logs and generated maps
+*.log
+*.map
+*.tsbuildinfo
+
+# Local and editor noise
+.claude-replay.*
+.tmp-*
+.figma/

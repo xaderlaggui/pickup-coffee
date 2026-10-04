@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react"
-import { Coffee } from "../types"
+import { Coffee, CoffeeSize } from "../types"
 import { motionDelay } from "../utils/motion"
 import { CrossfadeText } from "./MotionText"
 import { QuantityControl } from "./QuantityControl"
@@ -18,7 +18,10 @@ export function BottomSheet({
   closing,
   onLimit,
   temp,
+
   setTemp,
+  size,
+  setSize,
   note,
   setNote,
 }: {
@@ -32,10 +35,15 @@ export function BottomSheet({
   closing: boolean
   onLimit: () => void
   temp: "Iced" | "Hot"
+
   setTemp: (temp: "Iced" | "Hot") => void
+  size: CoffeeSize
+  setSize: (size: CoffeeSize) => void
   note: string
   setNote: (note: string) => void
 }) {
+  const sizeAdjustment = size === "Small" ? -10 : size === "Large" ? 10 : 0
+  const selectedPrice = coffee.price + sizeAdjustment
   const sheetRef = useRef<HTMLElement>(null)
   const backdropRef = useRef<HTMLButtonElement>(null)
   const dragState = useRef({
@@ -196,87 +204,26 @@ export function BottomSheet({
         >
           ×
         </button>
-        <div className={`sheet-visual ${coffee.tone}`}>
-          <img className="sheet-hero-img" src={coffee.image} alt="" />
-        </div>
-        <p className="sheet-description">
-          {coffee.detail}.{" "}
-          {coffee.id === 1
-            ? "Smooth espresso poured over fresh milk and ice for a creamy, refreshing finish."
-            : coffee.id === 2
-              ? "Bold double espresso over chilled water and ice. Clean, rich, and refreshing."
-              : "Freshly brewed hot coffee with a balanced aroma and a comforting, full-bodied finish."}
-        </p>
-        <div className="sheet-title">
-          <div>
-            <p>FRESHLY MADE</p>
-            <h2 id="sheet-title">{coffee.name}</h2>
+        <div className="sheet-content">
+          <div className="sheet-left">
+            <div className={"sheet-visual " + coffee.tone}>
+              <img className="sheet-hero-img" src={coffee.image} alt={coffee.name + " in a PICKUP COFFEE cup"} />
+            </div>
+            <div className="sheet-title"><div><p>FRESHLY MADE</p><h2 id="sheet-title">{coffee.name}</h2></div></div>
+            <p className="sheet-description">{coffee.description}</p>
           </div>
-          <strong className="tabular">₱{coffee.price}</strong>
-        </div>
-
-        {/* Iced / Hot toggle */}
-        <div className="temp-row">
-          <span>Temperature</span>
-          <div className={`segmented-control temp-toggle ${temp === "Hot" ? "tomorrow" : ""}`}>
-            <div className="segment-pill" />
-            <button
-              type="button"
-              className={temp === "Iced" ? "selected" : ""}
-              onClick={() => setTemp("Iced")}
-            >
-              Iced
-            </button>
-            <button
-              type="button"
-              className={temp === "Hot" ? "selected" : ""}
-              onClick={() => setTemp("Hot")}
-            >
-              Hot
-            </button>
+          <div className="sheet-right">
+            <div className="sheet-price"><span>Price</span><strong className="tabular">₱{selectedPrice}</strong></div>
+            <div className="size-row"><span>Size</span><div className="size-options">{(["Small", "Medium", "Large"] as const).map((option) => (<button key={option} type="button" className={size === option ? "selected" : ""} onClick={() => setSize(option)}>{option}</button>))}</div></div>
+            <div className="temp-row"><span>Temperature</span><div className={"segmented-control temp-toggle " + (temp === "Hot" ? "tomorrow" : "")}><div className="segment-pill" /><button type="button" className={temp === "Iced" ? "selected" : ""} onClick={() => setTemp("Iced")}>Iced</button><button type="button" className={temp === "Hot" ? "selected" : ""} onClick={() => setTemp("Hot")}>Hot</button></div></div>
+            <div className="quantity-row"><div><span>Quantity</span><small>Maximum 5 cups per order</small></div><QuantityControl max={max} quantity={quantity} setQuantity={setQuantity} onLimit={onLimit} /></div>
+            <div className="note-row"><label htmlFor="drink-note">Special Instructions (optional)</label><textarea id="drink-note" className="note-input" placeholder="e.g. Less ice, extra hot, oat milk..." value={note} onChange={(e) => setNote(e.target.value)} rows={2} /></div>
           </div>
         </div>
-
-        <div className="quantity-row">
-          <div>
-            <span>Quantity</span>
-            <small>Maximum 5 cups per order</small>
-          </div>
-          <QuantityControl
-            max={max}
-            quantity={quantity}
-            setQuantity={setQuantity}
-            onLimit={onLimit}
-          />
+        <div className="sheet-footer">
+          <div className="sheet-total"><span>Total Price</span><strong className="tabular">₱{selectedPrice * quantity}</strong></div>
+          <button className="primary-button sheet-cta" disabled={existing === 0 && quantity === 0} onClick={onAdd} type="button"><CrossfadeText text={quantity === 0 ? "Remove from order" : (existing > 0 ? "Update order" : "Add to cart")} /></button>
         </div>
-
-        <div className="note-row">
-          <label htmlFor="drink-note">Special Instructions (optional)</label>
-          <textarea
-            id="drink-note"
-            className="note-input"
-            placeholder="e.g. Less ice, extra hot, oat milk..."
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            rows={2}
-          />
-        </div>
-        <button
-          className="primary-button sheet-cta"
-          disabled={existing === 0 && quantity === 0}
-          onClick={onAdd}
-          type="button"
-        >
-          <CrossfadeText
-            text={
-              quantity === 0
-                ? "Remove from order"
-                : `${
-                    existing > 0 ? "Update order" : "Add to order"
-                  } · ${quantity} cups · ₱${coffee.price * quantity}`
-            }
-          />
-        </button>
       </section>
     </div>
   )

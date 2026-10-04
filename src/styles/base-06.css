@@ -1,0 +1,240 @@
+/* Top & bottom gradient masks to fade items out */
+.wheel-fade-top,
+.wheel-fade-bottom {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  height: 40%;
+}
+
+.wheel-fade-top {
+  top: 0;
+  background: linear-gradient(to bottom,
+      var(--surface) 0%,
+      transparent 100%);
+}
+
+.wheel-fade-bottom {
+  bottom: 0;
+  background: linear-gradient(to top,
+      var(--surface) 0%,
+      transparent 100%);
+}
+
+.dark .wheel-fade-top {
+  background: linear-gradient(to bottom, var(--surface) 0%, transparent 100%);
+}
+
+.dark .wheel-fade-bottom {
+  background: linear-gradient(to top, var(--surface) 0%, transparent 100%);
+}
+
+/* Picker hint below pickers */
+.picker-hint {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: var(--type-footnote);
+  letter-spacing: -0.08px;
+  line-height: 1.5;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+
+.input-block label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: var(--type-footnote);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.divider {
+  width: 1px;
+  background: var(--line);
+}
+
+/* ============================================================
+   SEGMENTED CONTROL â€” spring pill
+   ============================================================ */
+.segmented-control {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  isolation: isolate;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: var(--subtle);
+}
+
+.segment-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 6px);
+  border-radius: 10px;
+  background: var(--surface-raised);
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.10),
+    0 3px 10px rgba(0, 0, 0, 0.08);
+  z-index: -1;
+  transition:
+    transform var(--dur-snappy) var(--spring-snappy),
+    width var(--dur-snappy) var(--spring-snappy);
+  transform-origin: left center;
+}
+
+/* Stretch mid-slide â€” done via scaleX on the pill itself */
+.segmented-control.animating .segment-pill {
+  transform: scaleX(1.06);
+}
+
+.segmented-control.tomorrow .segment-pill {
+  transform: translateX(calc(100% + 4px));
+}
+
+.segmented-control.tomorrow.animating .segment-pill {
+  transform: translateX(calc(100% + 4px)) scaleX(1.06);
+}
+
+.segmented-control button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  color: var(--muted);
+  background: transparent;
+  font-size: var(--type-subhead);
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  cursor: pointer;
+  transition:
+    color var(--dur-snappy) var(--spring-snappy),
+    font-weight var(--dur-snappy) var(--spring-snappy);
+  /* Reserve bold width with tabular-like approach */
+  font-variant-numeric: tabular-nums;
+}
+
+.segmented-control button.selected {
+  color: var(--text);
+  font-weight: 600;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ============================================================
+   WHEEL PICKER â€” iOS perspective scroll feel
+   ============================================================ */
+.wheel-picker {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--subtle);
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.35) 20%,
+      black 36%,
+      black 64%,
+      rgba(0, 0, 0, 0.35) 80%,
+      transparent 100%);
+}
+
+/* Selection pill */
+.wheel-picker::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 8px;
+  right: 8px;
+  height: 44px;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+.dark .wheel-picker::before {
+  background: rgba(40, 42, 41, 0.45);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+.wheel-picker::after {
+  display: none;
+}
+
+.wheel-picker button,
+.wheel-selection {
+  min-height: 44px;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font-size: var(--type-subhead);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -0.24px;
+  position: relative;
+  z-index: 2;
+}
+
+.wheel-picker button {
+  opacity: 0.42;
+  cursor: pointer;
+  transition: opacity var(--dur-press) var(--ease-out);
+}
+
+.wheel-picker button:active {
+  opacity: 0.7;
+}
+
+.wheel-selection {
+  display: grid;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.43px;
+  place-items: center;
+  z-index: 2;
+  font-variant-numeric: tabular-nums;
+}
+
+.picker-hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: var(--type-footnote);
+  text-align: center;
+  letter-spacing: -0.08px;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+.picker-hint.hint-hidden {
+  opacity: 0;
+}
+
+/* ============================================================
+   ORDER BAR â€” Floating capsule, glass-thick
+   ============================================================ */
+.order-bar {
+  position: fixed;
+  z-index: 15;
+  right: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  left: 12px;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  /* Smooth slide transition for footer hide */
+  transition: transform 320ms var(--spring-smooth), opacity 240ms var(--ease-out);
+  transform: translateY(0);
+}

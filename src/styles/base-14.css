@@ -1,0 +1,240 @@
+
+.loading-dots i {
+  animation: loading-pulse 500ms var(--ease-in-out) infinite both;
+}
+
+.loading-dots i:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.loading-dots i:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+/* Theme transitions */
+.app :is(.coffee-card,
+  .schedule-card,
+  .top-header,
+  #checkout-form > section) {
+  transition:
+    background-color var(--dur-fade) var(--ease-in-out),
+    border-color var(--dur-fade) var(--ease-in-out);
+}
+
+/* Focus */
+button:focus-visible {
+  animation: focus-arrive 150ms var(--ease-out);
+}
+
+/* ============================================================
+   RESPONSIVE â€” 720px, 430px, 375px
+   ============================================================ */
+
+
+/* ============================================================
+   REDUCED MOTION â€” animations are intentionally always-on for
+   this demo. Swap 'ignore-for-demo' â†’ 'reduce' to enable real
+   reduced-motion support in a production build.
+   ============================================================ */
+@media (prefers-reduced-motion: ignore-for-demo) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 120ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-property: opacity !important;
+    transition-duration: 120ms !important;
+  }
+
+  :is(.top-header,
+    .hero-copy > *,
+    .menu-heading,
+    .coffee-card,
+    .product-visual,
+    .count-badge,
+    .sheet-backdrop,
+    .bottom-sheet,
+    .bottom-sheet > *,
+    .sheet-title > strong,
+    .roll-new,
+    .limit-shake,
+    .invalid-field,
+    .price-crossfade,
+    .order-bar.active,
+    .cup-progress i.filled,
+    .cup-progress i.filled::after,
+    .leaving-menu,
+    .entering-checkout,
+    .leaving-checkout,
+    .entering-menu,
+    #checkout-form > section,
+    .wheel-selection,
+    .wheel-neighbor,
+    .time-refresh,
+    .loading-dots,
+    .loading-dots i,
+    .app.screen-out,
+    .success-screen,
+    .success-mark,
+    .success-content > *,
+    .success-summary > div) {
+    animation-name: motion-fade !important;
+  }
+
+  .coffee-card:hover,
+  .coffee-card:active,
+  button:active,
+  .coffee-card:hover .product-visual img {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .roll-old {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  .segment-pill,
+  .payment-card input::after {
+    transition: none !important;
+  }
+
+  .success-mark path {
+    animation: none !important;
+    stroke-dashoffset: 0;
+  }
+
+  .success-mark::after {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  /* Disable glass blur on reduced-motion (performance) */
+  .glass-regular,
+  .glass-thick,
+  .glass-clear,
+  .theme-toggle,
+  .bottom-sheet,
+  .sheet-backdrop,
+  .order-bar-inner,
+  .quantity-control button,
+  .close-button,
+  .success-summary,
+  .wheel-picker::before {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+  }
+
+  .sheet-open .main-content {
+    transform: none !important;
+  }
+}
+
+/* ============================================================
+   REDUCED TRANSPARENCY + HIGH CONTRAST
+   ============================================================ */
+@media (prefers-reduced-transparency: reduce) {
+
+  .glass-regular,
+  .glass-thick,
+  .glass-clear,
+  .theme-toggle,
+  .bottom-sheet,
+  .order-bar-inner,
+  .close-button,
+  .quantity-control button,
+  .success-summary {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--line) !important;
+  }
+
+  .top-header {
+    backdrop-filter: none !important;
+    /* Header is a solid brand color â€” keep it green even without transparency */
+    background: #A0BA78 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25) !important;
+  }
+
+  .app.dark .top-header {
+    background: #37462B !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+
+  .glass-regular,
+  .glass-thick,
+  .glass-clear,
+  .theme-toggle,
+  .bottom-sheet,
+  .order-bar-inner,
+  .close-button,
+  .quantity-control button,
+  .success-summary {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border: 2px solid currentColor !important;
+  }
+
+  .top-header {
+    backdrop-filter: none !important;
+    /* Header is a solid brand color â€” keep it green for high-contrast mode */
+    background: #A0BA78 !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .app.dark .top-header {
+    background: #37462B !important;
+  }
+}
+
+/* ============================================================
+   SPLASH SCREEN â€” ordering process showcase
+   ============================================================ */
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 24px 64px;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(157, 195, 116, 0.25), transparent 30rem),
+    var(--background);
+}
+
+.splash-screen.splash-enter {
+  animation: splash-in var(--dur-smooth) var(--spring-smooth) both;
+}
+
+.splash-screen.splash-exit {
+  animation: splash-out var(--dur-fade) var(--ease-in-out) both;
+}
+
+@keyframes splash-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes splash-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.97); }
+}
+
+.splash-content-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
