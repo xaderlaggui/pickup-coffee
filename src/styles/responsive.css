@@ -385,9 +385,182 @@ body:has(.landing-page) {
 }
 @media (min-width: 721px) {
   .main-content,
-  .app.landing-page .main-content { padding-top: calc(var(--header-height) + 36px); }
+  .app.landing-page .main-content { padding-top: calc(var(--header-height) + -5px); }
 }
 @media (max-width: 720px) {
   .main-content,
   .app.landing-page .main-content { padding-top: calc(var(--header-height) + 32px); }
+}
+/* Keep the menu close to the footer once its products end. */
+.main-content,
+.app.landing-page .main-content { padding-bottom: 32px; }
+.app-footer { margin-top: 16px; }
+@media (max-width: 720px) {
+  .main-content,
+  .app.landing-page .main-content { padding-bottom: max(32px, calc(24px + env(safe-area-inset-bottom))); }
+  .app-footer { margin-top: 12px; }
+}
+/* Prominent featured-product labels and a more readable review marquee. */
+.hero-featured-badge,
+.hero-product-price,
+.hero-product-label {
+  position: absolute;
+  z-index: 2;
+  color: var(--text);
+}
+.hero-featured-badge {
+  top: 16px;
+  left: 16px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.hero-product-price {
+  bottom: 16px;
+  left: 16px;
+  font-size: 20px;
+  font-weight: 800;
+}
+.hero-product-label {
+  right: 16px;
+  bottom: 16px;
+  display: block;
+  max-width: 52%;
+  text-align: right;
+}
+.hero-product-label strong { display: block; font-size: 17px; line-height: 1.1; }
+.company-hero > .review-strip { min-height: 84px; height: 84px; padding: 12px 18px; }
+.company-hero > .review-strip .review-card { flex-basis: 270px; min-height: 58px; height: 58px; padding: 9px 14px; }
+.company-hero > .review-strip .review-card p { margin-top: 4px; font-size: 13px; }
+.company-hero > .review-strip .review-stars { font-size: 12px; }
+@media (max-width: 720px) {
+  .hero-featured-badge { top: 12px; left: 12px; font-size: 10px; }
+  .hero-product-price { bottom: 12px; left: 12px; font-size: 18px; }
+  .hero-product-label { right: 12px; bottom: 12px; }
+  .hero-product-label strong { font-size: 15px; }
+  .company-hero > .review-strip { min-height: 76px; height: 76px; padding: 10px 12px; }
+  .company-hero > .review-strip .review-card { flex-basis: 245px; min-height: 54px; height: 54px; padding: 8px 12px; }
+  .company-hero > .review-strip .review-card p { font-size: 12px; }
+  .company-hero > .review-strip .review-stars { font-size: 11px; }
+}
+/* Use the same compact footer separation on every screen size. */
+.app-footer { margin-top: 12px; }
+
+/* Match the header wordmark's bold white typography on customer action buttons. */
+.primary-button,
+.add-button {
+  color: #FFFFFF;
+  font-family: inherit;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: .88;
+}
+.primary-button:hover:not(:disabled),
+.add-button:hover { color: #FFFFFF; }
+/* Keep the menu/footer join tight instead of inheriting the old full-screen landing spacing. */
+.menu-page,
+.menu-section,
+.app.landing-page .menu-section {
+  min-height: 0;
+}
+
+.app.landing-page .menu-section {
+  padding-bottom: 0;
+}
+
+.main-content,
+.app.landing-page .main-content {
+  padding-bottom: 20;
+}
+
+.app:has(.order-bar) .main-content,
+.app.landing-page:has(.order-bar) .main-content {
+  padding-bottom: max(32px, calc(24px + env(safe-area-inset-bottom)));
+}
+
+@media (max-width: 720px) {
+  .hero-product-label { display: block; }
+}
+/* Dark-mode review strip and lighter action-button typography. */
+.app.dark .review-strip,
+.app.dark .company-hero > .review-strip {
+  background: #37462B;
+  color: #F2F5ED;
+}
+
+.app.dark .review-strip-heading .eyebrow,
+.app.dark .review-strip-heading h2,
+.app.dark .review-strip-heading a,
+.app.dark .review-card p {
+  color: #F2F5ED;
+}
+
+.app.dark .review-card,
+.app.dark .company-hero > .review-strip .review-card {
+  border-color: rgba(255, 255, 255, .10);
+  background: rgba(255, 255, 255, .12);
+}
+
+.app.dark .review-card strong {
+  color: #C3DBA3;
+}
+
+.app.dark .review-stars,
+.app.dark .company-hero > .review-strip .review-stars {
+  color: #D9E9BD;
+}
+
+.primary-button,
+.add-button {
+  font-weight: 700;
+  letter-spacing: 0;
+}
+/* Larger customer-review marquee on desktop and mobile. */
+.company-hero > .review-strip {
+  min-height: 104px;
+  height: 104px;
+  padding: 16px 22px;
+}
+
+.company-hero > .review-strip .review-card {
+  flex-basis: 320px;
+  min-height: 72px;
+  height: 72px;
+  padding: 12px 16px;
+}
+
+.company-hero > .review-strip .review-card p {
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+.company-hero > .review-strip .review-stars {
+  font-size: 14px;
+}
+
+@media (max-width: 720px) {
+  .company-hero > .review-strip {
+    min-height: 92px;
+    height: 92px;
+    padding: 12px 14px;
+  }
+
+  .company-hero > .review-strip .review-card {
+    flex-basis: 290px;
+    min-height: 66px;
+    height: 66px;
+    padding: 10px 14px;
+  }
+
+  .company-hero > .review-strip .review-card p {
+    font-size: 14px;
+  }
+
+  .company-hero > .review-strip .review-stars {
+    font-size: 13px;
+  }
 }

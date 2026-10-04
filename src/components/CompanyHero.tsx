@@ -57,7 +57,7 @@ export function CompanyHero({ menuRef, heroRef, products }: { menuRef: RefObject
                 {slides.map((slide, index) => <div className="hero-carousel-slide" key={`${slide.id}-${index}`}><img className="company-hero-cup" src={slide.image} alt={slide.name} draggable="false" /></div>)}
               </div>
             </div>
-            <div className="hero-product-label" aria-live="polite"><span>Featured today</span><strong>{product?.name || "Pickup Coffee"}</strong></div>
+            <div className="hero-featured-badge" aria-hidden="true">★ Featured product</div>{product && <Price className="hero-product-price" value={product.price} />}<div className="hero-product-label" aria-live="polite"><strong>{product?.name || "Pickup Coffee"}</strong></div>
           </div>
           {product && <div className="hero-flip-back"><span className="eyebrow">Featured today</span><strong>{product.name}</strong><p>{product.description}</p><Price className="price" value={product.price} /></div>}
         </div>
