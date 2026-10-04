@@ -31,8 +31,6 @@ export const coffeeProducts: Coffee[] = [
   product(24, "Caramel Frappe", 99, media + "menu_GRAB_Caramel_Frappe_b9c9aa01c7_9a5dc45b74.png", "gold", "Rich espresso and buttery caramel blended with creamy milk and ice.", "Espresso · caramel"),
   product(25, "Protein Latte", 145, media + "protein_latte_ff35aad77d_6759b817f1.png", "rose", "Bold espresso with creamy milk and a boost of Wheyl protein, over ice.", "Espresso · protein"),
   product(26, "Sugar-Free Sweet Americano", 59, media + "SF_Americano_1_d9d32845e0_4424b4fda8.png", "rose", "Rich espresso with water and sugar-free sweetener, over ice.", "Espresso · sugar-free"),
-  product(27, "Auro Tsokolatte", 99, media + "IMG_1903_6940f23820.JPG", "gold", "Creamy milk with Auro cacao powder and espresso, over ice.", "Espresso · cacao"),
-  product(28, "Peanut Brittle Latte", 109, media + "IMG_1904_991ff4d45e.JPG", "gold", "Creamy milk with peanut brittle spread and espresso, over ice.", "Espresso · peanut brittle"),
   product(29, "Chocolate Croissant", 89, media + "menu_Choco_Croissant_1024x1024_1faa5601cd_58520d3c5a.png", "gold", "A flaky and buttery croissant, rolled with dark chocolate.", "Pickup Bites · pastry", "pastry"),
   product(30, "Classic Choco Cookie", 109, media + "menu_Classic_Choco_Cookie_1024x1024_762f9e6d87_245a08b622.png", "gold", "An indulgent cookie with dark chocolate chunks, seasoned with sea salt.", "Pickup Bites · cookie", "pastry"),
   product(31, "Classic Croissant", 80, media + "menu_Classic_Croissant_1024x1024_9392d51dd3_428d62c84e.png", "gold", "A flaky and buttery croissant.", "Pickup Bites · pastry", "pastry"),
