@@ -88,6 +88,17 @@ body {
   min-height: 100vh;
 }
 
+/* Hide scrollbars globally */
+::-webkit-scrollbar {
+  display: none;
+}
+
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  scroll-behavior: smooth;
+}
+
 button {
   font: inherit;
 }
@@ -2413,7 +2424,7 @@ h6 {
   padding: 0 12px 0 0;
   border: 0;
   background: transparent;
-  color: var(--green);
+  color: var(--text);
   font-size: var(--type-headline);
   font-weight: 600;
   letter-spacing: -0.43px;
@@ -2423,9 +2434,34 @@ h6 {
     opacity var(--dur-press) var(--ease-out);
 }
 
+.dark .back-button {
+  color: var(--green);
+}
+
 .back-button:active {
   transform: translateX(-4px);
   opacity: 0.7;
+}
+
+.back-icon-only {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.back-icon-only:hover {
+  background: rgba(28, 39, 21, 0.08);
+}
+
+.dark .back-icon-only:hover {
+  background: var(--green-soft);
+}
+
+.back-icon-only svg {
+  width: 24px;
+  height: 24px;
 }
 
 /* ============================================================
@@ -3480,4 +3516,465 @@ button:focus-visible {
   .app.dark .top-header {
     background: #37462B !important;
   }
+}
+
+/* ============================================================
+   SPLASH SCREEN — ordering process showcase
+   ============================================================ */
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 24px 64px;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(157, 195, 116, 0.25), transparent 30rem),
+    var(--background);
+}
+
+.splash-screen.splash-enter {
+  animation: splash-in var(--dur-smooth) var(--spring-smooth) both;
+}
+
+.splash-screen.splash-exit {
+  animation: splash-out var(--dur-fade) var(--ease-in-out) both;
+}
+
+@keyframes splash-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes splash-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.97); }
+}
+
+.splash-content-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.splash-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 440px;
+}
+
+.splash-view.animate-in {
+  animation: view-in var(--dur-snappy) var(--spring-snappy) both;
+}
+
+@keyframes view-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.splash-logo-large {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 0.88;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.splash-coffee-icon {
+  width: 80px;
+  height: 80px;
+  color: var(--green);
+  margin-bottom: 24px;
+}
+.splash-coffee-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.splash-title {
+  font-size: var(--type-title1);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.splash-body {
+  font-size: var(--type-body);
+  color: var(--muted);
+  margin: 0;
+  max-width: 280px;
+}
+
+.splash-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.splash-timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 16px 24px;
+  border-radius: 16px;
+  width: 100%;
+}
+
+.splash-timeline-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: var(--green-soft);
+  color: var(--green-text);
+  border-radius: 10px;
+}
+
+.splash-timeline-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.splash-timeline-item span {
+  font-size: var(--type-headline);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.splash-timeline-line {
+  width: 2px;
+  height: 16px;
+  background: var(--line);
+}
+
+.splash-footer {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.splash-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.splash-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background var(--dur-fade) var(--ease-out), transform var(--dur-fade) var(--ease-out);
+}
+
+.splash-dot.active {
+  background: var(--green);
+  transform: scale(1.2);
+}
+
+.splash-next {
+  width: 100%;
+}
+
+/* ============================================================
+   CART PAGE STYLES
+   ============================================================ */
+
+.cart-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Swipe-to-delete wrapper */
+.cart-list-item-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.cart-list-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
+  transition: transform 280ms var(--spring-smooth);
+  will-change: transform;
+}
+
+/* Slide left when swiped to reveal the delete button behind */
+.cart-list-item-wrap.swiped .cart-list-item {
+  transform: translateX(-88px);
+}
+
+/* Red delete button revealed behind the card */
+.swipe-delete-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 88px;
+  background: #E55B5B;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: var(--type-caption1);
+  font-weight: 700;
+  border-radius: 0 20px 20px 0;
+  transition: background var(--dur-fade) var(--ease-out);
+  z-index: 0;
+}
+
+.swipe-delete-btn:hover {
+  background: #cc4444;
+}
+
+.swipe-delete-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cart-item-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cart-item-details h3 {
+  font-size: var(--type-headline);
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+
+.cart-item-meta {
+  font-size: var(--type-subhead);
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cart-item-price {
+  font-size: var(--type-subhead);
+  font-weight: 700;
+  color: var(--green-text);
+  margin: 2px 0 0;
+}
+
+.cart-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.quantity-adjuster {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 4px;
+  gap: 8px;
+}
+
+.quantity-adjuster button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  border-radius: 14px;
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--dur-fade) var(--ease-out), color var(--dur-fade) var(--ease-out);
+}
+
+.quantity-adjuster button:hover:not(:disabled) {
+  background: var(--line);
+}
+
+.quantity-adjuster button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* When qty=1 the minus becomes a trash — style it red */
+.quantity-adjuster button.qty-trash {
+  color: #E55B5B;
+}
+
+.quantity-adjuster button.qty-trash:hover {
+  background: rgba(229, 91, 91, 0.12);
+}
+
+.quantity-adjuster button.qty-trash svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.quantity-adjuster span {
+  font-size: var(--type-headline);
+  font-weight: 700;
+  min-width: 1.5ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Price breakdown */
+.cart-breakdown {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.cart-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--type-subhead);
+  color: var(--muted);
+}
+
+.cart-breakdown-row span:last-child {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cart-breakdown-divider {
+  height: 1px;
+  background: var(--line);
+}
+
+.cart-breakdown-total {
+  font-size: var(--type-headline);
+  font-weight: 700;
+}
+
+.cart-breakdown-total span {
+  color: var(--text) !important;
+  font-weight: 700;
+}
+
+/* ============================================================
+   CHECKOUT STICKY FOOTER
+   ============================================================ */
+.checkout-sticky-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.06);
+  padding: 14px 20px max(20px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-footer-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.checkout-footer-label {
+  font-size: var(--type-subhead);
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.checkout-footer-price {
+  font-size: var(--type-title2);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.checkout-footer-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 0 auto;
+  max-width: 680px;
+  width: 100%;
+}
+
+.checkout-sticky-footer .primary-button {
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Push main content up so it's not hidden behind the sticky footer */
+body:has(.checkout-sticky-footer) .main-content {
+  padding-bottom: 160px;
 }

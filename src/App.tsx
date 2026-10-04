@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { coffees } from "./data"
 import { Coffee } from "./types"
 import { prefersReducedMotion, motionDelay } from "./utils/motion"
-import { SunIcon, MoonIcon, ChevronIcon, CartIcon } from "./components/Icons"
+import { SunIcon, MoonIcon, ChevronIcon, ChevronLeftIcon, CartIcon, TrashIcon } from "./components/Icons"
 import { RollingNumber, CountPrice } from "./components/MotionText"
 import { GlassRefractionDefs } from "./components/GlassRefractionDefs"
 import { CoffeeCard } from "./components/CoffeeCard"
@@ -26,6 +26,7 @@ export default function App() {
   const [time, setTime] = useState("")
   const [confirmed, setConfirmed] = useState(false)
   const [checkout, setCheckout] = useState(false)
+  const [review, setReview] = useState(false)
   const [name, setName] = useState("")
   const [payment, setPayment] = useState("Cash at pickup")
   const [closing, setClosing] = useState(false)
@@ -36,6 +37,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false)
   const [titleCollapsed, setTitleCollapsed] = useState(false)
   const [barHidden, setBarHidden] = useState(false)
+  const [swipedItem, setSwipedItem] = useState<number | null>(null)
 
   const timers = useRef<ReturnType<typeof setTimeout>[]>([])
   const headerRef = useRef<HTMLElement>(null)
@@ -122,12 +124,23 @@ export default function App() {
     }, motionDelay(380))
   }
 
-  const navigate = (next: boolean) => {
+  const navigate = (nextStage: "menu" | "cart" | "review") => {
     if (transition) return
-    setTransition(next ? "leaving-menu" : "leaving-checkout")
+    const leaving = !checkout ? "leaving-menu" : (review ? "leaving-review" : "leaving-cart")
+    setTransition(leaving)
     later(() => {
-      setCheckout(next)
-      setTransition(next ? "entering-checkout" : "entering-menu")
+      if (nextStage === "menu") {
+        setCheckout(false)
+        setReview(false)
+      } else if (nextStage === "cart") {
+        setCheckout(true)
+        setReview(false)
+      } else if (nextStage === "review") {
+        setCheckout(true)
+        setReview(true)
+      }
+      setTransition(`entering-${nextStage}`)
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
       later(() => setTransition(""), motionDelay(500))
     }, motionDelay(200))
   }
@@ -146,6 +159,7 @@ export default function App() {
         setConfirmed(true)
         setLoading(false)
         setTransition("")
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
       }, motionDelay(220))
     }, 600)
   }
@@ -199,11 +213,50 @@ export default function App() {
       setTime("")
       setConfirmed(false)
       setCheckout(false)
+      setReview(false)
       setName("")
       setPayment("Cash at pickup")
       setInvalid(0)
       setTransition("")
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     }, motionDelay(220))
+  }
+
+  const updateQuantity = (id: number, delta: number) => {
+    setCart((curr) => {
+      const next = { ...curr }
+      const newQty = (next[id] || 0) + delta
+      if (newQty <= 0) return next
+      const currTotal = Object.values(next).reduce((a, b) => a + b, 0) - next[id] + newQty
+      if (currTotal > 5) {
+        showLimit()
+        return curr
+      }
+      next[id] = newQty
+      return next
+    })
+  }
+
+  const removeItem = (id: number) => {
+    setCart((curr) => {
+      const next = { ...curr }
+      delete next[id]
+      const newTotal = Object.values(next).reduce((a, b) => a + b, 0)
+      if (newTotal === 0 && checkout) {
+        later(() => navigate("menu"), 0)
+      }
+      return next
+    })
+    setCartTemps((curr) => {
+      const next = { ...curr }
+      delete next[id]
+      return next
+    })
+    setCartNotes((curr) => {
+      const next = { ...curr }
+      delete next[id]
+      return next
+    })
   }
 
   /* ---- Success screen ---- */
@@ -239,20 +292,58 @@ export default function App() {
         className={`top-header ${scrolled ? "scrolled" : ""} ${titleCollapsed ? "title-collapsed" : ""
           }`}
       >
-        <div className="header-inner">
-          <button className="wordmark" onClick={restart} type="button">
-            PICKUP
-            <br />
-            COFFEE
+        <div
+          className="header-inner"
+          style={checkout ? { display: "grid", gridTemplateColumns: "1fr auto 1fr" } : {}}
+        >
+          {checkout && (
+            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+              <button
+                className="back-button back-icon-only"
+                onClick={() => navigate(!review ? "menu" : "cart")}
+                aria-label="Go back"
+              >
+                <ChevronLeftIcon />
+              </button>
+            </div>
+          )}
+          
+          <button
+            className="wordmark"
+            onClick={restart}
+            type="button"
+            style={checkout ? { textAlign: "center", justifySelf: "center", gridColumn: 2 } : {}}
+          >
+            {!checkout ? (
+              <>
+                PICKUP
+                <br />
+                COFFEE
+              </>
+            ) : !review ? (
+              <>
+                COFFEE
+                <br />
+                CART
+              </>
+            ) : (
+              <>
+                REVIEW
+                <br />
+                DETAILS
+              </>
+            )}
           </button>
 
-
-          <div className="header-actions">
+          <div
+            className="header-actions"
+            style={checkout ? { justifySelf: "end", gridColumn: 3 } : {}}
+          >
             {cupCount > 0 && !checkout && (
               <button
                 className="desktop-cart-button"
                 onClick={() => {
-                  if (!checkout) navigate(true)
+                  if (!checkout) navigate("cart")
                 }}
                 type={checkout ? "submit" : "button"}
                 form={checkout ? "checkout-form" : undefined}
@@ -326,6 +417,92 @@ export default function App() {
               ))}
             </div>
           </section>
+        ) : checkout && !review ? (
+          <section className="cart-section">
+
+            <div className="cart-items-list">
+              {coffees
+                .filter((coffee) => cart[coffee.id] > 0)
+                .map((coffee) => {
+                  const qty = cart[coffee.id]
+                  const isSwiped = swipedItem === coffee.id
+
+                  // Touch swipe handlers
+                  let touchStartX = 0
+                  const onTouchStart = (e: React.TouchEvent) => {
+                    touchStartX = e.touches[0].clientX
+                  }
+                  const onTouchEnd = (e: React.TouchEvent) => {
+                    const dx = touchStartX - e.changedTouches[0].clientX
+                    if (dx > 60) setSwipedItem(coffee.id)   // swipe left -> reveal delete
+                    if (dx < -30) setSwipedItem(null)        // swipe right -> close
+                  }
+
+                  return (
+                    <div
+                      key={coffee.id}
+                      className={`cart-list-item-wrap ${isSwiped ? "swiped" : ""}`}
+                      onTouchStart={onTouchStart}
+                      onTouchEnd={onTouchEnd}
+                    >
+                      {/* Swipe delete background */}
+                      <button
+                        className="swipe-delete-btn"
+                        type="button"
+                        onClick={() => { removeItem(coffee.id); setSwipedItem(null) }}
+                        aria-label="Remove item"
+                      >
+                        <TrashIcon />
+                        Remove
+                      </button>
+
+                      <div className="cart-list-item glass-regular">
+                        <img src={coffee.image} alt={coffee.name} className="cart-item-img" />
+                        <div className="cart-item-details">
+                          <h3>{coffee.name}</h3>
+                          <p className="cart-item-meta">
+                            {cartTemps[coffee.id] || "Iced"}
+                            {cartNotes[coffee.id] && <span> · {cartNotes[coffee.id]}</span>}
+                          </p>
+                          <p className="cart-item-price">₱{coffee.price * qty}</p>
+                        </div>
+                        <div className="cart-item-actions">
+                          <div className="quantity-adjuster">
+                            {/* When qty=1 the minus becomes a trash icon */}
+                            <button
+                              type="button"
+                              className={qty === 1 ? "qty-trash" : ""}
+                              onClick={() => qty === 1 ? removeItem(coffee.id) : updateQuantity(coffee.id, -1)}
+                              aria-label={qty === 1 ? "Remove item" : "Decrease quantity"}
+                            >
+                              {qty === 1 ? <TrashIcon /> : "-"}
+                            </button>
+                            <span>{qty}</span>
+                            <button type="button" onClick={() => updateQuantity(coffee.id, 1)} disabled={cupCount >= 5}>+</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+            </div>
+
+            {/* Price breakdown */}
+            <div className="cart-breakdown">
+              {coffees.filter((c) => cart[c.id] > 0).map((coffee) => (
+                <div key={coffee.id} className="cart-breakdown-row">
+                  <span>{coffee.name} x{cart[coffee.id]}</span>
+                  <span>₱{coffee.price * cart[coffee.id]}</span>
+                </div>
+              ))}
+              <div className="cart-breakdown-divider" />
+              <div className="cart-breakdown-row cart-breakdown-total">
+                <span>Total ({cupCount} {cupCount === 1 ? "item" : "items"})</span>
+                <span>₱<CountPrice value={total} /></span>
+              </div>
+            </div>
+
+          </section>
         ) : (
           <form
             id="checkout-form"
@@ -335,49 +512,11 @@ export default function App() {
               submit()
             }}
           >
-            <button
-              type="button"
-              className="back-button"
-              onClick={() => navigate(false)}
-            >
-              ← Back to coffee menu
-            </button>
-            <div className="hero-copy">
-              <h1>Checkout</h1>
+            <div className="hero-copy" style={{ marginBottom: "16px" }}>
               <p className="hero-subtitle">
-                A few details, then we'll get brewing.
+                Almost there! Schedule your pickup and confirm details.
               </p>
             </div>
-            <section className="checkout-section">
-              <h2 className="checkout-section-title">
-                Your order{" "}
-                <span className="checkout-cup-count">
-                  {cupCount} / 5 cups
-                </span>
-              </h2>
-              {coffees
-                .filter((coffee) => cart[coffee.id] > 0)
-                .map((coffee) => (
-                  <button
-                    key={coffee.id}
-                    type="button"
-                    onClick={() => openSheet(coffee)}
-                    className="cart-row"
-                  >
-                    <span>
-                      {cart[coffee.id]} × {coffee.name}
-                      <span className="cart-temp-badge">{cartTemps[coffee.id] || "Iced"}</span>
-                      {cartNotes[coffee.id] && <span className="cart-note-badge">Notes added</span>}
-                      <span className="cart-edit-hint">Edit</span>
-                    </span>
-                    <strong className="tabular">₱{cart[coffee.id] * coffee.price}</strong>
-                  </button>
-                ))}
-              <div className="cart-total">
-                <span>Total</span>
-                <CountPrice value={total} />
-              </div>
-            </section>
             <SchedulePickup
               day={day}
               setDay={setDay}
@@ -438,29 +577,48 @@ export default function App() {
               </fieldset>
             </section>
 
+          </form>
+        )}
+      </main>
+
+      {/* ---- CHECKOUT STICKY FOOTER ---- */}
+      {checkout && (
+        <div className="checkout-sticky-footer">
+          <div className="checkout-footer-total">
+            <span className="checkout-footer-label">Total</span>
+            <strong className="checkout-footer-price"><CountPrice value={total} /></strong>
+          </div>
+          <div className="checkout-footer-divider" />
+          {!review ? (
+            <button
+              type="button"
+              className="primary-button"
+              onClick={() => navigate("review")}
+            >
+              Review Details
+            </button>
+          ) : (
             <button
               type="submit"
-              className="primary-button place-order-btn"
+              form="checkout-form"
+              className="primary-button"
               disabled={loading}
               aria-busy={loading}
             >
               {loading ? (
                 <span className="loading-dots" role="status" aria-label="Placing order">
-                  <i />
-                  <i />
-                  <i />
+                  <i /><i /><i />
                 </span>
               ) : (
-                <>
-                  Place order · <CountPrice value={total} />
-                </>
+                "Place Order"
               )}
             </button>
-          </form>
-        )}
-      </main>
+          )}
+        </div>
+      )}
 
       {/* ---- FOOTER ---- */}
+      {!checkout && (
       <footer className="app-footer" ref={footerRef}>
         <div className="footer-content">
           <div className="footer-col footer-logo-col">
@@ -504,11 +662,13 @@ export default function App() {
           </div>
         </div>
       </footer>
+      )}
 
       {/* ---- ORDER BAR — floating glass capsule ---- */}
-      <aside
-        className={`order-bar ${cupCount > 0 && !checkout ? "active" : ""} ${limit ? "at-limit" : ""} ${barHidden ? "bar-hidden" : ""}`}
-      >
+      {!checkout && (
+        <aside
+          className={`order-bar ${cupCount > 0 ? "active" : ""} ${limit ? "at-limit" : ""} ${barHidden ? "bar-hidden" : ""}`}
+        >
         <div
           key={limit ? `limit-${limit}` : "bar"}
           className="order-bar-inner"
@@ -540,7 +700,7 @@ export default function App() {
             <button
               className="checkout-button"
               onClick={() => {
-                if (!checkout) navigate(true)
+                if (!checkout) navigate("cart")
               }}
               type={checkout ? "submit" : "button"}
               form={checkout ? "checkout-form" : undefined}
@@ -576,26 +736,30 @@ export default function App() {
             </button>
           )}
         </div>
-      </aside>
+        </aside>
+      )}
 
       {/* ---- BOTTOM SHEET ---- */}
-      {activeCoffee && (
-        <BottomSheet
-          coffee={activeCoffee}
-          max={5 - cupCount + (cart[activeCoffee.id] || 0)}
-          existing={cart[activeCoffee.id] || 0}
-          closing={closing}
-          onLimit={showLimit}
-          onAdd={addToCart}
-          onClose={closeSheet}
-          quantity={sheetQuantity}
-          setQuantity={setSheetQuantity}
-          temp={sheetTemp}
-          setTemp={setSheetTemp}
-          note={sheetNote}
-          setNote={setSheetNote}
-        />
-      )}
+      {activeCoffee && (() => {
+        const coffee = activeCoffee
+        return (
+          <BottomSheet
+            coffee={coffee}
+            max={5 - cupCount + (cart[coffee.id] || 0)}
+            existing={cart[coffee.id] || 0}
+            closing={closing}
+            onLimit={showLimit}
+            onAdd={addToCart}
+            onClose={closeSheet}
+            quantity={sheetQuantity}
+            setQuantity={setSheetQuantity}
+            temp={sheetTemp}
+            setTemp={setSheetTemp}
+            note={sheetNote}
+            setNote={setSheetNote}
+          />
+        )
+      })()}
     </div>
   )
 }
