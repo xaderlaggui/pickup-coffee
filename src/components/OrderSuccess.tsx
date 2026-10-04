@@ -6,7 +6,7 @@ import { CheckIcon } from "./Icons"
    ORDER SUCCESS — spring checkmark, glass summary, ring pulse
    ============================================================ */
 export function OrderSuccess({
-  cups,
+  items,
   amount,
   pickup,
   onRestart,
@@ -14,7 +14,7 @@ export function OrderSuccess({
   payment,
   cart,
 }: {
-  cups: number
+  items: number
   amount: number
   pickup: string
   onRestart: () => void
@@ -53,8 +53,8 @@ export function OrderSuccess({
             <strong>{payment}</strong>
           </div>
           <div>
-            <span>Total Cups</span>
-            <strong className="tabular">{cups}</strong>
+            <span>Total Items</span>
+            <strong className="tabular">{items}</strong>
           </div>
           <div>
             <span>Total Amount</span>

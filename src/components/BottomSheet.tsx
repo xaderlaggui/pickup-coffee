@@ -42,7 +42,8 @@ export function BottomSheet({
   note: string
   setNote: (note: string) => void
 }) {
-  const sizeAdjustment = size === "Small" ? -10 : size === "Large" ? 10 : 0
+  const isPastry = coffee.category === "pastry"
+  const sizeAdjustment = isPastry ? 0 : size === "Small" ? -10 : size === "Large" ? 10 : 0
   const selectedPrice = coffee.price + sizeAdjustment
   const sheetRef = useRef<HTMLElement>(null)
   const backdropRef = useRef<HTMLButtonElement>(null)
@@ -214,9 +215,9 @@ export function BottomSheet({
           </div>
           <div className="sheet-right">
             <div className="sheet-price"><span>Price</span><strong className="tabular">₱{selectedPrice}</strong></div>
-            <div className="size-row"><span>Size</span><div className="size-options">{(["Small", "Medium", "Large"] as const).map((option) => (<button key={option} type="button" className={size === option ? "selected" : ""} onClick={() => setSize(option)}>{option}</button>))}</div></div>
-            <div className="temp-row"><span>Temperature</span><div className={"segmented-control temp-toggle " + (temp === "Hot" ? "tomorrow" : "")}><div className="segment-pill" /><button type="button" className={temp === "Iced" ? "selected" : ""} onClick={() => setTemp("Iced")}>Iced</button><button type="button" className={temp === "Hot" ? "selected" : ""} onClick={() => setTemp("Hot")}>Hot</button></div></div>
-            <div className="quantity-row"><div><span>Quantity</span><small>Maximum 5 cups per order</small></div><QuantityControl max={max} quantity={quantity} setQuantity={setQuantity} onLimit={onLimit} /></div>
+            {!isPastry && <div className="size-row"><span>Size</span><div className="size-options">{(["Small", "Medium", "Large"] as const).map((option) => (<button key={option} type="button" className={size === option ? "selected" : ""} onClick={() => setSize(option)}>{option}</button>))}</div></div>}
+            {!isPastry && <div className="temp-row"><span>Temperature</span><div className={"segmented-control temp-toggle " + (temp === "Hot" ? "tomorrow" : "")}><div className="segment-pill" /><button type="button" className={temp === "Iced" ? "selected" : ""} onClick={() => setTemp("Iced")}>Iced</button><button type="button" className={temp === "Hot" ? "selected" : ""} onClick={() => setTemp("Hot")}>Hot</button></div></div>}
+            <div className="quantity-row"><div><span>Quantity</span><small>{isPastry ? "Choose your order quantity" : "Maximum 5 cups per order"}</small></div><QuantityControl max={max} quantity={quantity} setQuantity={setQuantity} onLimit={onLimit} unit={isPastry ? "items" : "cups"} /></div>
             <div className="note-row"><label htmlFor="drink-note">Special Instructions (optional)</label><textarea id="drink-note" className="note-input" placeholder="e.g. Less ice, extra hot, oat milk..." value={note} onChange={(e) => setNote(e.target.value)} rows={2} /></div>
           </div>
         </div>

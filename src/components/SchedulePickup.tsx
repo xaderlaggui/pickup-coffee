@@ -1,17 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { ClockIcon } from "./Icons"
-
 /* ============================================================
    CONSTANTS
    ============================================================ */
 const ITEM_H = 44        // px per row
 const VISIBLE = 5        // must be odd — determines picker height
 const PICKER_H = ITEM_H * VISIBLE  // 220px
-
 function clamp(v: number, min: number, max: number) {
   return Math.max(min, Math.min(max, v))
 }
-
 /* ============================================================
    iOS DRUM-ROLL WHEEL PICKER
    - Direct DOM manipulation during drag (no React state churn)
@@ -36,13 +33,10 @@ function WheelPicker({
   //             = (VISIBLE-1)/2 * ITEM_H - N * ITEM_H
   const centerOffset = (idx: number) =>
     Math.floor(VISIBLE / 2) * ITEM_H - idx * ITEM_H
-
   const trackRef = useRef<HTMLDivElement>(null)
   const [hovered, setHovered] = useState(selectedIndex)
-
   // Keep a live ref to the current track Y so drag handlers always read fresh value
   const currentOffsetRef = useRef(centerOffset(selectedIndex))
-
   // Sync when parent changes selectedIndex (e.g. initial render or external set)
   useEffect(() => {
     const target = centerOffset(selectedIndex)
@@ -54,7 +48,6 @@ function WheelPicker({
     setHovered(selectedIndex)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIndex])
-
   const drag = useRef({
     active: false,
     startClientY: 0,
@@ -63,7 +56,6 @@ function WheelPicker({
     lastTime: 0,
     velocity: 0,
   })
-
   const applyOffset = (offset: number, spring = false) => {
     if (!trackRef.current) return
     trackRef.current.style.transition = spring
@@ -71,14 +63,12 @@ function WheelPicker({
       : "none"
     trackRef.current.style.transform = `translateY(${offset}px)`
   }
-
   const indexAtOffset = (offset: number) =>
     clamp(
       Math.round((Math.floor(VISIBLE / 2) * ITEM_H - offset) / ITEM_H),
       0,
       items.length - 1,
     )
-
   // ---- Drag lifecycle ----
   const onStart = useCallback((clientY: number) => {
     if (disabled) return
@@ -91,61 +81,50 @@ function WheelPicker({
     d.velocity = 0
     applyOffset(currentOffsetRef.current) // disable transition
   }, [disabled])
-
   const onMove = useCallback(
     (clientY: number) => {
       const d = drag.current
       if (!d.active) return
-
       const now = performance.now()
       const dt = now - d.lastTime
       if (dt > 0) d.velocity = (clientY - d.lastClientY) / dt
       d.lastClientY = clientY
       d.lastTime = now
-
       let raw = d.startOffset + (clientY - d.startClientY)
-
       // Rubber band at edges
       const maxOff = centerOffset(0)
       const minOff = centerOffset(items.length - 1)
       if (raw > maxOff) raw = maxOff + (raw - maxOff) * 0.25
       if (raw < minOff) raw = minOff + (raw - minOff) * 0.25
-
       applyOffset(raw)
       setHovered(indexAtOffset(raw))
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [items.length],
   )
-
   const onEnd = useCallback(() => {
     const d = drag.current
     if (!d.active) return
     d.active = false
-
     // Read current visual offset from the transform
     const track = trackRef.current
     if (!track) return
     const matrix = new DOMMatrix(getComputedStyle(track).transform)
     const currentY = matrix.m42
-
     // Add momentum
     const withMomentum = currentY + d.velocity * 80
-
     // Snap to nearest valid index
     const maxOff = centerOffset(0)
     const minOff = centerOffset(items.length - 1)
     const clamped = clamp(withMomentum, minOff, maxOff)
     const nearestIndex = indexAtOffset(clamped)
     const snapOffset = centerOffset(nearestIndex)
-
     currentOffsetRef.current = snapOffset
     applyOffset(snapOffset, true)
     setHovered(nearestIndex)
     onChange(nearestIndex)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items.length, onChange])
-
   // Touch events
   const onTouchStart = (e: React.TouchEvent) => onStart(e.touches[0].clientY)
   const onTouchMove = (e: React.TouchEvent) => {
@@ -153,7 +132,6 @@ function WheelPicker({
     onMove(e.touches[0].clientY)
   }
   const onTouchEnd = () => onEnd()
-
   // Pointer (mouse / stylus) events
   const onPointerDown = (e: React.PointerEvent) => {
     ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
@@ -164,7 +142,6 @@ function WheelPicker({
     onMove(e.clientY)
   }
   const onPointerUp = () => onEnd()
-
   return (
     <div
       className="wheel-drum"
@@ -198,33 +175,27 @@ function WheelPicker({
           )
         })}
       </div>
-
       {/* Frosted glass selection band (fixed at center) */}
       <div className="wheel-band" aria-hidden="true" />
-
       {/* Top & bottom fade masks */}
       <div className="wheel-fade-top" aria-hidden="true" />
       <div className="wheel-fade-bottom" aria-hidden="true" />
     </div>
   )
 }
-
 /* ============================================================
    SCHEDULE PICKUP — ASAP is now a day option
    ============================================================ */
 const days = ["ASAP", "Today", "Tomorrow"] as const
 type Day = typeof days[number]
-
 function generateTimeSlots(isToday: boolean) {
   const slots: string[] = []
   const now = new Date()
   const startHour = 8 // 8:00 AM
   const endHour = 18 // 6:00 PM
-
   for (let h = startHour; h <= endHour; h++) {
     for (let m = 0; m < 60; m += 15) {
       if (h === endHour && m > 0) continue // stop at exactly 6:00 PM
-
       const isPast = isToday && (now.getHours() > h || (now.getHours() === h && now.getMinutes() >= m))
       if (!isPast) {
         const ampm = h >= 12 ? "PM" : "AM"
@@ -236,7 +207,6 @@ function generateTimeSlots(isToday: boolean) {
   }
   return slots.length > 0 ? slots : ["Closed"]
 }
-
 export function SchedulePickup({
   day,
   setDay,
@@ -250,17 +220,14 @@ export function SchedulePickup({
 }) {
   const isAsap = day === "ASAP"
   const availableTimes = generateTimeSlots(day === "Today")
-
   // Auto-correct time when day changes and current time is no longer valid
   useEffect(() => {
     if (!isAsap && !availableTimes.includes(time)) {
       setTime(availableTimes[0])
     }
   }, [availableTimes, time, setTime, isAsap])
-
   const dayIndex = days.indexOf(day)
   const timeIndex = Math.max(0, availableTimes.indexOf(time))
-
   return (
     <section className="schedule-section">
       <div className="section-heading">
@@ -272,7 +239,6 @@ export function SchedulePickup({
           <ClockIcon />
         </div>
       </div>
-
       <div className="wheel-pickers-row">
         <div className="wheel-column">
           <p className="wheel-column-label">Day</p>
@@ -295,7 +261,6 @@ export function SchedulePickup({
           />
         </div>
       </div>
-
       <p className="picker-hint">
         {isAsap
           ? "We'll start brewing as soon as your order arrives."
@@ -306,4 +271,3 @@ export function SchedulePickup({
     </section>
   )
 }
-

@@ -8,11 +8,13 @@ export function QuantityControl({
   setQuantity,
   max,
   onLimit,
+  unit = "items",
 }: {
   quantity: number
   setQuantity: (q: number) => void
   max: number
   onLimit: () => void
+  unit?: "cups" | "items"
 }) {
   const decrement = useCallback(() => {
     if (quantity > 0) setQuantity(quantity - 1)
@@ -36,7 +38,7 @@ export function QuantityControl({
       >
         −
       </button>
-      <span className="tabular" aria-live="polite" aria-label={`${quantity} cups`}>
+      <span className="tabular" aria-live="polite" aria-label={`${quantity} ${unit}`}>
         {quantity}
       </span>
       <button

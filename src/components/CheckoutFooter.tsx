@@ -1,0 +1,5 @@
+import { CountPrice } from "./MotionText"
+export function CheckoutFooter({ checkout, review, loading, total, onReview, onSubmit }: { checkout: boolean; review: boolean; loading: boolean; total: number; onReview: () => void; onSubmit: () => void }) {
+  if (!checkout) return null
+  return <div className="checkout-sticky-footer"><div className="checkout-footer-total"><span className="checkout-footer-label">Total</span><strong className="checkout-footer-price"><CountPrice value={total} /></strong></div><div className="checkout-footer-divider" />{!review ? <button type="button" className="primary-button" onClick={onReview}>Review Details</button> : <button type="button" className="primary-button" onClick={onSubmit} disabled={loading} aria-busy={loading}>{loading ? <span className="loading-dots" role="status"><i /><i /><i /></span> : "Place Order"}</button>}</div>
+}
