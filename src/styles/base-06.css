@@ -201,7 +201,7 @@
 .wheel-selection {
   display: grid;
   color: var(--text);
-  font-size: 16px;
+  font-size: var(--font-size-picker-value);
   font-weight: 700;
   letter-spacing: -0.43px;
   place-items: center;

@@ -18,7 +18,7 @@
 }
 
 .splash-logo-large {
-  font-size: 56px;
+  font-size: var(--font-size-brand-mark);
   font-weight: 900;
   letter-spacing: -2px;
   line-height: 0.88;

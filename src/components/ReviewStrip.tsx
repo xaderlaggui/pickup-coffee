@@ -25,7 +25,6 @@ export function ReviewStrip() {
       <div className="review-strip-heading">
         <p className="eyebrow">CUSTOMER LOVE</p>
         <h2 id="review-strip-title">Made for your everyday pickup.</h2>
-        <a href="https://pickup-coffee.com/" target="_blank" rel="noopener noreferrer">Read more reviews</a>
       </div>
       <div className="review-strip-window">
         <div className="review-strip-track">

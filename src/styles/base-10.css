@@ -38,7 +38,7 @@
   max-width: 390px;
   margin: 14px auto 28px;
   color: var(--muted);
-  font-size: var(--type-subhead);
+  font-size: var(--font-size-subtitle);
   line-height: 1.6;
   letter-spacing: -0.24px;
 }
@@ -84,12 +84,12 @@
 
 .success-summary span {
   color: var(--muted);
-  font-size: var(--type-subhead);
+  font-size: var(--font-size-text);
   letter-spacing: -0.24px;
 }
 
 .success-summary strong {
-  font-size: var(--type-subhead);
+  font-size: var(--font-size-text);
   font-weight: 600;
   letter-spacing: -0.24px;
   font-variant-numeric: tabular-nums;

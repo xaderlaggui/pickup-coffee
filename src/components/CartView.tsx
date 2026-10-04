@@ -9,25 +9,25 @@ export function CartView({ coffees, cart, cartTemps, cartSizes, cartNotes, cupCo
   const selected = coffees.filter((coffee) => cart[coffee.id] > 0)
   return (
     <section className="cart-section">
-      <div className="cart-items-list">
-        {selected.map((coffee) => {
-          const qty = cart[coffee.id]
-          const isSwiped = swipedItem === coffee.id
-          return <div key={coffee.id} className={`cart-list-item-wrap ${isSwiped ? "swiped" : ""}`} onTouchStart={(event) => { (event.currentTarget as HTMLElement).dataset.touchX = String(event.touches[0].clientX) }} onTouchEnd={(event) => { const start = Number((event.currentTarget as HTMLElement).dataset.touchX || 0); const dx = start - event.changedTouches[0].clientX; if (dx > 60) setSwipedItem(coffee.id); if (dx < -30) setSwipedItem(null) }}>
-            <button className="swipe-delete-btn" type="button" onClick={() => { removeItem(coffee.id); setSwipedItem(null) }} aria-label="Remove item"><TrashIcon />Remove</button>
-            <div className="cart-list-item glass-regular">
-              <img src={coffee.image} alt={coffee.name} className="cart-item-img" />
-              <div className="cart-item-details"><h3>{coffee.name}</h3><p className="cart-item-meta">{coffee.category === "pastry" ? "Pastry" : cartTemps[coffee.id] || "Iced"}{cartNotes[coffee.id] && <span> · {cartNotes[coffee.id]}</span>}</p><p className="cart-item-price"><Price value={itemPrice(coffee, cartSizes[coffee.id] || "Medium") * qty} /></p></div>
-              <div className="cart-item-actions"><div className="quantity-adjuster"><button type="button" className={qty === 1 ? "qty-trash" : ""} onClick={() => qty === 1 ? removeItem(coffee.id) : updateQuantity(coffee.id, -1)} aria-label={qty === 1 ? "Remove item" : "Decrease quantity"}>{qty === 1 ? <TrashIcon /> : "-"}</button><span>{qty}</span><button type="button" onClick={() => updateQuantity(coffee.id, 1)} disabled={coffee.category !== "pastry" && cupCount >= 5}>+</button></div></div>
+      <div className="cart-scroll-area">
+        <div className="cart-items-list">
+          {selected.length === 0 ? (
+            <p className="cart-empty-message" role="status">There is no item on your cart</p>
+          ) : selected.map((coffee) => {
+            const qty = cart[coffee.id]
+            const isSwiped = swipedItem === coffee.id
+            return <div key={coffee.id} className={`cart-list-item-wrap ${isSwiped ? "swiped" : ""}`} onTouchStart={(event) => { if (window.matchMedia("(min-width: 900px)").matches) return; (event.currentTarget as HTMLElement).dataset.touchX = String(event.touches[0].clientX) }} onTouchEnd={(event) => { if (window.matchMedia("(min-width: 900px)").matches) return; const start = Number((event.currentTarget as HTMLElement).dataset.touchX || 0); const dx = start - event.changedTouches[0].clientX; if (dx > 60) setSwipedItem(coffee.id); if (dx < -30) setSwipedItem(null) }}>
+              <button className="swipe-delete-btn" type="button" onClick={() => { removeItem(coffee.id); setSwipedItem(null) }} aria-label="Remove item"><TrashIcon />Remove</button>
+              <div className="cart-list-item glass-regular">
+                <img src={coffee.image} alt={coffee.name} className="cart-item-img" />
+                <div className="cart-item-details"><h3>{coffee.name}</h3><p className="cart-item-meta">{coffee.category === "pastry" ? "Pastry" : cartTemps[coffee.id] || "Iced"}{cartNotes[coffee.id] && <span> · {cartNotes[coffee.id]}</span>}</p><p className="cart-item-price"><Price value={itemPrice(coffee, cartSizes[coffee.id] || "Medium") * qty} /></p></div>
+                <div className="cart-item-actions"><div className="quantity-adjuster"><button type="button" className={qty === 1 ? "qty-trash" : ""} onClick={() => qty === 1 ? removeItem(coffee.id) : updateQuantity(coffee.id, -1)} aria-label={qty === 1 ? "Remove item" : "Decrease quantity"}>{qty === 1 ? <TrashIcon /> : "-"}</button><span>{qty}</span><button type="button" onClick={() => updateQuantity(coffee.id, 1)} disabled={coffee.category !== "pastry" && cupCount >= 5}>+</button></div></div>
+              </div>
             </div>
-          </div>
-        })}
+          })}
+        </div>
       </div>
-      <div className="cart-breakdown">
-        {selected.map((coffee) => <div key={coffee.id} className="cart-breakdown-row"><span>{coffee.name} x{cart[coffee.id]}</span><span><Price value={itemPrice(coffee, cartSizes[coffee.id] || "Medium") * cart[coffee.id]} /></span></div>)}
-        <div className="cart-breakdown-divider" />
-        <div className="cart-breakdown-row cart-breakdown-total"><span>Total ({itemCount} {itemCount === 1 ? "item" : "items"})</span><span><CountPrice value={total} /></span></div>
-      </div>
+      <div className="cart-total-sticky cart-breakdown-row cart-breakdown-total"><span>Total ({itemCount} {itemCount === 1 ? "item" : "items"})</span><span><CountPrice value={total} /></span></div>
     </section>
   )
 }

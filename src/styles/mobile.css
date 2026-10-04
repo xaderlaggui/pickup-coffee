@@ -1,5 +1,4 @@
 @media (max-width: 720px) {
-
   .header-inner,
   .main-content {
     width: calc(100% - 32px);
@@ -20,7 +19,7 @@
   }
 
   .hero-copy h1 {
-    font-size: 40px;
+    font-size: var(--font-size-hero-mobile);
   }
 
   .coffee-grid {
@@ -38,7 +37,7 @@
 
   .card-copy h3 {
     min-height: 44px;
-    font-size: 16px;
+    font-size: var(--font-size-card-title-compact);
   }
 
   .product-detail {
@@ -50,7 +49,7 @@
   }
 
   .price-row>span {
-    font-size: 16px;
+    font-size: var(--font-size-price-compact);
   }
 
   .add-button {
@@ -94,7 +93,7 @@
 
 @media (max-width: 430px) {
   .hero-copy h1 {
-    font-size: 34px;
+    font-size: var(--font-size-hero-title);
   }
 
   .hero-subtitle {
@@ -122,7 +121,7 @@
   .add-button {
     min-width: 56px;
     padding: 0 8px;
-    font-size: var(--type-footnote);
+    font-size: var(--font-size-button-compact);
   }
 
   .add-button span {
@@ -130,11 +129,11 @@
   }
 
   .order-copy strong {
-    font-size: 14px;
+    font-size: var(--font-size-product-description);
   }
 
   .order-copy>span {
-    font-size: 9px;
+    font-size: var(--font-size-micro-compact);
   }
 
   .checkout-button {
@@ -166,22 +165,22 @@
 .sheet-description { margin-top: 8px; line-height: 1.35; }
 .sheet-footer { display: flex; align-items: center; gap: 12px; padding-top: 10px; }
 .sheet-total { display: flex; flex-direction: column; min-width: 92px; color: var(--muted); font-size: var(--type-footnote); font-weight: 600; }
-.sheet-total strong { color: var(--text); font-size: var(--type-headline); }
+.sheet-total strong { color: var(--text); font-size: var(--font-size-price-emphasis); }
 .sheet-footer .sheet-cta { flex: 1; }
 @media (max-width: 430px) {
-  .sheet-title h2 { font-size: 20px; line-height: 24px; }
+  .sheet-title h2 { font-size: var(--font-size-title-compact); line-height: 24px; }
   .sheet-title p { margin-bottom: 3px; }
-  .sheet-description { font-size: 12px; }
+  .sheet-description { font-size: var(--font-size-description-compact); }
   .size-row, .temp-row, .quantity-row { padding: 10px 0; }
   .note-row { padding-top: 10px; }
   .note-input { min-height: 58px; }
   .sheet-footer { margin-top: 4px; }
-  .sheet-total strong { font-size: 16px; }
+  .sheet-total strong { font-size: var(--font-size-price-compact); }
   .sheet-cta { min-height: 42px; }
 }
 .company-hero { display: flex; flex-direction: column; gap: 20px; min-height: 0; margin-bottom: 38px; padding: 8px 0 0; scroll-margin-top: 88px; }
-.company-hero-copy h1 { font-size: 38px; line-height: 1.04; letter-spacing: -1px; }
-.company-hero-copy .hero-subtitle { margin-top: 12px; font-size: 14px; line-height: 1.45; }
+.company-hero-copy h1 { font-size: var(--font-size-company-title-mobile); line-height: 1.04; letter-spacing: -1px; }
+.company-hero-copy .hero-subtitle { margin-top: 12px; font-size: var(--font-size-company-subtitle-mobile); line-height: 1.45; }
 .company-hero-cta { width: 100%; min-height: 48px; margin-top: 18px; }
 .company-hero-visual { min-height: 190px; width: 100%; border-radius: 24px; }
 .company-hero-cup { width: 48%; max-height: 170px; }
@@ -193,5 +192,5 @@
 .menu-filters::-webkit-scrollbar { display: none; }
 .menu-filters button { flex: 0 0 auto; min-height: 44px; padding: 0 15px; }
 #menu { scroll-margin-top: 88px; }
-@media (max-width: 430px) { .company-hero-copy h1 { font-size: 34px; } .coffee-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+@media (max-width: 430px) { .company-hero-copy h1 { font-size: var(--font-size-company-title-small); } .coffee-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
 @media (max-width: 360px) { .coffee-grid { grid-template-columns: 1fr; } }

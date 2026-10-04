@@ -89,60 +89,73 @@ h6 {
 }
 
 .type-large-title {
-  font-size: var(--type-large-title);
+  font-size: var(--font-size-display);
   line-height: 41px;
   font-weight: 700;
   letter-spacing: 0.37px;
 }
 
 .type-title1 {
-  font-size: var(--type-title1);
+  font-size: var(--font-size-title);
   line-height: 34px;
   font-weight: 700;
   letter-spacing: 0.36px;
 }
 
 .type-title2 {
-  font-size: var(--type-title2);
+  font-size: var(--font-size-section-title);
   line-height: 28px;
   font-weight: 700;
   letter-spacing: 0.35px;
 }
 
 .type-headline {
-  font-size: var(--type-headline);
+  font-size: var(--font-size-heading);
   line-height: 22px;
   font-weight: 600;
   letter-spacing: -0.43px;
 }
 
 .type-body {
-  font-size: var(--type-body);
+  font-size: var(--font-size-body);
   line-height: 22px;
   font-weight: 400;
   letter-spacing: -0.43px;
 }
 
 .type-subhead {
-  font-size: var(--type-subhead);
+  font-size: var(--font-size-text);
   line-height: 20px;
   font-weight: 400;
   letter-spacing: -0.24px;
 }
 
 .type-footnote {
-  font-size: var(--type-footnote);
+  font-size: var(--font-size-description);
   line-height: 18px;
   font-weight: 400;
   letter-spacing: -0.08px;
 }
 
 .type-caption1 {
-  font-size: var(--type-caption1);
+  font-size: var(--font-size-label);
   line-height: 16px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.6px;
+}
+
+.type-subtitle {
+  font-size: var(--font-size-subtitle);
+}
+
+.type-description {
+  font-size: var(--font-size-description);
+}
+
+.type-price {
+  font-size: var(--font-size-price);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Tabular nums for prices, counters */
@@ -192,7 +205,7 @@ h6 {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 15px;
+  font-size: var(--font-size-text);
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
@@ -222,7 +235,7 @@ h6 {
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.2);
   color: #FFFFFF;
-  font-size: var(--type-subhead);
+  font-size: var(--font-size-button);
   font-weight: 700;
   cursor: pointer;
   transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-fade) var(--ease-out);
@@ -241,6 +254,6 @@ h6 {
   padding: 0 6px;
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.15);
-  font-size: var(--type-caption1);
+  font-size: var(--font-size-label);
   font-variant-numeric: tabular-nums;
 }
