@@ -1,6 +1,7 @@
 import { Coffee } from "../types"
+import { resolveProductTone } from "./tone"
 
-const product = (id: number, name: string, price: number, image: string, tone: string, description: string, detail: string, category: "coffee" | "pastry" = "coffee", isBestSeller = false): Coffee => ({ id, name, price, image, tone, description, detail, category, ...(isBestSeller ? { isBestSeller: true } : {}) })
+const product = (id: number, name: string, price: number, image: string, _legacyTone: "rose" | "gold" | "green", description: string, detail: string, category: "coffee" | "pastry" = "coffee", isBestSeller = false): Coffee => ({ id, name, price, image, tone: resolveProductTone(name, category), description, detail, category, ...(isBestSeller ? { isBestSeller: true } : {}) })
 const media = "https://d1r9lpkrafbxq0.cloudfront.net/strapi-cms-readable-media/"
 
 export const coffeeProducts: Coffee[] = [

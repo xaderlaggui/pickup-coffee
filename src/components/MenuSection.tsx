@@ -22,9 +22,7 @@ export function MenuSection({ products, cart, onAdd, menuRef }: { products: Coff
   }
 
   return (
-    <section ref={menuRef} className="menu-section" id="menu" aria-labelledby="menu-title">
-      <div className="menu-heading"><div><p className="eyebrow">ORDER ONLINE</p><h2 id="menu-title">{heading.title}</h2></div><span>{heading.subtitle}</span></div>
-      <MenuFilters active={active} onChange={changeFilter} />
+    <section ref={menuRef} className="menu-section" id="menu" aria-labelledby="menu-title"><div className="menu-heading"><div><p className="eyebrow">ORDER ONLINE</p><h2 id="menu-title">{heading.title}</h2></div><span>{heading.subtitle}</span></div><MenuFilters active={active} onChange={changeFilter} />
       <ProductGrid products={visibleProducts} cart={cart} onAdd={onAdd} animationSeed={animationSeed} />
     </section>
   )

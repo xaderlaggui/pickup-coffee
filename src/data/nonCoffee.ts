@@ -1,8 +1,9 @@
-import { Coffee } from "../types"
+import { Coffee, ProductCategory } from "../types"
+import { resolveProductTone } from "./tone"
 
 const imageBase = "https://d1r9lpkrafbxq0.cloudfront.net/strapi-cms-readable-media/"
 
-export const nonCoffeeProducts: Coffee[] = [
+const nonCoffeeCatalog = [
   { id: 101, name: "Iced Matcha", detail: "Matcha · creamy milk", description: "Matcha with creamy milk.", price: 85, image: imageBase + "menu_OG_Matcha_GRAB_098fd9b0ae_75bf40e246.png", tone: "green", category: "non-coffee", isBestSeller: true },
   { id: 102, name: "White Chocolate Matcha", detail: "Matcha · white chocolate", description: "Matcha and white chocolate blended with creamy milk, also available hot.", price: 99, image: imageBase + "menu_White_Chocolate_Matcha_GRAB_0104a747e8_d5bcb4df2d.png", tone: "green", category: "non-coffee" },
   { id: 103, name: "Strawberry Matcha", detail: "Matcha · strawberry · milk", description: "Matcha and strawberry with creamy milk.", price: 95, image: imageBase + "menu_Strawberry_Matcha_GRAB_772c5a7ada_770f6c1e69.png", tone: "rose", category: "non-coffee" },
@@ -24,3 +25,5 @@ export const nonCoffeeProducts: Coffee[] = [
   { id: 119, name: "Matcha Frappe", detail: "Matcha · milk · frappe", description: "Pure matcha, ice-blended with creamy milk, topped with whipped cream.", price: 115, image: imageBase + "menu_Matcha_Frappe_a830e3dc35_16133ed6d0.png", tone: "green", category: "non-coffee" },
   { id: 120, name: "Oreo Frappe", detail: "Oreo · milk · frappe", description: "Oreo, ice-blended with creamy milk, topped with whipped cream.", price: 115, image: imageBase + "OREO_FRAPPE_3_eec6f9afb1_c4954c8bd6.png", tone: "gold", category: "non-coffee" },
 ]
+
+export const nonCoffeeProducts: Coffee[] = nonCoffeeCatalog.map((product) => ({ ...product, category: product.category as ProductCategory, tone: resolveProductTone(product.name, product.category as ProductCategory) }))

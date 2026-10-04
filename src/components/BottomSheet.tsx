@@ -3,6 +3,7 @@ import { Coffee, CoffeeSize } from "../types"
 import { motionDelay } from "../utils/motion"
 import { CrossfadeText } from "./MotionText"
 import { QuantityControl } from "./QuantityControl"
+import { formatPrice } from "./Price"
 
 /* ============================================================
    BOTTOM SHEET — Liquid Glass, draggable with spring physics
@@ -214,7 +215,7 @@ export function BottomSheet({
             <p className="sheet-description">{coffee.description}</p>
           </div>
           <div className="sheet-right">
-            <div className="sheet-price"><span>Price</span><strong className="tabular">₱{selectedPrice}</strong></div>
+            <div className="sheet-price"><span>Price</span><strong className="tabular">{formatPrice(selectedPrice)}</strong></div>
             {!isPastry && <div className="size-row"><span>Size</span><div className="size-options">{(["Small", "Medium", "Large"] as const).map((option) => (<button key={option} type="button" className={size === option ? "selected" : ""} onClick={() => setSize(option)}>{option}</button>))}</div></div>}
             {!isPastry && <div className="temp-row"><span>Temperature</span><div className={"segmented-control temp-toggle " + (temp === "Hot" ? "tomorrow" : "")}><div className="segment-pill" /><button type="button" className={temp === "Iced" ? "selected" : ""} onClick={() => setTemp("Iced")}>Iced</button><button type="button" className={temp === "Hot" ? "selected" : ""} onClick={() => setTemp("Hot")}>Hot</button></div></div>}
             <div className="quantity-row"><div><span>Quantity</span><small>{isPastry ? "Choose your order quantity" : "Maximum 5 cups per order"}</small></div><QuantityControl max={max} quantity={quantity} setQuantity={setQuantity} onLimit={onLimit} unit={isPastry ? "items" : "cups"} /></div>
@@ -222,7 +223,7 @@ export function BottomSheet({
           </div>
         </div>
         <div className="sheet-footer">
-          <div className="sheet-total"><span>Total Price</span><strong className="tabular">₱{selectedPrice * quantity}</strong></div>
+          <div className="sheet-total"><span>Total Price</span><strong className="tabular">{formatPrice(selectedPrice * quantity)}</strong></div>
           <button className="primary-button sheet-cta" disabled={existing === 0 && quantity === 0} onClick={onAdd} type="button"><CrossfadeText text={quantity === 0 ? "Remove from order" : (existing > 0 ? "Update order" : "Add to cart")} /></button>
         </div>
       </section>
