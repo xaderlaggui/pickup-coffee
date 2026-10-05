@@ -1373,7 +1373,7 @@ body:has(.landing-page) {
     min-height: 0;
     padding: 8px;
     box-sizing: border-box;
-    object-position: center bottom;
+    object-position: center;
   }
 
   .card-preview div {
