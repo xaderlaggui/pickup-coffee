@@ -58,12 +58,6 @@
     border-radius var(--dur-smooth) var(--spring-smooth);
 }
 
-/* iOS card stack: content scales down when sheet is open */
-.sheet-open .main-content {
-  transform: scale(0.96);
-  border-radius: 16px;
-}
-
 /* ============================================================
    HERO COPY â€” Large Title (iOS Dynamic Type)
    ============================================================ */

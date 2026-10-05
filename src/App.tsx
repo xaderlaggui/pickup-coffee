@@ -86,7 +86,7 @@ useEffect(() => {
   }
   const restart = () => { setCart({}); setCartTemps({}); setCartSizes({}); setCartNotes({}); setConfirmed(false); setCheckout(false); setReview(false); setConfirmOrderOpen(false); setName(""); setDay("Today"); setTime("ASAP"); setTransition("screen-out"); later(() => setTransition(""), motionDelay(220)) }
 
-  const landingMode = !checkout && !review && !confirmed && !activeCoffee
+  const landingMode = !checkout && !review && !confirmed
   const appClass = `${darkMode ? "app dark" : "app"} ${transition} ${landingMode ? "landing-page" : ""}`
   const cartView = <CartView coffees={coffees} cart={cart} cartTemps={cartTemps} cartSizes={cartSizes} cartNotes={cartNotes} cupCount={cupCount} itemCount={itemCount} total={total} swipedItem={swipedItem} setSwipedItem={setSwipedItem} removeItem={removeItem} updateQuantity={updateQuantity} itemPrice={itemPrice} />
   const checkoutView = <CheckoutView day={day} setDay={setDay} time={time} setTime={setTime} name={name} setName={(value) => { setName(value); if (value.trim()) setInvalid(0) }} invalid={invalid} payment={payment} setPayment={setPayment} onSubmit={requestOrderConfirmation} loading={loading} darkMode={darkMode} />
@@ -95,7 +95,7 @@ useEffect(() => {
     <div ref={appRef} className={appClass}>
       <GlassRefractionDefs />
       <AppHeader headerRef={headerRef} checkout={checkout} review={review} darkMode={darkMode} scrolled={scrolled} titleCollapsed={titleCollapsed} itemCount={itemCount} loading={loading} onBack={() => navigate(review ? "cart" : "menu")} onRestart={restart} onCart={() => navigate("cart")} onTheme={() => setDarkMode((value) => !value)} />
-      <main className={`main-content ${transition} ${activeCoffee ? "sheet-open" : ""}`}>
+      <main className={`main-content ${transition}`}>
         {!checkout ? (
           <>
             <CompanyHero menuRef={menuRef} heroRef={heroRef} products={coffees} />
