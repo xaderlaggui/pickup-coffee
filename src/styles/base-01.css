@@ -68,6 +68,24 @@
   --font-size-micro-compact: 9px;
   --font-size-brand-mark: 56px;
 
+  /* Shared layout and component sizing. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --container-max: 1200px;
+  --container-gutter: 24px;
+  --control-height: 44px;
+  --control-height-large: 48px;
+  --icon-size: 20px;
+  --radius-control: 12px;
+  --radius-card: 20px;
+  --radius-panel: 24px;
+  --radius-pill: 999px;
+
   /* Compatibility aliases for existing component styles. */
   --type-large-title: var(--font-size-display);
   --type-title1: var(--font-size-title);

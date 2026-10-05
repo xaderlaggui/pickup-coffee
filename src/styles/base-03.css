@@ -14,13 +14,13 @@
   margin-top: 48px;
   padding: 48px 0 max(48px, calc(80px + env(safe-area-inset-bottom)));
   border-top: 1px solid transparent;
-  background: #A0BA78;
+  background: var(--tone-green);
   color: #FFFFFF;
   transition: background-color var(--dur-fade) var(--ease-in-out);
 }
 
 .app.dark .app-footer {
-  background: #37462B;
+  background: var(--tone-green);
 }
 
 @media (min-width: 1024px) {
