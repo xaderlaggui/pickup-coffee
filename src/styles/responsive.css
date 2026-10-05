@@ -1355,7 +1355,7 @@ body:has(.landing-page) {
 /* Keep the product image and details in consistent, non-overlapping areas. */
 @media (max-width: 720px) {
   .coffee-card {
-    height: clamp(220px, 64vw, 250px);
+    height: clamp(240px, 68vw, 270px);
     min-height: 0;
   }
 
