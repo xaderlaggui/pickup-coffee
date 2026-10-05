@@ -1484,3 +1484,43 @@ body:has(.landing-page) {
     margin-top: -8px;
   }
 }
+
+@media (max-width: 720px) {
+  .bottom-sheet {
+    display: flex;
+    flex-direction: column;
+    max-height: min(92dvh, 760px);
+    overflow: hidden;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .sheet-header {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    flex: 0 0 36px;
+    align-items: center;
+    justify-content: center;
+    margin: -16px -24px 12px;
+    padding: 8px 56px;
+  }
+
+  .sheet-header .close-button {
+    top: 2px;
+    right: 12px;
+  }
+
+  .sheet-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sheet-footer {
+    flex: 0 0 auto;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}

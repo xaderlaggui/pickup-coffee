@@ -23,7 +23,6 @@
     top: 14px;
     right: 14px;
   }
-  .bottom-sheet .drag-handle { display: none; }
   .sheet-content { padding-top: 18px; display: grid; grid-template-columns: minmax(0, .95fr) minmax(300px, 1.05fr); gap: 32px; min-height: 0; }
   .sheet-left, .sheet-right { min-width: 0; }
   .sheet-left { display: flex; flex-direction: column; min-height: 0; }

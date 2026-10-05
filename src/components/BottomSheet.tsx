@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { Coffee, CoffeeSize } from "../types"
 import { motionDelay } from "../utils/motion"
 import { CrossfadeText } from "./MotionText"
@@ -6,7 +6,7 @@ import { QuantityControl } from "./QuantityControl"
 import { formatPrice } from "./Price"
 
 /* ============================================================
-   BOTTOM SHEET — Liquid Glass, draggable with spring physics
+   BOTTOM SHEET — Liquid Glass item preview
    ============================================================ */
 export function BottomSheet({
   coffee,
@@ -46,17 +46,6 @@ export function BottomSheet({
   const isPastry = coffee.category === "pastry"
   const sizeAdjustment = isPastry ? 0 : size === "Small" ? -10 : size === "Large" ? 10 : 0
   const selectedPrice = coffee.price + sizeAdjustment
-  const sheetRef = useRef<HTMLElement>(null)
-  const backdropRef = useRef<HTMLButtonElement>(null)
-  const dragState = useRef({
-    active: false,
-    startY: 0,
-    currentY: 0,
-    velocity: 0,
-    lastY: 0,
-    lastTime: 0,
-  })
-
   // Escape key
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -66,146 +55,28 @@ export function BottomSheet({
     return () => document.removeEventListener("keydown", closeOnEscape)
   }, [onClose])
 
-  // Drag-to-dismiss with rubber-banding + velocity
-  const handleDragStart = useCallback(
-    (clientY: number) => {
-      const sheet = sheetRef.current
-      if (!sheet) return
-      dragState.current = {
-        active: true,
-        startY: clientY,
-        currentY: 0,
-        velocity: 0,
-        lastY: clientY,
-        lastTime: performance.now(),
-      }
-      sheet.style.transition = "none"
-    },
-    [],
-  )
-
-  const handleDragMove = useCallback((clientY: number) => {
-    const ds = dragState.current
-    if (!ds.active) return
-    const sheet = sheetRef.current
-    const backdrop = backdropRef.current
-    if (!sheet) return
-
-    const now = performance.now()
-    const dt = now - ds.lastTime
-    ds.velocity = dt > 0 ? (clientY - ds.lastY) / dt : 0
-    ds.lastY = clientY
-    ds.lastTime = now
-
-    let delta = clientY - ds.startY
-    ds.currentY = delta
-
-    // Rubber-band upward (resistance 0.55)
-    if (delta < 0) {
-      delta = delta * 0.55
-    }
-
-    const sheetHeight = sheet.offsetHeight
-    const progress = Math.max(0, Math.min(1, delta / (sheetHeight * 0.35)))
-
-    sheet.style.transform = `translateY(${delta}px)`
-    if (backdrop) {
-      backdrop.style.opacity = String(1 - progress * 0.6)
-      backdrop.style.backdropFilter = `blur(${5 * (1 - progress * 0.4)}px)`
-    }
-  }, [])
-
-  const handleDragEnd = useCallback(() => {
-    const ds = dragState.current
-    if (!ds.active) return
-    ds.active = false
-
-    const sheet = sheetRef.current
-    if (!sheet) return
-
-    const sheetHeight = sheet.offsetHeight
-    const velocity = ds.velocity
-    const delta = ds.currentY
-
-    // Dismiss if velocity > 0.5 px/ms or dragged > 35% of height
-    if (velocity > 0.5 || delta > sheetHeight * 0.35) {
-      sheet.style.transition = `transform 380ms var(--spring-smooth)`
-      sheet.style.transform = `translateY(100%)`
-      setTimeout(onClose, 380)
-    } else {
-      // Snap back with spring
-      sheet.style.transition = `transform 380ms var(--spring-snappy)`
-      sheet.style.transform = `translateY(0)`
-      const backdrop = backdropRef.current
-      if (backdrop) {
-        backdrop.style.opacity = ""
-        backdrop.style.backdropFilter = ""
-      }
-    }
-  }, [onClose])
-
-  // Touch events
-  const onTouchStart = (e: React.TouchEvent) => {
-    if ((e.target as Element).closest("button")) return
-    handleDragStart(e.touches[0].clientY)
-  }
-  const onTouchMove = (e: React.TouchEvent) => {
-    if (dragState.current.active) {
-      handleDragMove(e.touches[0].clientY)
-    }
-  }
-  const onTouchEnd = () => handleDragEnd()
-
-  // Pointer events (desktop drag)
-  const onPointerDown = (e: React.PointerEvent) => {
-    if ((e.target as Element).closest("button")) return
-    if (e.pointerType === "mouse") {
-      handleDragStart(e.clientY)
-      ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
-    }
-  }
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (dragState.current.active) handleDragMove(e.clientY)
-  }
-  const onPointerUp = () => handleDragEnd()
-
   return (
     <div
       className={`sheet-layer ${closing ? "closing" : ""}`}
       role="presentation"
     >
-      <button
-        ref={backdropRef}
-        aria-label="Close add to cart sheet"
-        className="sheet-backdrop"
-        onClick={onClose}
-        type="button"
-      />
+      <div aria-hidden="true" className="sheet-backdrop" />
       <section
-        ref={sheetRef}
         aria-labelledby="sheet-title"
         aria-modal="true"
         className="bottom-sheet"
         role="dialog"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
       >
-        <div
-          className="drag-handle"
-          style={{ cursor: "grab" }}
-        />
-        <button
-          aria-label="Close"
-          className="close-button"
-          onClick={onClose}
-          type="button"
-        >
-          ×
-        </button>
+        <div className="sheet-header">
+          <button
+            aria-label="Close"
+            className="close-button"
+            onClick={onClose}
+            type="button"
+          >
+            ×
+          </button>
+        </div>
         <div className="sheet-content">
           <div className="sheet-left">
             <div className={"sheet-visual " + coffee.tone}>

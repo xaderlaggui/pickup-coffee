@@ -197,14 +197,6 @@
   border-color: rgba(255, 255, 255, 0.08);
 }
 
-.drag-handle {
-  width: 36px;
-  height: 4px;
-  margin: 0 auto 20px;
-  border-radius: 3px;
-  background: rgba(120, 120, 128, 0.36);
-}
-
 .close-button {
   position: absolute;
   z-index: 2;
