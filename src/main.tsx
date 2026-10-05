@@ -17,6 +17,9 @@ function Root() {
       ) : (
         <App />
       )}
+      <div className="portrait-only-notice" role="status">
+        Please rotate your phone to portrait to continue.
+      </div>
     </div>
   )
 }

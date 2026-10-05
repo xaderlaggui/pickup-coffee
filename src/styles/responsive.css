@@ -570,6 +570,26 @@ body:has(.landing-page) {
     font-size: 13px;
   }
 }
+
+@media (orientation: landscape) and (max-width: 900px) and (max-height: 600px) {
+  #root > .app > :not(.portrait-only-notice) {
+    visibility: hidden;
+  }
+
+  .portrait-only-notice {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    padding: 24px;
+    color: var(--text);
+    background: var(--background);
+    font-size: var(--font-size-heading);
+    font-weight: 700;
+    text-align: center;
+    place-items: center;
+  }
+}
 /* Mobile review strip cleanup and featured-card depth. */
 .company-hero-visual {
   box-shadow:
