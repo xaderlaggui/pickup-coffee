@@ -10,6 +10,7 @@ import { BottomSheetHost } from "./components/BottomSheetHost"
 import { CompanyHero } from "./components/CompanyHero"
 import { MenuSection } from "./components/MenuSection"
 import { CartView } from "./components/CartView"
+import { PairWith } from "./components/PairWith"
 import { CheckoutView } from "./components/CheckoutView"
 import { ConfirmOrderModal } from "./components/ConfirmOrderModal"
 import { OrderSuccess } from "./components/OrderSuccess"
@@ -29,12 +30,12 @@ export default function App() {
   const [cartSizes, setCartSizes] = useState<Record<number, CoffeeSize>>({})
   const [cartNotes, setCartNotes] = useState<Record<number, string>>({})
   const [checkout, setCheckout] = useState(false)
-  const [review, setReview] = useState(false)
   const [confirmOrderOpen, setConfirmOrderOpen] = useState(false)
   const [confirmed, setConfirmed] = useState(false)
   const [day, setDay] = useState<"Today" | "Tomorrow">("Today")
   const [time, setTime] = useState("ASAP")
   const [name, setName] = useState("")
+  const [contact, setContact] = useState("")
   const [payment, setPayment] = useState("Cash at pickup")
   const [closing, setClosing] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -66,7 +67,7 @@ useEffect(() => {
 
   const showLimit = () => { setLimit((value) => value + 1); later(() => setLimit(0), 1000) }
   const closeSheet = () => { if (closing) return; setClosing(true); later(() => { setActiveCoffee(null); setClosing(false) }, motionDelay(380)) }
-  const navigate = (next: "menu" | "cart" | "review") => { setTransition("leaving"); later(() => { setCheckout(next !== "menu"); setReview(next === "review"); setTransition(`entering-${next}`); appRef.current?.scrollTo({ top: 0, behavior: "smooth" }); window.scrollTo({ top: 0, behavior: "smooth" }); later(() => setTransition(""), motionDelay(500)) }, motionDelay(200)) }
+  const navigate = (next: "menu" | "cart") => { setTransition("leaving"); later(() => { setCheckout(next !== "menu"); setTransition(`entering-${next}`); appRef.current?.scrollTo({ top: 0, behavior: "smooth" }); window.scrollTo({ top: 0, behavior: "smooth" }); later(() => setTransition(""), motionDelay(500)) }, motionDelay(200)) }
   const cupCount = coffees.filter((coffee) => coffee.category !== "pastry").reduce((sum, coffee) => sum + (cart[coffee.id] || 0), 0)
   const itemCount = Object.values(cart).reduce((sum, count) => sum + count, 0)
   const total = useMemo(() => coffees.reduce((sum, coffee) => sum + itemPrice(coffee, cartSizes[coffee.id] || "Medium") * (cart[coffee.id] || 0), 0), [cart, cartSizes])
@@ -84,17 +85,17 @@ useEffect(() => {
     }
     setConfirmOrderOpen(true)
   }
-  const restart = () => { setCart({}); setCartTemps({}); setCartSizes({}); setCartNotes({}); setConfirmed(false); setCheckout(false); setReview(false); setConfirmOrderOpen(false); setName(""); setDay("Today"); setTime("ASAP"); setTransition("screen-out"); later(() => setTransition(""), motionDelay(220)) }
+  const restart = () => { setCart({}); setCartTemps({}); setCartSizes({}); setCartNotes({}); setConfirmed(false); setCheckout(false); setConfirmOrderOpen(false); setName(""); setContact(""); setDay("Today"); setTime("ASAP"); setTransition("screen-out"); later(() => setTransition(""), motionDelay(220)) }
 
-  const landingMode = !checkout && !review && !confirmed
+  const landingMode = !checkout && !confirmed
   const appClass = `${darkMode ? "app dark" : "app"} ${transition} ${landingMode ? "landing-page" : ""}`
   const cartView = <CartView coffees={coffees} cart={cart} cartTemps={cartTemps} cartSizes={cartSizes} cartNotes={cartNotes} cupCount={cupCount} itemCount={itemCount} total={total} swipedItem={swipedItem} setSwipedItem={setSwipedItem} removeItem={removeItem} updateQuantity={updateQuantity} itemPrice={itemPrice} />
-  const checkoutView = <CheckoutView day={day} setDay={setDay} time={time} setTime={setTime} name={name} setName={(value) => { setName(value); if (value.trim()) setInvalid(0) }} invalid={invalid} payment={payment} setPayment={setPayment} onSubmit={requestOrderConfirmation} loading={loading} darkMode={darkMode} />
-  if (confirmed) return <div ref={appRef} className={appClass}><GlassRefractionDefs /><OrderSuccess amount={total} items={itemCount} onRestart={restart} name={name.trim()} payment={payment} cart={cart} pickup={day === "Today" && time === "ASAP" ? "ASAP · Today" : time || day} /></div>
+  const checkoutView = <CheckoutView day={day} setDay={setDay} time={time} setTime={setTime} name={name} setName={(value) => { setName(value); if (value.trim()) setInvalid(0) }} contact={contact} setContact={setContact} invalid={invalid} payment={payment} setPayment={setPayment} onSubmit={requestOrderConfirmation} loading={loading} darkMode={darkMode} />
+  if (confirmed) return <div ref={appRef} className={appClass}><GlassRefractionDefs /><OrderSuccess amount={total} items={itemCount} onRestart={restart} name={name.trim()} contact={contact} payment={payment} cart={cart} pickup={day === "Today" && time === "ASAP" ? "ASAP · Today" : time || day} /></div>
   return (
     <div ref={appRef} className={appClass}>
       <GlassRefractionDefs />
-      <AppHeader headerRef={headerRef} checkout={checkout} review={review} darkMode={darkMode} scrolled={scrolled} titleCollapsed={titleCollapsed} itemCount={itemCount} loading={loading} onBack={() => navigate(review ? "cart" : "menu")} onRestart={restart} onCart={() => navigate("cart")} onTheme={() => setDarkMode((value) => !value)} />
+      <AppHeader headerRef={headerRef} checkout={checkout} darkMode={darkMode} scrolled={scrolled} titleCollapsed={titleCollapsed} itemCount={itemCount} loading={loading} onBack={() => navigate("menu")} onRestart={restart} onCart={() => navigate("cart")} onTheme={() => setDarkMode((value) => !value)} />
       <main className={`main-content ${transition}`}>
         {!checkout ? (
           <>
@@ -104,13 +105,17 @@ useEffect(() => {
             </section>
           </>
         ) : (
-          <div className={`checkout-page ${review ? "review-mode" : ""}`}>
-            <div className="checkout-cart-column">{cartView}</div>
+          <div className="checkout-page">
+            <div className="checkout-cart-column">
+              <h2 className="checkout-section-title checkout-item-title">Item</h2>
+              {cartView}
+              <PairWith products={coffees} cart={cart} onAdd={(coffee) => updateQuantity(coffee.id, 1)} />
+            </div>
             <div className="checkout-details-column">{checkoutView}</div>
           </div>
         )}
       </main>
-      <CheckoutFooter checkout={checkout} review={review} loading={loading} total={total} day={day} time={time} pickupClosed={time === "Closed"} onReview={() => navigate("review")} onSubmit={() => requestOrderConfirmation()} />
+      <CheckoutFooter checkout={checkout} loading={loading} total={total} pickupClosed={time === "Closed"} hasItems={itemCount > 0} onSubmit={() => requestOrderConfirmation()} />
       {confirmOrderOpen && (
         <ConfirmOrderModal
           coffees={coffees}
@@ -119,6 +124,7 @@ useEffect(() => {
           cartSizes={cartSizes}
           cartNotes={cartNotes}
           name={name.trim()}
+          contact={contact.trim()}
           payment={payment}
           day={day}
           time={time}

@@ -11,6 +11,7 @@ export function ConfirmOrderModal({
   cartSizes,
   cartNotes,
   name,
+  contact,
   payment,
   day,
   time,
@@ -27,6 +28,7 @@ export function ConfirmOrderModal({
   cartSizes: Record<number, CoffeeSize>
   cartNotes: Record<number, string>
   name: string
+  contact: string
   payment: string
   day: "Today" | "Tomorrow"
   time: string
@@ -75,6 +77,7 @@ export function ConfirmOrderModal({
 
         <div className="confirm-order-details">
           <div><span>Name</span><strong>{name}</strong></div>
+          {contact && <div><span>Contact</span><strong>{contact}</strong></div>}
           <div><span>Pickup</span><strong>{pickupTime} · {day}</strong></div>
           <div><span>Payment</span><strong>{payment}</strong></div>
         </div>

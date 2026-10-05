@@ -3,7 +3,7 @@ import { coffees } from "../data"
 import { CheckIcon } from "./Icons"
 import { Price } from "./Price"
 
-export function OrderSuccess({ items, amount, pickup, onRestart, name, payment, cart }: { items: number; amount: number; pickup: string; onRestart: () => void; name: string; payment: string; cart: Record<number, number> }) {
+export function OrderSuccess({ items, amount, pickup, onRestart, name, contact, payment, cart }: { items: number; amount: number; pickup: string; onRestart: () => void; name: string; contact: string; payment: string; cart: Record<number, number> }) {
   return (
     <main className="success-screen">
       <div className="success-content">
@@ -13,6 +13,7 @@ export function OrderSuccess({ items, amount, pickup, onRestart, name, payment, 
         <p className="success-lead">Your coffee is in the queue. We'll have it ready when you arrive.</p>
         <div className="success-summary">
           <div><span>Name</span><strong>{name}</strong></div>
+          {contact && <div><span>Contact</span><strong>{contact}</strong></div>}
           {coffees.filter((coffee) => cart[coffee.id] > 0).map((coffee) => <div key={coffee.id}><span>{cart[coffee.id]} × {coffee.name}</span><strong className="tabular"><Price value={cart[coffee.id] * coffee.price} /></strong></div>)}
           <div><span>Payment</span><strong>{payment}</strong></div>
           <div><span>Total Items</span><strong className="tabular">{items}</strong></div>
