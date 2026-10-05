@@ -1,0 +1,181 @@
+
+.type-large-title {
+  font-size: var(--font-size-display);
+  line-height: 41px;
+  font-weight: 700;
+  letter-spacing: 0.37px;
+}
+
+.type-title1 {
+  font-size: var(--font-size-title);
+  line-height: 34px;
+  font-weight: 700;
+  letter-spacing: 0.36px;
+}
+
+.type-title2 {
+  font-size: var(--font-size-section-title);
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: 0.35px;
+}
+
+.type-headline {
+  font-size: var(--font-size-heading);
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: -0.43px;
+}
+
+.type-body {
+  font-size: var(--font-size-body);
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: -0.43px;
+}
+
+.type-subhead {
+  font-size: var(--font-size-text);
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: -0.24px;
+}
+
+.type-footnote {
+  font-size: var(--font-size-description);
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: -0.08px;
+}
+
+.type-caption1 {
+  font-size: var(--font-size-label);
+  line-height: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.type-subtitle  {
+  font-size: var(--font-size-subtitle); }
+.type-description {
+  font-size: var(--font-size-description); }
+.type-price     {
+  font-size: var(--font-size-price);
+  font-variant-numeric: tabular-nums; }
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--green);
+  font-size: var(--type-caption1);
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 8px;
+}
+
+.clock-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: var(--green);
+  background: var(--green-soft);
+  place-items: center;
+}
+
+.divider {
+  width: 1px;
+  background: var(--line);
+}
+
+.rolling-number,
+.crossfade-text {
+  display: inline-grid;
+  vertical-align: baseline;
+}
+
+.rolling-number {
+  position: relative;
+  overflow: hidden;
+  min-width: 1ch;
+  font-variant-numeric: tabular-nums;
+}
+
+.rolling-number > *,
+.crossfade-text>* {
+  grid-area: 1 / 1;
+}
+
+.roll-old {
+  animation: roll-away var(--dur-snappy) var(--spring-snappy) both;
+}
+
+.roll-new {
+  animation: roll-arrive var(--dur-snappy) var(--spring-snappy) both;
+}
+.limit-shake {
+  animation: limit-shake 320ms var(--ease-in-out);
+}
+.invalid-field {
+  animation: limit-shake 320ms var(--ease-in-out);
+}
+
+.shake-even {
+  animation-name: limit-shake;
+}
+.price-crossfade {
+  display: inline-block;
+  animation: motion-fade var(--dur-press) var(--ease-in-out);
+}
+
+.crossfade-old {
+  animation: motion-fade var(--dur-fade) var(--ease-in-out) reverse both;
+}
+
+.crossfade-new {
+  animation: motion-fade var(--dur-fade) var(--ease-in-out) both;
+}
+
+.time-refresh {
+  animation: motion-fade var(--dur-press) var(--ease-in-out);
+}
+.loading-dots {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  animation: motion-fade var(--dur-press) var(--ease-out);
+}
+
+.loading-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: loading-pulse 500ms var(--ease-in-out) infinite both;
+}
+
+.loading-dots i:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.loading-dots i:nth-child(3) {
+  animation-delay: 160ms;
+}
+

@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/* ============================================================
+   GLOBAL CSS — Reset, base, and design tokens
+   ============================================================ */
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* Hide scrollbars globally */
+
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ---- Focus accessibility (WCAG 2.1 §2.4.11) ---- */
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- Root design tokens ---- */
+:root {
+  /* Font stack */
+  font-family:
+    -apple-system,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Inter",
+    system-ui,
+    sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Color (default light — overridden inside .app) */
+  color: #151716;
+  background: #f2f2f7;
+
+  /* ---- Typography scale ---- */
+
+  /* Semantic aliases (used in type utility classes) */
+
+  /* ---- Spacing ---- */
+
+  /* ---- Layout ---- */
+
+  /* ---- Component sizing ---- */
+
+  /* ---- Radii ---- */
+
+  /* ---- Animation easing ---- */
+
+  /* ---- Spring physics (linear()) ---- */
+
+  /* ---- Animation durations ---- */
+
+  /* ---- Glass pointer tracking ---- */
+}
+
+/* Responsive token overrides */
+
+/* ---- Tabular numbers utility ---- */
+
+/* ---- Typography utility classes ---- */
+
+/* ---- Accessibility: reduced transparency ---- */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-regular,
+  .glass-thick,
+  .glass-clear,
+  .theme-toggle,
+  .bottom-sheet,
+  .order-bar-inner,
+  .close-button,
+  .quantity-control button,
+  .success-summary {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--line) !important;
+  }
+
+  .top-header {
+    backdrop-filter: none !important;
+    background: #A0BA78 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25) !important;
+  }
+
+  .app.dark .top-header {
+    background: #37462B !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .glass-regular,
+  .glass-thick,
+  .glass-clear,
+  .theme-toggle,
+  .bottom-sheet,
+  .order-bar-inner,
+  .close-button,
+  .quantity-control button,
+  .success-summary {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border: 2px solid currentColor !important;
+  }
+
+  .top-header {
+    backdrop-filter: none !important;
+    background: #A0BA78 !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .app.dark .top-header {
+    background: #37462B !important;
+  }
+}
+
+/* ---- Landscape mobile: hide content ---- */
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+button {
+  font: inherit;
+}
+h1 {
+  text-wrap: balance;
+}
+h2 {
+  text-wrap: balance;
+}
+h3 {
+  text-wrap: balance;
+}
+h4 {
+  text-wrap: balance;
+}
+h5 {
+  text-wrap: balance;
+}
+h6 {
+  text-wrap: balance;
+}
+
+button:focus-visible {
+  /* WCAG 2.1 Â§2.4.11: non-color visible focus indicator */
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+  animation: focus-arrive 150ms var(--ease-out);
+}/* ============================================================
+   APP SHELL — Color tokens, theme, and page container
+   ============================================================ */
+
+/* ---- Light theme (default) ---- */
+
+/* ---- Dark theme ---- */
+
+/* ---- Theme transition on child elements ---- */
+
+a:focus-visible {
+  /* WCAG 2.1 Â§2.4.11: non-color visible focus indicator */
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+
+

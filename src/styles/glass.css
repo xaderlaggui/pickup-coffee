@@ -1,0 +1,164 @@
+/* ============================================================
+   GLASS MATERIAL SYSTEM
+   Three reusable glass classes + specular / shadow layers
+   ============================================================ */
+
+/* Hidden SVG refraction filter */
+
+/* ---- Shared: position context + pseudo layers ---- */
+
+/* Specular edge highlight */
+
+/* Pointer-following specular highlight */
+
+/* ---- glass-regular ---- */
+
+/* ---- glass-thick ---- */
+
+/* ---- glass-clear ---- *//* ============================================================
+   GLASS MATERIAL SYSTEM
+   Three reusable glass classes + specular / shadow layers
+   ============================================================ */
+
+/* Hidden SVG refraction filter */
+.glass-refract-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ---- Shared: position context + pseudo layers ---- */
+.glass-regular,
+.glass-thick,
+.glass-clear {
+  position: relative;
+}
+
+/* Specular edge highlight */
+.glass-regular::before,
+.glass-thick::before,
+.glass-clear::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    transparent 45%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(135deg, black 0%, transparent 60%);
+  opacity: 0.55;
+}
+
+.dark .glass-regular::before,
+.dark .glass-thick::before,
+.dark .glass-clear::before {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    transparent 45%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+}
+
+/* Pointer-following specular highlight */
+.glass-regular::after,
+.glass-thick::after,
+.glass-clear::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity var(--dur-fade) var(--ease-out);
+  z-index: 0;
+}
+
+.dark .glass-regular::after,
+.dark .glass-thick::after,
+.dark .glass-clear::after {
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 60%
+  );
+}
+
+/* ---- glass-regular ---- */
+.glass-regular {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dark .glass-regular {
+  background: rgba(40, 42, 41, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.24),
+    0 2px 8px rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ---- glass-thick ---- */
+.glass-thick {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(40px) saturate(190%) brightness(1.04);
+  -webkit-backdrop-filter: blur(40px) saturate(190%) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass-thick {
+  background: rgba(28, 30, 29, 0.68);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 32px rgba(0, 0, 0, 0.36),
+    0 2px 8px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* ---- glass-clear ---- */
+.glass-clear {
+  background: rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.dark .glass-clear {
+  background: rgba(40, 42, 41, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 16px rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+

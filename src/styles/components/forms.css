@@ -1,0 +1,309 @@
+
+
+
+.input-block label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: var(--type-footnote);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: var(--green);
+}
+.quantity-control {
+  display: grid;
+  grid-template-columns: 44px 44px 44px;
+  align-items: center;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--subtle);
+  text-align: center;
+}
+
+.dark .quantity-control button {
+  background: rgba(40, 42, 41, 0.35);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.quantity-control button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.quantity-control button[aria-disabled="true"] {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.quantity-control button:active:not(:disabled) {
+  transform: scale(0.88);
+}
+
+.name-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
+}
+
+.payment-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.payment-legend {
+  font-size: var(--type-subhead);
+  font-weight: 600;
+  letter-spacing: -0.24px;
+  margin-bottom: 8px;
+}
+
+.payment-note {
+  margin: 4px 0 12px;
+  font-size: var(--type-footnote);
+  color: var(--muted);
+  letter-spacing: -0.08px;
+}
+
+.payment-options {
+  display: grid;
+  gap: 8px;
+}
+
+.payment-card.selected {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+
+.payment-card input[type="radio"]:checked {
+  border-color: var(--green);
+}
+
+.payment-card input[type="radio"]:checked::after {
+  transform: scale(1);
+}
+.primary-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.primary-button:active:not(:disabled) {
+  background: var(--green-pressed);
+  transform: scale(0.97);
+}
+
+.name-field::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 48px;
+  border-radius: 12px;
+  box-shadow: 0 0 0 3px var(--green-soft);
+  opacity: 0;
+  transform: scale(0.98);
+  pointer-events: none;
+  transition:
+    transform var(--dur-snappy) var(--spring-snappy),
+    opacity var(--dur-snappy) var(--ease-out);
+}
+
+.name-field:focus-within::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.name-field:focus-within {
+  color: var(--green);
+}
+
+.name-field input {
+  color: var(--text);
+}
+
+.name-field input[aria-invalid="true"] {
+  border-color: #c96858;
+}
+
+.payment-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--green);
+  border-radius: inherit;
+  background: var(--green-soft);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity var(--dur-snappy) var(--spring-snappy);
+}
+
+.payment-card:has(input:checked)::before {
+  opacity: 1;
+}
+
+.payment-card input {
+  appearance: none;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.payment-card input::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  transform: scale(0);
+  transition: transform var(--dur-snappy) var(--spring-snappy);
+}
+
+.payment-card input:checked::after {
+  transform: scale(1);
+}
+
+.name-field {
+  display: grid;
+  font-size: var(--type-subhead);
+  font-weight: 600;
+  letter-spacing: -0.24px;
+  color: var(--text);
+  position: relative;
+}
+@media (prefers-reduced-transparency: reduce) {
+
+  .quantity-control button {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--line) !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+
+  .quantity-control button {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border: 2px solid currentColor !important;
+  }
+}
+
+.quantity-control button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+  transition:
+    transform var(--dur-press) var(--spring-snappy),
+    background-color var(--dur-press) var(--ease-out);
+
+  /* glass-clear */
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 2px 6px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.4); min-height: 44px;
+}
+.primary-button:hover:not(:disabled) { color: #FFFFFF; }
+
+.payment-card input[type="radio"] {
+  appearance: none;
+  border: 1.5px solid var(--muted);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: border-color var(--dur-press) var(--ease-out);
+  width: 17px;
+  height: 17px;
+}
+
+.payment-card input[type="radio"]::after {
+  content: "";
+  border-radius: 50%;
+  background: var(--green);
+  transform: scale(0);
+  transition: transform var(--dur-snappy) var(--spring-bouncy);
+  width: 8px;
+  height: 8px;
+}
+
+.name-input {
+  display: block;
+  width: 100%;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  background: var(--background);
+  color: var(--text);
+  font-size: var(--type-body);
+  font-family: inherit;
+  margin-top: 8px;
+  outline: none;
+  transition:
+    border-color var(--dur-press) var(--ease-out),
+    box-shadow var(--dur-snappy) var(--spring-snappy);
+  min-height: var(--control-height-large);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-control);
+}
+
+.note-input {
+  width: 100%;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--type-body);
+  resize: none;
+  transition: border-color var(--dur-snappy) var(--ease-out);
+  min-height: var(--control-height-large);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-control);
+}
+.primary-button {
+  width: 100%;
+  border: 0;
+  background: var(--green);
+  font-size: var(--font-size-primary-button);
+  cursor: pointer;
+  transition:
+    transform var(--dur-press) var(--spring-snappy),
+    background-color var(--dur-press) var(--ease-out);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0;
+  min-height: var(--control-height-large);
+  border-radius: var(--radius-control);
+}
+
+.payment-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  font-size: var(--type-subhead);
+  font-weight: 500;
+  transition:
+    border-color var(--dur-snappy) var(--spring-snappy),
+    background-color var(--dur-snappy) var(--spring-snappy);
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+  border-color: var(--line);
+  min-height: var(--control-height-large);
+  border-radius: var(--radius-control);
+}

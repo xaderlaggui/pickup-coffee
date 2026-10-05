@@ -1,0 +1,231 @@
+/* ============================================================
+   HEADER CONTROLS — Wordmark, theme toggle, back/cart buttons
+   ============================================================ */
+
+/* ---- Wordmark ---- */
+
+/* ---- Theme toggle ---- */
+
+/* ---- Desktop cart button ---- */
+
+/* ---- Back button ---- */
+
+.dark .back-icon-only:hover {
+  background: var(--green-soft);
+}
+
+/* ---- Shared icon sizing in header ---- */
+.theme-toggle svg,
+.clock-icon svg,
+.checkout-button svg,
+.desktop-cart-button svg,
+.back-icon-only svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+.header-inline-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--font-size-text);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.desktop-cart-button {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-size: var(--font-size-button);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-fade) var(--ease-out);
+}
+
+.desktop-cart-button:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.desktop-cart-button .cart-badge {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.15);
+  font-size: var(--font-size-label);
+  font-variant-numeric: tabular-nums;
+}
+.wordmark {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font-size: var(--font-size-title-compact);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -1px;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity var(--dur-press) var(--ease-out);
+}
+
+.wordmark:active {
+  opacity: 0.6;
+}
+
+.dark .theme-toggle {
+  /* In dark mode: translucent dark pill, white icon */
+  color: #FFFFFF;
+  background: rgba(40, 42, 41, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 16px rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.desktop-cart-button svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.theme-icon {
+  display: block;
+  grid-area: 1 / 1;
+  transition:
+    transform var(--dur-snappy) var(--spring-snappy),
+    opacity var(--dur-fade) var(--ease-out);
+}
+
+.theme-icon.visible     {
+  opacity: 1;
+  transform: rotate(0deg) scale(1); }
+.theme-icon.hidden-icon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.7); }
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0 12px 0 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: var(--type-headline);
+  font-weight: 600;
+  letter-spacing: -0.43px;
+  cursor: pointer;
+  transition:
+    transform var(--dur-press) var(--spring-snappy),
+    opacity var(--dur-press) var(--ease-out);
+}
+
+.dark .back-button {
+  color: var(--green);
+}
+
+.back-button:active {
+  transform: translateX(-4px);
+  opacity: 0.7;
+}
+
+.back-icon-only:hover {
+  background: rgba(28, 39, 21, 0.08);
+}
+
+.back-icon-only svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+@media (prefers-reduced-transparency: reduce) {
+
+  .theme-toggle {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--line) !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+
+  .theme-toggle {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+    border: 2px solid currentColor !important;
+  }
+}
+.theme-toggle {
+  display: grid;
+  padding: 0;
+  border-radius: 50%;
+  /* Dark green icon contrasts against the white pill on the green header */
+  color: #3A5C20;
+  cursor: pointer;
+  place-items: center;
+  transition:
+    transform var(--dur-snappy) var(--spring-snappy),
+    background var(--dur-fade) var(--ease-in-out);
+
+  /* Solid white pill for clear contrast */
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: none;
+  width: var(--control-height);
+  height: var(--control-height);
+}
+
+.back-icon-only {
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+  width: var(--control-height);
+  height: var(--control-height);
+}
+
+
+

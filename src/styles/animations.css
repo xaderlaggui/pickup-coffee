@@ -1,0 +1,425 @@
+/* ============================================================
+   ANIMATIONS — All @keyframes and animation assignments
+   ============================================================ */
+
+/* ---- Entrance / exit ---- */
+@keyframes header-arrive {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rise-28 {
+  from { opacity: 0; transform: translateY(28px); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+@keyframes rise-16 {
+  from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+@keyframes rise-8 {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes card-arrive {
+  from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+@keyframes cup-arrive {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes motion-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---- Pop / scale ---- */
+@keyframes tactile-pop {
+  0%   { opacity: 0; transform: scale(0); }
+  65%  { opacity: 1; transform: scale(1.18); }
+  82%  { transform: scale(0.94); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes dot-pop {
+  0%   { transform: scale(0.55); }
+  60%  { transform: scale(1.22); }
+  82%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+@keyframes hero-pop {
+  from { opacity: 0; transform: scale(0.7) translateY(20px); }
+  60%  { opacity: 1; transform: scale(1.05) translateY(-4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes capsule-pop {
+  0%   { transform: scaleX(1) scaleY(1); }
+  30%  { transform: scaleX(1.025) scaleY(0.975); }
+  70%  { transform: scaleX(0.985) scaleY(1.015); }
+  100% { transform: scaleX(1) scaleY(1); }
+}
+
+/* ---- Sheet ---- */
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+}
+
+@keyframes sheet-down {
+  to { transform: translateY(100%); }
+}
+
+/* Web: modal dialog sheet */
+@keyframes sheet-slide-up {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sheet-slide-down {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(48px); }
+}
+
+/* ---- Rolling number ---- */
+@keyframes roll-away {
+  from { opacity: 1; transform: translateY(0);     filter: blur(0); }
+  to   { opacity: 0; transform: translateY(-100%); filter: blur(4px); }
+}
+
+@keyframes roll-arrive {
+  from { opacity: 0; transform: translateY(100%);  filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);     filter: blur(0); }
+}
+
+/* ---- Shake ---- */
+@keyframes limit-shake {
+  0%,  100% { transform: translateX(0); }
+  15%        { transform: translateX(-5px); }
+  35%        { transform: translateX(5px); }
+  55%        { transform: translateX(-3px); }
+  75%        { transform: translateX(3px); }
+}
+
+/* ---- Order bar ---- */
+@keyframes bar-arrive {
+  from { opacity: 0; transform: translateY(120%) scale(0.85); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ---- Cup progress ---- */
+@keyframes green-sweep {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+/* ---- Navigation push/pop ---- */
+@keyframes menu-out {
+  to { opacity: 0.9; transform: translateX(-30%); }
+}
+
+@keyframes checkout-out {
+  to { opacity: 0; transform: translateX(100%); }
+}
+
+@keyframes checkout-in {
+  from { opacity: 1; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes menu-in {
+  from { opacity: 0.9; transform: translateX(-30%); }
+  to   { opacity: 1;   transform: translateX(0); }
+}
+
+/* ---- Wheel picker ---- */
+@keyframes wheel-up {
+  from { opacity: 0; transform: translateY(14px)  scale(0.88) rotateX(-20deg); }
+  to   { opacity: 1; transform: translateY(0)     scale(1)    rotateX(0); }
+}
+
+@keyframes wheel-down {
+  from { opacity: 0; transform: translateY(-14px) scale(0.88) rotateX(20deg); }
+  to   { opacity: 1; transform: translateY(0)     scale(1)    rotateX(0); }
+}
+
+/* ---- Loading ---- */
+@keyframes loading-pulse {
+  0%,  100% { opacity: 0.35; transform: scale(0.75); }
+  50%        { opacity: 1;    transform: scale(1); }
+}
+
+/* ---- Success ---- */
+@keyframes draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes success-ring {
+  from { opacity: 0.45; transform: scale(0.88); }
+  to   { opacity: 0;    transform: scale(1.7); }
+}
+
+/* ---- Focus ---- */
+@keyframes focus-arrive {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
+}
+
+/* ---- Crossfade ---- */
+
+/* ---- Splash ---- */
+@keyframes splash-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes splash-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.97); }
+}
+
+@keyframes view-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ---- Hero carousel ---- */
+@keyframes hero-carousel-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ---- Review marquee ---- */
+@keyframes review-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-50% - 8px)); }
+}
+
+/* ============================================================
+   ANIMATION ASSIGNMENTS
+   ============================================================ */
+
+/* Entrance choreography */
+.top-header {
+  animation: header-arrive var(--dur-snappy) var(--spring-smooth) both;
+}
+
+.hero-copy > * {
+  animation: rise-28 var(--dur-smooth) var(--spring-smooth) 60ms both;
+}
+
+.hero-copy > :nth-child(2) { animation-delay: 100ms; }
+.hero-copy > :nth-child(3) { animation-delay: 150ms; }
+
+.menu-heading {
+  animation: motion-fade var(--dur-snappy) var(--ease-out) 160ms both;
+}
+
+/* Cards */
+.coffee-card {
+  animation: card-arrive var(--dur-smooth) var(--spring-smooth) 200ms backwards;
+}
+
+.coffee-card:nth-child(2) { animation-delay: 250ms; }
+.coffee-card:nth-child(3) { animation-delay: 300ms; }
+
+.product-visual {
+  animation: cup-arrive var(--dur-snappy) var(--spring-smooth) 280ms both;
+}
+
+.coffee-card:nth-child(2) .product-visual { animation-delay: 330ms; }
+.coffee-card:nth-child(3) .product-visual { animation-delay: 380ms; }
+
+/* Count badge */
+.count-badge {
+  animation: tactile-pop var(--dur-bouncy) var(--spring-bouncy) both;
+}
+
+/* Sheet */
+.sheet-backdrop {
+  animation: motion-fade var(--dur-snappy) var(--ease-out) both;
+}
+
+.bottom-sheet {
+  animation: sheet-up var(--dur-smooth) var(--spring-smooth) both;
+}
+
+.bottom-sheet > :is(.sheet-visual, p, .sheet-title, .temp-row, .quantity-row, .note-row, .sheet-cta) {
+  animation: rise-8 var(--dur-snappy) var(--ease-out) 300ms both;
+}
+
+.bottom-sheet > p              { animation-delay: 320ms; }
+.bottom-sheet .sheet-title     { animation-delay: 340ms; }
+.sheet-title > strong          { animation: motion-fade var(--dur-snappy) var(--ease-out) 380ms both; }
+.bottom-sheet .temp-row        { animation-delay: 380ms; }
+.bottom-sheet .quantity-row    { animation-delay: 410ms; }
+.bottom-sheet .sheet-cta       { animation-delay: 450ms; }
+
+/* Closing */
+.sheet-layer.closing .bottom-sheet {
+  animation: sheet-down var(--dur-snappy) var(--ease-in-out) both;
+}
+
+.sheet-layer.closing .sheet-backdrop {
+  animation: motion-fade var(--dur-snappy) var(--ease-in-out) reverse both;
+}
+
+.sheet-layer.closing .bottom-sheet > * {
+  animation: none;
+}
+
+/* Web modal sheet override */
+
+.roll-old { animation: roll-away  var(--dur-snappy) var(--spring-snappy) both; }
+.roll-new { animation: roll-arrive var(--dur-snappy) var(--spring-snappy) both; }
+
+/* Shake */
+.limit-shake,
+.invalid-field {
+  animation: limit-shake 320ms var(--ease-in-out);
+}
+
+.shake-even {
+  animation-name: limit-shake;
+}
+
+/* Crossfade */
+.price-crossfade {
+  display: inline-block;
+  animation: motion-fade var(--dur-press) var(--ease-in-out);
+}
+
+.crossfade-old { animation: motion-fade var(--dur-fade) var(--ease-in-out) reverse both; }
+.crossfade-new { animation: motion-fade var(--dur-fade) var(--ease-in-out) both; }
+
+/* Order bar */
+.order-bar.active {
+  animation: bar-arrive var(--dur-smooth) var(--spring-bouncy) both;
+}
+
+/* Cup progress */
+.cup-progress i {
+  position: relative;
+  overflow: hidden;
+}
+
+.cup-progress i.filled {
+  background: var(--subtle);
+  animation: dot-pop var(--dur-bouncy) var(--spring-bouncy) both;
+}
+
+.cup-progress i.filled::after {
+  animation: green-sweep var(--dur-snappy) var(--ease-out) both;
+}
+
+.cup-progress i:nth-child(2)        { animation-delay: 40ms; }
+.cup-progress i:nth-child(3)        { animation-delay: 80ms; }
+.cup-progress i:nth-child(4)        { animation-delay: 120ms; }
+.cup-progress i:nth-child(5)        { animation-delay: 160ms; }
+.cup-progress i:nth-child(2)::after { animation-delay: 40ms; }
+.cup-progress i:nth-child(3)::after { animation-delay: 80ms; }
+.cup-progress i:nth-child(4)::after { animation-delay: 120ms; }
+.cup-progress i:nth-child(5)::after { animation-delay: 160ms; }
+
+/* Capsule wobble at limit */
+.at-limit .order-bar-inner {
+  animation: limit-shake 340ms var(--spring-snappy);
+}
+
+/* Navigation */
+.leaving-menu      {
+  animation: menu-out var(--dur-snappy) var(--ease-in-out) both; }
+.entering-checkout {
+  animation: checkout-in var(--dur-smooth) var(--spring-smooth) both; }
+.leaving-checkout  {
+  animation: checkout-out var(--dur-snappy) var(--ease-in-out) both; }
+.entering-menu     {
+  animation: menu-in var(--dur-smooth) var(--spring-smooth) both; }
+
+/* Checkout sections stagger */
+#checkout-form > section {
+  animation: rise-16 var(--dur-smooth) var(--spring-smooth) both;
+}
+
+#checkout-form > section:nth-of-type(2) { animation-delay: var(--dur-stagger); }
+#checkout-form > section:nth-of-type(3) { animation-delay: calc(var(--dur-stagger) * 2); }
+
+/* Wheel picker */
+.wheel-selection.up  { animation: wheel-up   var(--dur-snappy) var(--spring-snappy); }
+.wheel-selection.down { animation: wheel-down var(--dur-snappy) var(--spring-snappy); }
+.wheel-neighbor.up   { animation: wheel-down var(--dur-snappy) var(--spring-snappy); }
+.wheel-neighbor.down { animation: wheel-up   var(--dur-snappy) var(--spring-snappy); }
+.time-refresh        { animation: motion-fade var(--dur-press) var(--ease-in-out); }
+
+/* Success screen */
+.app.screen-out { animation: motion-fade var(--dur-snappy) var(--ease-in-out) reverse both; }
+
+.success-screen { animation: motion-fade var(--dur-snappy) var(--ease-out) both; }
+.success-mark   { animation: tactile-pop var(--dur-bouncy) var(--spring-bouncy) both; }
+
+.success-mark::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  animation: success-ring 600ms var(--ease-out) 120ms both;
+  pointer-events: none;
+}
+
+.success-mark path {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: draw-check 420ms var(--ease-out) 200ms forwards;
+}
+
+.success-content > :not(.success-mark) { animation: rise-16 var(--dur-snappy) var(--ease-out) 100ms both; }
+.success-content > h1                  { animation-delay: 160ms; }
+.success-content > .success-lead       { animation-delay: 210ms; }
+.success-content > .success-summary    { animation-delay: 260ms; }
+.success-content > button              { animation-delay: 310ms; }
+
+.success-summary > div              { animation: motion-fade var(--dur-snappy) var(--ease-out) 280ms both; }
+.success-summary > div:nth-child(2) { animation-delay: 330ms; }
+.success-summary > div:nth-child(3) { animation-delay: 380ms; }
+.success-summary > div:nth-child(n+4) { animation-delay: 430ms; }
+
+/* Loading dots */
+.loading-dots { animation: motion-fade var(--dur-press) var(--ease-out); }
+
+.loading-dots i {
+  animation: loading-pulse 500ms var(--ease-in-out) infinite both;
+}
+
+.loading-dots i:nth-child(2) { animation-delay: 80ms; }
+.loading-dots i:nth-child(3) { animation-delay: 160ms; }
+
+/* Sheet hero image */
+.sheet-hero-img {
+  animation: hero-pop 500ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.sheet-layer.closing .sheet-hero-img {
+  animation: none;
+}
+
+/* Splash */
+.splash-screen.splash-enter { animation: splash-in  var(--dur-smooth) var(--spring-smooth) both; }
+.splash-screen.splash-exit  { animation: splash-out var(--dur-fade)   var(--ease-in-out) both; }
+.splash-view.animate-in     { animation: view-in    var(--dur-snappy)  var(--spring-snappy) both; }
+
+/* Hero carousel image */
+.company-hero-cup {
+  animation: hero-carousel-in 600ms var(--ease-out) both;
+}
+
+/* Review marquee */
+.review-strip-track {
+  animation: review-marquee 32s linear infinite;
+}
+

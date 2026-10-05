@@ -1,0 +1,439 @@
+
+.app :is(
+  .coffee-card,
+  .schedule-card,
+  .top-header,
+  #checkout-form > section
+) {
+  transition:
+    background-color var(--dur-fade) var(--ease-in-out),
+    border-color var(--dur-fade) var(--ease-in-out);
+}
+.app.dark {
+
+  color-scheme: dark;
+}
+.app.screen-out {
+  animation: motion-fade var(--dur-snappy) var(--ease-in-out) reverse both;
+}
+@media (prefers-reduced-transparency: reduce) {
+
+  .top-header {
+    backdrop-filter: none !important;
+    /* Header is a solid brand color â€” keep it green even without transparency */
+    background: #A0BA78 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25) !important;
+  }
+
+  .app.dark .top-header {
+    background: #37462B !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+
+  .top-header {
+    backdrop-filter: none !important;
+    /* Header is a solid brand color â€” keep it green for high-contrast mode */
+    background: #A0BA78 !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .app.dark .top-header {
+    background: #37462B !important;
+  }
+}
+.main-content.checkout-page-active {
+  padding-bottom: 160px;
+}
+.menu-filters button:hover { border-color: var(--green); color: var(--text); background: var(--green-soft); }
+.menu-filters button.active { border-color: var(--green); color: var(--text); background: var(--green-soft); }
+
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  scroll-behavior: smooth; max-width: 100%; overflow-x: hidden;
+}
+#root { max-width: 100%; overflow-x: hidden; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  scroll-behavior: smooth; max-width: 100%; overflow-x: hidden; min-width: min(320px, 100vw);
+}
+.app {
+
+  /* Card background tones */
+  /* Left panel cream */
+  /* Bright clean surface */
+  /* Pure white for raised elements */
+  /* Very dark forest black */
+  /* Soft greenish gray */
+  /* Slightly darker cream for soft backgrounds */
+  /* Subtle borders */
+  /* Brand green from logo */
+  /* Darker green for hover */
+  /* Right panel yellow */
+
+  /* Card visual backgrounds matching the 3 panels */
+  /* Using pastel yellow here */
+  /* Middle panel green */
+
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 85% 0%, rgba(157, 195, 116, 0.15), transparent 28rem),
+    var(--background);
+  transition:
+    background-color var(--dur-fade) var(--ease-in-out),
+    color var(--dur-fade) var(--ease-in-out);
+  isolation: isolate;
+}
+.menu-filters { display: flex; gap: 8px; justify-content: flex-start; width: calc(100% + (var(--page-pad) * 2)); margin: 0 calc(var(--page-pad) * -1) 20px; padding: 2px var(--page-pad) 8px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
+.menu-filters::-webkit-scrollbar { display: none; }
+
+.menu-heading span {
+  color: var(--muted);
+  font-size: var(--type-footnote);
+  letter-spacing: -0.08px; max-width: 140px; text-align: right; line-height: 1.3; font-weight: 500;
+}
+html.landing-snap { scroll-snap-type: none; scroll-padding-top: 0; }
+html:has(.landing-page) { overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto; }
+body:has(.landing-page) { overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto; }
+.app.landing-page .main-content {
+  padding-top: calc(var(--header-height) + 24px);
+}
+.menu-heading {
+  display: flex;
+  justify-content: space-between;
+  animation: motion-fade var(--dur-snappy) var(--ease-out) 160ms both; align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.menu-heading h2 {
+  margin: 0;
+  font-size: var(--type-title2);
+  letter-spacing: 0.35px;
+  text-wrap: balance; font-weight: 700;
+  line-height: 1.2;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: var(--type-title2);
+  font-weight: 700;
+  letter-spacing: 0.35px;
+  text-wrap: balance;
+  line-height: 1.2;
+}
+.menu-filters button { border: 1px solid var(--line); color: var(--muted); background: var(--surface); font: inherit; font-size: var(--type-footnote); font-weight: 700; cursor: pointer; transition: color var(--dur-press) var(--ease-out), background-color var(--dur-press) var(--ease-out), border-color var(--dur-press) var(--ease-out); flex: 0 0 auto; padding: 0 15px;
+  min-height: var(--control-height);
+  border-radius: var(--radius-control); }/* ============================================================
+   LAYOUT — App shell structure: header, main, footer
+   ============================================================ */
+
+/* ---- Container utility ---- */
+.header-inner,
+.main-content,
+.footer-content {
+  width: min(
+    calc(100% - var(--container-gutter) - var(--container-gutter)),
+    var(--container-max)
+  );
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* ---- Header ---- */
+.top-header {
+  /* Same sage green as footer â€” hardcoded to avoid Tailwind specificity issues */
+  animation: header-arrive var(--dur-snappy) var(--spring-smooth) both;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background: #A0BA78;
+  color: #FFFFFF;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  transition:
+    border-color var(--dur-fade) var(--ease-out),
+    box-shadow var(--dur-fade) var(--ease-out),
+    background var(--dur-fade) var(--ease-in-out);
+}
+
+.app.dark .top-header {
+  /* Dark mode: use the dark tone-green to stay consistent with footer */
+  background: #37462B;
+}
+
+.top-header.scrolled {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+
+.header-inner {
+  height: 88px;
+  margin: 0 auto;
+  width: min(calc(100% - var(--container-gutter) - var(--container-gutter)), var(--container-max));
+  max-width: var(--container-max);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+}
+
+/* Inline title — fades in after hero scrolls away */
+.header-inline-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--font-size-text);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+.top-header.title-collapsed .header-inline-title {
+  opacity: 1;
+  color: #FFFFFF;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---- Main content ---- */
+.main-content {
+  /* Bottom pad = order bar height (68px) + gap (24px) + safe area â€” no excess */
+  margin: 0 auto;
+  padding: 24px 0 max(112px, calc(96px + env(safe-area-inset-bottom)));
+  width: min(calc(100% - var(--container-gutter) - var(--container-gutter)), var(--container-max));
+  max-width: var(--container-max);
+  padding-top: calc(var(--header-height) + 24px);
+  padding-bottom: max(32px, calc(24px + env(safe-area-inset-bottom)));
+  transition:
+    transform var(--dur-smooth) var(--spring-smooth),
+    border-radius var(--dur-smooth) var(--spring-smooth);
+}
+
+/* Order bar present: extra bottom padding on mobile */
+.app:has(.order-bar) .main-content,
+.app.landing-page:has(.order-bar) .main-content {
+  padding-bottom: max(32px, calc(24px + env(safe-area-inset-bottom)));
+}
+
+/* Checkout page: push up for sticky footer */
+
+/* ---- Menu page wrappers ---- */
+.menu-page {
+  min-height: 0;
+  width: 100%; }
+.menu-section {
+  min-height: 0;
+  padding-top: 32px;
+  scroll-margin-top: calc(var(--header-height) + 12px); }
+
+/* ---- Landing page mode ---- */
+.app.landing-page { overflow-y: auto;
+  height: auto;
+  min-height: 100svh;
+  overflow: visible;
+  scroll-snap-type: none;
+  scroll-padding-top: 0; }
+
+.app.landing-page .company-hero,
+.app.landing-page .menu-section {
+  min-height: 0;
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
+}
+.app.landing-page .menu-section {
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
+  min-height: 0;
+  padding-bottom: 0; }
+
+html:has(.landing-page),
+body:has(.landing-page) {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* ---- App footer ---- */
+.app-footer {
+  margin-top: 12px;
+  padding: 48px 0 max(48px, calc(80px + env(safe-area-inset-bottom)));
+  background: var(--tone-green);
+  color: #FFFFFF;
+  transition: background-color var(--dur-fade) var(--ease-in-out);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  text-align: center;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logo {
+  width: 140px;
+  height: auto;
+}
+
+.footer-links-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.footer-links-main a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: var(--type-subhead);
+  font-weight: 700;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+.footer-links-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.footer-links-sub a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: var(--type-footnote);
+  font-weight: 600;
+  transition: opacity var(--dur-fade) var(--ease-out);
+}
+
+.footer-links-main a:hover,
+.footer-links-sub a:hover {
+  opacity: 0.8;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+
+.footer-socials a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  transition:
+    opacity var(--dur-press) var(--ease-out),
+    transform var(--dur-press) var(--ease-out);
+}
+
+.footer-socials a:hover  { transform: scale(1.05); }
+.footer-socials a:active { transform: scale(0.95); opacity: 0.7; }
+
+.footer-socials img {
+  width: 50px;
+  height: 50px;
+}
+
+.footer-copyright {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-copyright-c,
+.footer-copyright-text {
+  color: #FFFFFF;
+  font-size: var(--type-footnote);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.footer-logo-horizontal {
+  height: 14px;
+  width: auto;
+}
+
+/* Footer newsletter — desktop only */
+.footer-news-col--desktop {
+  display: none;
+}
+
+.footer-news-title {
+  color: #FFFFFF;
+  font-size: var(--font-size-heading);
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  margin: 0 0 8px;
+}
+
+.footer-news-subtitle {
+  color: #FFFFFF;
+  font-size: var(--font-size-description);
+  margin: 0 0 20px;
+}
+
+.footer-news-btn {
+  background: #FFFFFF;
+  color: var(--tone-green);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: var(--font-size-button-small);
+  font-weight: 700;
+  min-height: var(--control-height-large);
+  cursor: pointer;
+  transition:
+    transform var(--dur-press) var(--ease-out),
+    background-color var(--dur-fade) var(--ease-out);
+}
+
+.footer-news-btn:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.85);
+}
+#menu { scroll-margin-top: 88px; }
+
+
+
+
+

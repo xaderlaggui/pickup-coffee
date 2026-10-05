@@ -2,10 +2,9 @@
    REDUCED MOTION HELPER
    ============================================================ */
 export function prefersReducedMotion() {
-  return false; // Force animations on for demo, ignoring OS settings
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
 }
 
 export function motionDelay(duration: number) {
-  return prefersReducedMotion() ? 120 : duration
+  return prefersReducedMotion() ? 0 : duration
 }
-

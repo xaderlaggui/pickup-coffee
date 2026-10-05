@@ -1,0 +1,143 @@
+
+.card-preview div { display: grid; gap: 5px; }
+.card-preview p { margin: 0; color: var(--muted); font-size: var(--font-size-caption); font-weight: 500; text-transform: uppercase; }
+.card-preview strong { margin: 0; font-size: var(--font-size-card-title); font-weight: 700; }
+.card-preview span { margin: 0; display: -webkit-box; overflow: hidden; color: var(--muted); font-size: var(--font-size-description-compact); line-height: 1.35; font-weight: 400; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.card-preview .price { margin: 0; font-size: var(--font-size-price-compact); font-weight: 700; }
+.card-preview { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: 16px; overflow: hidden; border-radius: 24px; color: var(--text); pointer-events: none; transition: opacity 300ms var(--ease-out), transform 420ms var(--spring-snappy); opacity: 1; transform: none; background: var(--surface); }
+.coffee-card.sage .card-preview { background: linear-gradient(var(--tone-sage) 0 52%, var(--surface) 52%); }
+.coffee-card.matcha .card-preview { background: linear-gradient(var(--tone-matcha) 0 52%, var(--surface) 52%); }
+.coffee-card.rose .card-preview { background: linear-gradient(var(--tone-rose) 0 52%, var(--surface) 52%); }
+.coffee-card.honey .card-preview { background: linear-gradient(var(--tone-honey) 0 52%, var(--surface) 52%); }
+.coffee-card.cream .card-preview { background: linear-gradient(var(--tone-cream) 0 52%, var(--surface) 52%); }
+.coffee-card.cocoa .card-preview { background: linear-gradient(var(--tone-cocoa) 0 52%, var(--surface) 52%); }
+.card-preview img { width: 100%; min-height: 130px; object-fit: contain; filter: drop-shadow(0 14px 12px rgba(34, 29, 22, .2)); height: 52%; }
+.review-strip-track::-webkit-scrollbar { display: none; }
+.review-strip-heading { display: flex; flex-direction: column; justify-content: center; flex: 0 0 auto; max-width: 420px; }
+.review-card p { color: var(--text); margin: 10px 0 auto; font-size: var(--font-size-description); line-height: 1.4; font-weight: 400; }
+.review-card strong { margin-top: 10px; color: var(--muted); font-size: var(--font-size-label); font-weight: 600; }
+.review-strip-heading .eyebrow { margin-bottom: 8px; color: var(--text); }
+.review-strip-heading h2 { margin: 0; font-size: var(--font-size-review-title); line-height: 1.1; font-weight: 700; color: var(--text); }
+.review-strip-heading a { display: inline-block; margin-top: 12px; font-size: var(--font-size-description); font-weight: 600; color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.review-strip-window { width: 100%; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); margin-top: 24px; }
+.review-strip-track { min-width: 0; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; display: flex; width: max-content; animation: review-marquee 32s linear infinite; gap: 16px; }
+.review-card { scroll-snap-align: start; display: flex; flex: 0 0 260px; flex-direction: column; padding: 16px; border: 1px solid var(--line); border-radius: 16px;
+  min-height: 112px;
+  border-color: rgba(24, 38, 20, .14);
+  background: rgba(255, 255, 255, .72); }
+.review-stars { font-size: var(--font-size-review); letter-spacing: 1px; color: var(--green-text); }
+.review-strip { grid-template-columns: minmax(190px, .75fr) minmax(0, 2fr); gap: 24px; align-items: stretch; margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--green);
+  color: var(--text);
+  border: 0;
+  padding: 32px max(20px, var(--page-pad));
+  width: min(1080px, calc(100% - 40px));
+  max-width: 1080px;
+  min-height: 300px;
+  margin: 0 auto;
+  border-radius: 0; }
+.company-hero > .review-strip .review-strip-heading {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  max-width: none;
+}
+.company-hero > .review-strip .review-strip-heading .eyebrow { margin: 0; white-space: nowrap; }
+.company-hero > .review-strip .review-strip-heading h2 { display: none; }
+.company-hero > .review-strip .review-strip-heading a { margin: 0; white-space: nowrap; }
+.company-hero > .review-strip .review-strip-window { flex: 1 1 auto; min-width: 0; margin: 0; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.company-hero > .review-strip .review-strip-track { gap: 12px; }
+.company-hero > .review-strip .review-card strong { display: none; }
+.app.dark .review-strip {
+  background: #37462B;
+  color: #F2F5ED;
+}
+.app.dark .company-hero > .review-strip {
+  background: #37462B;
+  color: #F2F5ED;
+}
+
+.app.dark .review-strip-heading .eyebrow {
+  color: #F2F5ED;
+}
+
+.app.dark .review-strip-heading h2 {
+  color: #F2F5ED;
+}
+
+.app.dark .review-strip-heading a {
+  color: #F2F5ED;
+}
+
+.app.dark .review-card p {
+  color: #F2F5ED;
+}
+
+.app.dark .review-card {
+  border-color: rgba(255, 255, 255, .10);
+  background: rgba(255, 255, 255, .12);
+}
+
+.app.dark .company-hero > .review-strip .review-card {
+  border-color: rgba(255, 255, 255, .10);
+  background: rgba(255, 255, 255, .12);
+}
+
+.app.dark .review-card strong {
+  color: #C3DBA3;
+}
+
+.app.dark .review-stars {
+  color: #D9E9BD;
+}
+
+.app.dark .company-hero > .review-strip .review-stars {
+  color: #D9E9BD;
+}
+.company-hero > .review-strip {
+  grid-column: 1 / -1;
+  margin: 15px auto 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  overflow: hidden;
+  border-radius: 0;
+  background: var(--green);
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+  min-height: 104px;
+  height: 124px;
+  padding: 16px 22px;
+}
+.company-hero > .review-strip .review-card { border: 0; border-radius: 10px; background: rgba(255,255,255,.72);
+  flex-basis: 320px;
+  min-height: 72px;
+  height: 72px;
+  padding: 12px 16px; }
+.company-hero > .review-strip .review-card p { margin: 2px 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  margin-top: 6px;
+  font-size: var(--font-size-review-wide); }
+.company-hero > .review-strip .review-stars { line-height: 1;
+  font-size: 14px; }
+
+.card-preview .product-card-summary {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: unset;
+}
+

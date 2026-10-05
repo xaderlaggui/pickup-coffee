@@ -1,0 +1,67 @@
+
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 24px 64px;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(157, 195, 116, 0.25), transparent 30rem),
+    var(--background);
+}
+
+.splash-screen.splash-enter {
+  animation: splash-in var(--dur-smooth) var(--spring-smooth) both;
+}
+
+.splash-screen.splash-exit {
+  animation: splash-out var(--dur-fade) var(--ease-in-out) both;
+}
+
+.splash-content-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.splash-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 440px;
+}
+
+.splash-view.animate-in {
+  animation: view-in var(--dur-snappy) var(--spring-snappy) both;
+}
+
+.splash-logo-large {
+  font-size: var(--font-size-brand-mark);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 0.88;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.splash-title {
+  font-size: var(--type-title1);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.splash-body {
+  font-size: var(--type-body);
+  color: var(--muted);
+  margin: 0;
+  max-width: 280px;
+}
+
