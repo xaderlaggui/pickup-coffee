@@ -1,0 +1,124 @@
+/* Sheet — Desktop / web (min-width queries) */
+
+@media (min-width: 721px) {
+  .sheet-layer.closing .bottom-sheet {
+    animation: sheet-slide-down 380ms var(--ease-in-out) both;
+  }
+
+  .bottom-sheet .close-button {
+    top: 14px;
+    right: 14px;
+  }
+
+  .sheet-content { padding-top: 18px; display: grid; grid-template-columns: minmax(0, .95fr) minmax(300px, 1.05fr); gap: 32px; min-height: 0; }
+
+  .sheet-left { min-width: 0; display: flex; flex-direction: column; min-height: 0; }
+
+  .sheet-visual { flex: 1 1 auto; min-height: 260px; height: auto; border-radius: 20px; }
+
+  .sheet-visual img { width: 82%; height: 88%; }
+
+  .sheet-title { padding: 18px 0 0; }
+
+  .sheet-right { min-width: 0; display: flex; flex-direction: column; padding-top: 8px; }
+
+  .sheet-price { display: flex; align-items: baseline; justify-content: space-between; padding: 0 0 18px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: var(--type-footnote); font-weight: 600; }
+
+  .sheet-price strong { color: var(--text); font-size: var(--font-size-price-emphasis); }
+
+  .sheet-right .temp-row { padding: 18px 0; }
+
+  .sheet-right .quantity-row { padding: 18px 0; }
+
+  .sheet-right .size-row { padding: 18px 0; }
+
+  .sheet-right .note-row { padding-top: 18px; border-top: 1px solid var(--line); }
+
+  .sheet-right .note-input { min-height: 72px; }
+
+  .sheet-total { display: flex; flex-direction: column; gap: 3px; color: var(--muted); font-size: var(--type-footnote); font-weight: 600; }
+
+  .sheet-total strong { color: var(--text); font-size: var(--font-size-price-emphasis); }
+
+  .sheet-cta { margin-top: 0; min-height: 52px; }
+
+  .bottom-sheet {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  width: min(760px, calc(100vw - 64px));
+  height: min(620px, 88vh);
+  padding: 32px 32px 0;
+  border-radius: 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  transform: translateY(0);
+  overflow: hidden;
+  touch-action: pan-y;
+  animation: sheet-slide-up 380ms var(--spring-smooth) both; max-height: none; }
+
+  .sheet-layer {
+    display: grid;
+    padding: 24px;
+    overflow-y: auto;
+    place-items: center;
+  }
+
+  .sheet-layer > .bottom-sheet {
+    position: relative;
+    inset: auto;
+    width: min(760px, calc(100vw - 48px));
+    height: min(620px, calc(100dvh - 48px));
+    max-height: none;
+    margin: auto;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 721px) and (max-height: 680px) {
+  .sheet-layer {
+    padding: 12px;
+  }
+
+  .sheet-layer > .bottom-sheet {
+    width: min(760px, calc(100vw - 24px));
+    height: calc(100dvh - 24px);
+    padding: 20px 24px 0;
+  }
+
+  .sheet-layer > .bottom-sheet .sheet-content {
+    padding-top: 8px;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  .sheet-layer > .bottom-sheet .sheet-visual {
+    min-height: 160px;
+  }
+
+  .sheet-layer > .bottom-sheet .sheet-right .temp-row {
+    padding: 10px 0;
+  }
+
+  .sheet-layer > .bottom-sheet .sheet-right .quantity-row {
+    padding: 10px 0;
+  }
+
+  .sheet-layer > .bottom-sheet .sheet-right .size-row {
+    padding: 10px 0;
+  }
+}
+
+@media (min-width: 721px) {
+  .sheet-footer { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 24px; min-height: 88px; margin: 28px -32px 0; padding: 16px 32px max(16px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+}
+
+@media (min-width: 721px) and (max-height: 680px) {
+  .sheet-layer > .bottom-sheet .sheet-footer {
+    min-height: 72px;
+    margin-top: 12px;
+  }
+}

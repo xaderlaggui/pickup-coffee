@@ -1,0 +1,25 @@
+/* Modals — Mobile (max-width <= 720px) */
+
+@media (max-width: 480px) {
+  .confirm-order-overlay {
+    padding: 12px;
+  }
+
+  .confirm-order-modal {
+    max-height: calc(100dvh - 24px);
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .confirm-order-details {
+    font-size: var(--font-size-confirm-detail-mobile);
+  }
+
+  .confirm-order-item {
+    font-size: var(--font-size-confirm-detail-mobile);
+  }
+
+  .confirm-order-actions {
+    gap: 10px;
+  }
+}

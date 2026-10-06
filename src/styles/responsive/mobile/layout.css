@@ -1,0 +1,34 @@
+/* Layout — Mobile (max-width <= 720px) */
+
+@media (max-width: 720px) {
+  .divider {
+    width: 100%;
+    height: 1px;
+  }
+}
+
+@media (max-width: 360px) {
+  .menu-heading span { max-width: 110px; font-size: var(--font-size-caption); }
+}
+
+@media (max-width: 720px) {
+  .app.landing-page .main-content { padding-top: calc(var(--header-height) + 32px); padding-bottom: max(32px, calc(24px + env(safe-area-inset-bottom))); }
+
+  .menu-heading {
+    margin-bottom: var(--space-3);
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-3);
+  }
+
+  .main-content {
+    width: calc(100% - 32px);
+    /* bar (68px) + gap (16px) = 84px; add safe area for notched devices */ padding-bottom: max(32px, calc(24px + env(safe-area-inset-bottom)));
+    padding-top: calc(var(--header-height) + 32px);
+  }
+
+  .menu-section {
+    padding-top: 24px;
+  }
+}

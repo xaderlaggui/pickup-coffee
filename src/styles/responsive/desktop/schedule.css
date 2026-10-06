@@ -1,0 +1,18 @@
+/* Schedule — Desktop / web (min-width queries) */
+
+@media (min-width: 900px) {
+  #checkout-form > .schedule-section {
+    order: 2;
+    margin: 0;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .schedule-section .section-heading {
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+}

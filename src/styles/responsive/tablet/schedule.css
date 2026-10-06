@@ -1,0 +1,50 @@
+/* Schedule — Tablet / in-between widths */
+
+@media (max-width: 899px) {
+  #checkout-form > .schedule-section {
+    margin: 0;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-panel);
+    background: var(--surface);
+    box-shadow: none;
+    display: grid;
+    gap: 6px;
+  }
+
+  #checkout-form .schedule-section .section-heading {
+    margin-bottom: 0;
+  }
+
+  #checkout-form .schedule-section h2 {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  #checkout-form .schedule-summary {
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  #checkout-form .schedule-summary strong {
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  #checkout-form .schedule-edit-button {
+    min-width: 48px;
+    min-height: var(--control-height);
+    padding: 0 10px;
+  }
+
+  .schedule-section .section-heading {
+    justify-content: space-between;
+  }
+
+  .schedule-dialog {
+    padding: 20px;
+    border-radius: 24px;
+  }
+}

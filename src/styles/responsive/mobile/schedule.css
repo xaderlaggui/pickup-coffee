@@ -1,0 +1,9 @@
+/* Schedule — Mobile (max-width <= 720px) */
+
+@media (max-width: 720px) {
+  .schedule-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+}

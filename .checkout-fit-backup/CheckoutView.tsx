@@ -4,10 +4,8 @@ export function CheckoutView({ day, setDay, time, setTime, name, setName, contac
   const pickupClosed = time === "Closed"
   return <form id="checkout-form" noValidate onSubmit={onSubmit}>
     <section className="checkout-section details-section">
-      <div className="details-row">
-        <label className="name-field" htmlFor="pickup-name">Name for pickup<input id="pickup-name" aria-invalid={invalid > 0 && !name.trim()} required maxLength={80} autoComplete="name" placeholder="Enter your name" value={name} onChange={(event) => { setName(event.target.value) }} className={`name-input ${invalid ? `invalid-field ${invalid % 2 ? "shake-odd" : "shake-even"}` : ""}`} /></label>
-        <label className="name-field" htmlFor="pickup-contact">Contact<input id="pickup-contact" type="tel" autoComplete="tel" maxLength={32} placeholder="Phone (optional)" value={contact} onChange={(event) => setContact(event.target.value)} className="name-input" /></label>
-      </div>
+      <label className="name-field" htmlFor="pickup-name">Name for pickup<input id="pickup-name" aria-invalid={invalid > 0 && !name.trim()} required maxLength={80} autoComplete="name" placeholder="Enter your name" value={name} onChange={(event) => { setName(event.target.value) }} className={`name-input ${invalid ? `invalid-field ${invalid % 2 ? "shake-odd" : "shake-even"}` : ""}`} /></label>
+      <label className="name-field" htmlFor="pickup-contact">Contact<input id="pickup-contact" type="tel" autoComplete="tel" maxLength={32} placeholder="Phone number (optional)" value={contact} onChange={(event) => setContact(event.target.value)} className="name-input" /></label>
     </section>
     <SchedulePickup day={day} setDay={setDay} setTime={setTime} time={time} darkMode={darkMode} />
     <section className="checkout-section payment-section">

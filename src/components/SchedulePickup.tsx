@@ -85,7 +85,6 @@ export function SchedulePickup({
       <div className="section-heading">
         <div>
           <p className="eyebrow">PICK UP</p>
-          <h2>Schedule</h2>
         </div>
         <button
           className="schedule-edit-button"

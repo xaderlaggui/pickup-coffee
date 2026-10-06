@@ -1,0 +1,85 @@
+/* Checkout — MOBILE ONLY (max-width: 720px).
+   Desktop/web styles live in checkout-polish.css and checkout-fit.css.
+   Loaded last from src/index.css so it overrides the older mobile rules. */
+
+@media (max-width: 720px) {
+  /* ── One place to tune the mobile look ── */
+  .checkout-page {
+    --m-card-radius: 14px;     /* cards: was 24px (too round) */
+    --m-card-pad: 14px;        /* inner padding of every card */
+    --m-control-radius: 10px;  /* inputs, pick-up bar, payment cards */
+    --m-gap: 12px;             /* space between cards */
+    gap: var(--m-gap);
+  }
+
+  #checkout-form {
+    --field-h: 44px;
+    --field-radius: var(--m-control-radius, 10px);
+    --label-gap: 6px;
+    gap: var(--m-gap, 12px);
+  }
+
+  /* ── Form cards: Your details · Pick up · Payment ── */
+  #checkout-form > .checkout-section,
+  #checkout-form > .schedule-section {
+    padding: var(--m-card-pad, 14px);
+    border-radius: var(--m-card-radius, 14px);
+    gap: 10px;
+  }
+
+  /* the Name + Contact row */
+  .details-row {
+    gap: 10px;
+  }
+
+  /* ── Controls ── */
+  #checkout-form .name-input,
+  #checkout-form .schedule-summary,
+  #checkout-form .payment-card {
+    min-height: var(--field-h);
+    border-radius: var(--field-radius);
+  }
+
+  #checkout-form .name-input {
+    padding: 0 12px;
+  }
+
+  #checkout-form .schedule-summary {
+    padding: 0 12px;
+  }
+
+  #checkout-form .payment-card {
+    padding: 0 12px;
+  }
+
+  #checkout-form .payment-options {
+    gap: 10px;
+  }
+
+  #checkout-form .payment-note {
+    margin: 0 0 6px;
+  }
+
+  #checkout-form .schedule-edit-button {
+    min-height: 32px;
+    min-width: 0;
+    padding: 0 14px;
+    border-radius: 10px;
+  }
+
+  /* ── Cart item + Pair it with: same radius as the other cards ── */
+  .checkout-page .cart-list-item-wrap,
+  .checkout-page .cart-list-item {
+    border-radius: var(--m-card-radius, 14px);
+  }
+
+  .checkout-page .pair-with-section {
+    margin-top: 0;
+    padding: var(--m-card-pad, 14px);
+    border-radius: var(--m-card-radius, 14px);
+  }
+
+  .checkout-page .pair-with-item {
+    border-radius: var(--m-control-radius, 10px);
+  }
+}

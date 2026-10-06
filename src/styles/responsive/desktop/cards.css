@@ -1,0 +1,27 @@
+/* Cards — Desktop / web (min-width queries) */
+
+@media (min-width: 640px) {
+  .coffee-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 721px) {
+  .coffee-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+}
+
+@media (min-width: 1024px) {
+  .coffee-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .coffee-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (hover: hover) and (min-width: 721px) {
+  .coffee-card:hover .card-preview { opacity: 1; transform: translateY(0) scale(1); }
+
+  .coffee-card:focus-within .card-preview { opacity: 1; transform: translateY(0) scale(1); }
+}

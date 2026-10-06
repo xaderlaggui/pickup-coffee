@@ -236,9 +236,6 @@ export default function App() {
         ) : (
           <div className="checkout-page">
             <div className="checkout-cart-column">
-              <h2 className="checkout-section-title checkout-item-title">
-                Item
-              </h2>
               {cartViewEl}
               <PairWith
                 products={coffees}

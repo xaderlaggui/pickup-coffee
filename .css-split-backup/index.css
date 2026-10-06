@@ -18,7 +18,4 @@
 @import "./styles/components/forms.css";
 @import "./styles/components/splash.css";
 @import "./styles/components/header-controls.css";
-@import "./styles/responsive/index.css";
-@import "./styles/checkout-fit.css";
-@import "./styles/checkout-polish.css";
-@import "./styles/checkout-polish.mobile.css";
+@import "./styles/responsive.css";

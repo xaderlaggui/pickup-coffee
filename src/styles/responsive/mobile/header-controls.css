@@ -1,0 +1,8 @@
+/* Header Controls — Mobile (max-width <= 720px) */
+
+@media (max-width: 720px) {
+  .header-inner {
+    width: calc(100% - 32px);
+    height: 72px;
+  }
+}

@@ -1,0 +1,7 @@
+/* Header Controls — Desktop / web (min-width queries) */
+
+@media (min-width: 1024px) {
+  .desktop-cart-button {
+    display: flex;
+  }
+}

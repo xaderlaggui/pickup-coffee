@@ -1,0 +1,173 @@
+/* Checkout polish: uniform labels, balanced spacing, soft shadows.
+   Loaded LAST from src/index.css (after checkout-fit.css). */
+
+/* ── One size for every field control ──────────────────────── */
+#checkout-form {
+  --field-h: 48px;
+  --field-radius: var(--radius-control);
+  --label-gap: 8px;
+}
+
+/* ── 1. Uniform section labels ─────────────────────────────── */
+/* Name for pickup · Contact · Pick up · Payment method */
+#checkout-form .name-field,
+#checkout-form .payment-legend,
+#checkout-form .schedule-section .section-heading .eyebrow {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--green-text, var(--text));
+}
+
+#checkout-form .name-field:focus-within {
+  color: var(--green-text, var(--text));
+}
+
+/* the label's typography must not leak into the typed text */
+#checkout-form .name-input {
+  font-size: var(--font-size-body, 15px);
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+#checkout-form .payment-legend {
+  margin-bottom: var(--label-gap);
+}
+
+#checkout-form .schedule-section .section-heading {
+  margin-bottom: 0;
+}
+
+/* ── 2. Same height / radius / surface for the controls ───── */
+#checkout-form .name-input,
+#checkout-form .schedule-summary,
+#checkout-form .payment-card {
+  min-height: var(--field-h);
+  border-radius: var(--field-radius);
+}
+
+#checkout-form .name-input {
+  margin-top: var(--label-gap);
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(33, 38, 34, 0.05);
+}
+
+#checkout-form .name-input:focus {
+  border-color: var(--green);
+}
+
+#checkout-form .name-field::after {
+  height: var(--field-h);
+  border-radius: var(--field-radius);
+}
+
+#checkout-form .schedule-summary {
+  padding: 0 14px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(33, 38, 34, 0.05);
+  font-size: var(--font-size-description, 13px);
+}
+
+#checkout-form .schedule-summary strong {
+  font-size: var(--font-size-text, 15px);
+}
+
+#checkout-form .payment-card {
+  box-shadow: 0 1px 2px rgba(33, 38, 34, 0.05);
+}
+
+#checkout-form .payment-card.selected {
+  box-shadow: 0 4px 12px rgba(134, 171, 93, 0.28);
+}
+
+/* ── 3. Place Order: soft glow when enabled ────────────────── */
+#checkout-form .desktop-place-order:not(:disabled) {
+  box-shadow: 0 8px 20px rgba(134, 171, 93, 0.35);
+}
+
+/* ── 4. Desktop: balance the empty space ───────────────────── */
+@media (min-width: 900px) {
+  /* The three sections share the free height evenly and keep
+     their content centred between the dividers. */
+  #checkout-form > .details-section,
+  #checkout-form > .schedule-section,
+  #checkout-form > .payment-section {
+    flex: 1 1 auto;
+    max-height: 230px;            /* don't get airy on very tall screens */
+    display: grid;
+    align-content: center;
+    row-gap: var(--label-gap);
+  }
+
+  #checkout-form > .details-section {
+    padding: 4px 0 16px;
+  }
+
+  #checkout-form > .schedule-section,
+  #checkout-form > .payment-section {
+    padding: 14px 0;
+  }
+
+  #checkout-form .payment-note {
+    margin: 0 0 4px;
+  }
+
+  #checkout-form .payment-options {
+    margin: 0;
+  }
+
+  /* compact Edit button so the Pick-up heading row matches the other labels */
+  #checkout-form .schedule-edit-button {
+    min-height: 32px;
+    min-width: 0;
+    padding: 0 14px;
+  }
+
+  /* ── cart item: raised card with a soft shadow ── */
+  .checkout-page .checkout-cart-column .cart-scroll-area {
+    padding: 8px 20px 16px;       /* room so the shadow isn't clipped */
+  }
+
+  .checkout-page .checkout-cart-column .cart-list-item-wrap {
+    border-bottom: 0;
+    padding-bottom: 12px;
+  }
+
+  .checkout-page .checkout-cart-column .cart-list-item {
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface-raised);
+    box-shadow:
+      0 2px 6px rgba(33, 38, 34, 0.06),
+      0 12px 28px rgba(33, 38, 34, 0.10);
+  }
+}
+
+/* ── 5. Short windows: shrink the shared control height ────── */
+@media (min-width: 900px) and (max-height: 760px) {
+  #checkout-form {
+    --field-h: 40px;
+    --label-gap: 6px;
+  }
+
+  #checkout-form > .details-section {
+    padding: 2px 0 10px;
+  }
+
+  #checkout-form > .schedule-section,
+  #checkout-form > .payment-section {
+    padding: 10px 0;
+  }
+
+  .checkout-page .checkout-cart-column .cart-list-item {
+    padding: 10px 14px;
+  }
+}

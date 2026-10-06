@@ -1,0 +1,5 @@
+/* Footer — Mobile (max-width <= 720px) */
+
+@media (max-width: 720px) {
+  .app-footer { margin-top: 12px; }
+}

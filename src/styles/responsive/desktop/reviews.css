@@ -1,0 +1,7 @@
+/* Reviews — Desktop / web (min-width queries) */
+
+@media (min-width: 721px) {
+  .review-strip { display: grid; grid-template-columns: minmax(220px, .7fr) minmax(0, 2fr); gap: 36px; align-items: center; }
+
+  .review-strip-window { margin-top: 0; }
+}

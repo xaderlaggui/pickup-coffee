@@ -1,0 +1,27 @@
+/* Footer — Desktop / web (min-width queries) */
+
+@media (min-width: 1024px) {
+  .app-footer {
+    /* Desktop hides the order bar so no extra bottom padding needed */
+    padding-bottom: 48px;
+  }
+
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer-col {
+    align-items: flex-start;
+  }
+
+  .footer-nav-col {
+    align-items: center;
+  }
+
+  .footer-news-col--desktop {
+    display: flex;
+  }
+}

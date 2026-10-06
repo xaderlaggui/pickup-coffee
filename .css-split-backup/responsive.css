@@ -879,7 +879,6 @@
     min-height: 0;
     overflow: hidden;
     border: 1px solid var(--line);
-    border-radius: 22px;
     background: var(--surface);
     box-shadow: 0 8px 28px rgba(33, 38, 34, .06);
   }

@@ -1,0 +1,13 @@
+/* Hero — Order-sensitive overrides (must load after the other files to keep the original cascade) */
+
+@media (max-width: 430px) {
+  .company-hero-visual {
+    min-height: 240px;
+  }
+
+  .company-hero-cup {
+    width: clamp(150px, 52%, 190px);
+    max-height: 210px;
+    margin-top: -8px;
+  }
+}

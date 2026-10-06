@@ -1,0 +1,7 @@
+/* Layout — Shared: hover, orientation and other non-width conditions */
+
+@media (orientation: landscape) and (max-width: 900px) and (max-height: 600px) {
+  #root > .app > * {
+    display: none;
+  }
+}

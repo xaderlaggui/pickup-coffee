@@ -1,0 +1,19 @@
+/* Cards — Shared: hover, orientation and other non-width conditions */
+
+@media (hover: hover) {
+  .coffee-card:hover {
+    transform: translateY(-3px);
+    border-color: #A0BA78;
+    box-shadow:
+      0 4px 12px rgba(33, 38, 34, 0.06),
+      0 16px 40px rgba(33, 38, 34, 0.12);
+  }
+
+  .coffee-card:hover .product-visual img {
+    transform: translateY(-4px) scale(1.025);
+  }
+
+  .coffee-card:hover:active {
+    transform: translateY(-3px) scale(0.96);
+  }
+}

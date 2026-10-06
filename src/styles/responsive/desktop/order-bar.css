@@ -1,0 +1,7 @@
+/* Order Bar — Desktop / web (min-width queries) */
+
+@media (min-width: 1024px) {
+  .order-bar {
+    display: none;
+  }
+}
