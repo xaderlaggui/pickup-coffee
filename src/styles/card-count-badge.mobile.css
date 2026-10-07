@@ -1,0 +1,24 @@
+/* Product card "in cart" badge — MOBILE ONLY (max-width: 720px).
+   Desktop/web lives in card-count-badge.desktop.css. */
+
+@media (max-width: 720px) {
+  .coffee-card .count-badge {
+    z-index: 6;              /* above .card-preview (5), below the click layer (10) */
+    top: 10px;
+    right: 10px;
+    width: auto;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    box-sizing: border-box;
+    border: 2px solid var(--green);
+    border-radius: 999px;
+    color: var(--text);
+    background: var(--surface-raised, #fff);
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: 0 3px 10px rgba(33, 38, 34, 0.22);
+    pointer-events: none;
+  }
+}

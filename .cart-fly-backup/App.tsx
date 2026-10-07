@@ -2,7 +2,6 @@ import { useRef, useState } from "react"
 import { coffees } from "./data"
 import type { Coffee, CoffeeSize } from "./types"
 import { itemPrice } from "./utils/cart"
-import { playAddToCartAnimation } from "./utils/addToCartAnimation"
 import { buildOrderPayload, submitOrder } from "./api/orders"
 import { motionDelay } from "./utils/motion"
 import { useCart } from "./hooks/useCart"
@@ -77,8 +76,6 @@ export default function App() {
   const addToCart = () => {
     if (!activeCoffee || closing) return
     const coffee = activeCoffee
-    // Web only: float the product image to the cart, then shake the cart (src/utils/addToCartAnimation.ts)
-    if (sheetQuantity > (cart.cart[coffee.id] || 0)) playAddToCartAnimation()
     nav.later(() => {
       cart.setCartItem(
         coffee.id,

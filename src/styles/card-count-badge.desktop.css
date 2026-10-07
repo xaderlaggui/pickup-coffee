@@ -1,0 +1,101 @@
+/* Product card "in cart" badge + hover animation — DESKTOP / WEB ONLY.
+   Mobile lives in card-count-badge.mobile.css (touch screens have no hover). */
+
+/* ── "In cart" badge ───────────────────────────────────────── */
+@media (min-width: 721px) {
+  .coffee-card .count-badge {
+    z-index: 6;              /* above .card-preview (5), below the click layer (10) */
+    top: 14px;
+    right: 14px;
+    width: auto;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 2px solid var(--green);
+    border-radius: 999px;
+    color: var(--text);
+    background: var(--surface-raised, #fff);
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: 0 4px 14px rgba(33, 38, 34, 0.22);
+    pointer-events: none;
+    transition: scale 320ms var(--spring-snappy);
+  }
+}
+
+/* ── Smooth hover animation per product card ───────────────── */
+@media (hover: hover) and (min-width: 721px) {
+  .coffee-card {
+    transition:
+      transform 480ms var(--spring-smooth),
+      box-shadow 420ms var(--ease-out),
+      border-color 300ms var(--ease-out),
+      filter var(--dur-press) var(--ease-out),
+      background-color var(--dur-fade) var(--ease-in-out);
+  }
+
+  /* card: gentle lift + deeper shadow */
+  .coffee-card:hover {
+    transform: translateY(-6px) scale(1.012);
+    border-color: #A0BA78;
+    box-shadow:
+      0 6px 14px rgba(33, 38, 34, 0.07),
+      0 22px 48px rgba(33, 38, 34, 0.14);
+  }
+
+  /* cup: floats up and tilts a touch */
+  .coffee-card .product-visual img {
+    transition: transform 620ms var(--spring-smooth);
+    will-change: transform;
+  }
+
+  .coffee-card:hover .product-visual img {
+    transform: translateY(-8px) scale(1.06) rotate(-3deg);
+  }
+
+  /* Add button: rises and glows */
+  .coffee-card .add-button {
+    transition:
+      transform 360ms var(--spring-snappy),
+      box-shadow 360ms var(--ease-out),
+      background-color var(--dur-press) var(--ease-out);
+  }
+
+  .coffee-card:hover .add-button {
+    transform: translateY(-1px) scale(1.04);
+    box-shadow: 0 8px 18px rgba(134, 171, 93, 0.38);
+  }
+
+  /* in-cart badge: small pop (uses "scale" so it doesn't fight its entrance animation) */
+  .coffee-card:hover .count-badge {
+    scale: 1.12;
+  }
+
+  /* keep the press feedback snappy */
+  .coffee-card:hover:active {
+    transform: translateY(-3px) scale(0.97);
+    transition-duration: var(--dur-press);
+  }
+}
+
+/* ── Respect "reduce motion" ───────────────────────────────── */
+@media (hover: hover) and (min-width: 721px) and (prefers-reduced-motion: reduce) {
+  .coffee-card,
+  .coffee-card .product-visual img,
+  .coffee-card .add-button,
+  .coffee-card .count-badge {
+    transition-duration: 1ms;
+  }
+
+  .coffee-card:hover,
+  .coffee-card:hover .product-visual img,
+  .coffee-card:hover .add-button {
+    transform: none;
+  }
+
+  .coffee-card:hover .count-badge {
+    scale: 1;
+  }
+}

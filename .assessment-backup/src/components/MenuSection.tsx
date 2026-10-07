@@ -3,10 +3,8 @@ import type { RefObject } from "react"
 import { Coffee, MenuFilter } from "../types"
 import { MenuFilters } from "./MenuFilters"
 import { ProductGrid } from "./ProductGrid"
-import { recommendedProductIds } from "../data/recommendations"
 
 const headings: Record<MenuFilter, { title: string; subtitle: string }> = {
-  recommendations: { title: "Recommendations", subtitle: "Our top picks to start your order" },
   "best-sellers": { title: "Our best sellers", subtitle: "Customer favorites, freshly made" },
   coffee: { title: "Coffee", subtitle: "Espresso, lattes, and signature cups" },
   "non-coffee": { title: "Non-coffee", subtitle: "Matcha, tea, milk, and yogurt drinks" },
@@ -14,13 +12,9 @@ const headings: Record<MenuFilter, { title: string; subtitle: string }> = {
 }
 
 export function MenuSection({ products, cart, onAdd, menuRef }: { products: Coffee[]; cart: Record<number, number>; onAdd: (coffee: Coffee) => void; menuRef: RefObject<HTMLElement | null> }) {
-  const [active, setActive] = useState<MenuFilter>("recommendations")
+  const [active, setActive] = useState<MenuFilter>("best-sellers")
   const [animationSeed, setAnimationSeed] = useState(0)
-  const visibleProducts = useMemo(() => {
-    if (active === "recommendations") return recommendedProductIds.map((id) => products.find((product) => product.id === id)).filter((product): product is Coffee => Boolean(product))
-    if (active === "best-sellers") return products.filter((product) => product.isBestSeller)
-    return products.filter((product) => product.category === active)
-  }, [active, products])
+  const visibleProducts = useMemo(() => active === "best-sellers" ? products.filter((product) => product.isBestSeller) : products.filter((product) => product.category === active), [active, products])
   const heading = headings[active]
   const changeFilter = (filter: MenuFilter) => {
     setActive(filter)

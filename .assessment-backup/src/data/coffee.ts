@@ -5,8 +5,8 @@ const product = (id: number, name: string, price: number, image: string, _legacy
 const media = "https://d1r9lpkrafbxq0.cloudfront.net/strapi-cms-readable-media/"
 
 export const coffeeProducts: Coffee[] = [
-  product(1, "Latte", 85, media + "menu_Latte_1024x1024_61a8cb3af8_7f4a391cee.png", "rose", "Smooth espresso blended with fresh milk for a creamy, balanced cup.", "Espresso · fresh milk", "coffee", true),
-  product(2, "Americano", 75, media + "menu_Americano_1024x1024_7b202158ec_6ec9c51f27.png", "rose", "Rich espresso with water. Also available hot.", "Double espresso · water", "coffee", true),
+  product(1, "Latte", 75, media + "menu_Latte_1024x1024_61a8cb3af8_7f4a391cee.png", "rose", "Smooth espresso blended with fresh milk for a creamy, balanced cup.", "Espresso · fresh milk", "coffee", true),
+  product(2, "Americano", 50, media + "menu_Americano_1024x1024_7b202158ec_6ec9c51f27.png", "rose", "Rich espresso with water. Also available hot.", "Double espresso · water", "coffee", true),
   product(3, "Black Coffee", 65, media + "menu_Espresso_1024x1024_09b90a600f_cea8ee9c4e.png", "rose", "Freshly brewed black coffee with a deep aroma and full-bodied finish.", "Freshly brewed · hot"),
   product(4, "Kape Kastila", 75, media + "signatures_kape_kastila_52c8296c39_2b453f1af6.png", "gold", "Leche condensada with creamy milk and rich espresso. Also available hot.", "Condensed milk · espresso", "coffee", true),
   product(5, "Caramel Macchiato", 89, media + "signatures_caramel_macchiato_83ede1a994_123679384e.png", "gold", "Rich espresso with creamy milk and caramel, also available hot.", "Espresso · caramel", "coffee", true),

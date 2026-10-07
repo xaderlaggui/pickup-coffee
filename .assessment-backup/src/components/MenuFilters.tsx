@@ -1,7 +1,6 @@
 import { MenuFilter } from "../types"
 
 const filters: Array<{ id: MenuFilter; label: string }> = [
-  { id: "recommendations", label: "Recommendations" },
   { id: "best-sellers", label: "Best Sellers" },
   { id: "coffee", label: "Coffee" },
   { id: "non-coffee", label: "Non-Coffee" },

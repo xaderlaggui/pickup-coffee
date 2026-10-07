@@ -2,8 +2,6 @@ import { useRef, useState } from "react"
 import { coffees } from "./data"
 import type { Coffee, CoffeeSize } from "./types"
 import { itemPrice } from "./utils/cart"
-import { playAddToCartAnimation } from "./utils/addToCartAnimation"
-import { buildOrderPayload, submitOrder } from "./api/orders"
 import { motionDelay } from "./utils/motion"
 import { useCart } from "./hooks/useCart"
 import { useNavigation } from "./hooks/useNavigation"
@@ -77,8 +75,6 @@ export default function App() {
   const addToCart = () => {
     if (!activeCoffee || closing) return
     const coffee = activeCoffee
-    // Web only: float the product image to the cart, then shake the cart (src/utils/addToCartAnimation.ts)
-    if (sheetQuantity > (cart.cart[coffee.id] || 0)) playAddToCartAnimation()
     nav.later(() => {
       cart.setCartItem(
         coffee.id,
@@ -107,26 +103,9 @@ export default function App() {
     setConfirmOrderOpen(true)
   }
 
-  const submit = async () => {
+  const submit = () => {
     if (time === "Closed" || !name.trim() || loading || cart.items === 0) return
     setLoading(true)
-
-    // Prepare the submission as if sending it to an API (see src/api/orders.ts;
-    // the real fetch() is commented out there and every order is treated as successful).
-    const payload = buildOrderPayload({
-      coffees,
-      cart: cart.cart,
-      cartTemps: cart.cartTemps,
-      cartSizes: cart.cartSizes,
-      cartNotes: cart.cartNotes,
-      name,
-      contact,
-      day,
-      time,
-      payment,
-    })
-    await submitOrder(payload)
-
     nav.later(() => {
       nav.setConfirmed(true)
       setLoading(false)
