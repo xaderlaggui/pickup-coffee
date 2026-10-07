@@ -1,0 +1,100 @@
+/* Order Confirmed — MOBILE ONLY (max-width: 899px: phones + portrait tablets).
+   Desktop/web lives in success-fit.desktop.css.
+   Goal: the whole page fits the screen height, text stays readable. */
+
+@media (max-width: 899px) {
+  .success-screen {
+    box-sizing: border-box;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    height: 100dvh;
+    min-height: 0;
+    padding:
+      calc(12px + env(safe-area-inset-top, 0px))
+      16px
+      calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .success-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 480px;
+    min-height: 0;
+  }
+
+  /* header block: smaller, but nothing below ~14px */
+  .success-mark {
+    flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 12px;
+    border-width: 5px;
+    box-shadow:
+      0 0 0 6px rgba(170, 194, 127, 0.25),
+      0 8px 24px rgba(170, 194, 127, 0.35);
+  }
+
+  .success-mark::after {
+    inset: -6px;
+  }
+
+  .success-mark svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .success-content > .eyebrow {
+    flex: 0 0 auto;
+    margin: 0 0 4px;
+  }
+
+  .success-content h1 {
+    flex: 0 0 auto;
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .success-lead {
+    flex: 0 0 auto;
+    max-width: 340px;
+    margin: 6px auto 14px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  /* summary card: rows share the available height (30–44px), text stays 15px */
+  .success-summary {
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    margin: 0 0 14px;
+    padding: 2px 16px;
+    border-radius: 16px;
+    overflow-y: auto;            /* only kicks in for very long orders */
+    overscroll-behavior: contain;
+  }
+
+  .success-summary div {
+    flex: 1 1 40px;
+    min-height: 30px;
+    max-height: 44px;
+    gap: 12px;
+  }
+
+  .success-summary span {
+    min-width: 0;
+  }
+
+  .success-summary strong {
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .success-content > .primary-button {
+    flex: 0 0 auto;
+  }
+}
