@@ -8,7 +8,7 @@ import { generateTimeSlots } from "../utils/pickupTime"
 const days = ["Today", "Tomorrow"] as const
 type Day = typeof days[number]
 const asap = "ASAP"
-export function PickupReadyNote({ day, time }: { day: Day time: string }) {
+export function PickupReadyNote({ day, time }: { day: Day; time: string }) {
   const message =
     time === "Closed"
       ? "Pickup is closed for today. Choose Tomorrow to place your order."

@@ -1,4 +1,9 @@
 
+/* ============================================================
+   LAYOUT — App shell structure: header, main, footer
+   ============================================================ */
+
+/* ---- Shared transitions ---- */
 .app :is(
   .coffee-card,
   .schedule-card,
@@ -9,8 +14,8 @@
     background-color var(--dur-fade) var(--ease-in-out),
     border-color var(--dur-fade) var(--ease-in-out);
 }
-.app.dark {
 
+.app.dark {
   color-scheme: dark;
 }
 .app.screen-out {
@@ -169,9 +174,9 @@ body:has(.landing-page) { overflow: hidden;
   width: 100%;
   z-index: 50;
   background: #A0BA78;
-  color: #FFFFFF;
+  color: var(--on-sage);
   border-bottom: 1px solid transparent;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-4);
   transition:
     border-color var(--dur-fade) var(--ease-out),
     box-shadow var(--dur-fade) var(--ease-out),
@@ -185,7 +190,7 @@ body:has(.landing-page) { overflow: hidden;
 
 .top-header.scrolled {
   border-bottom-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-5);
 }
 
 .header-inner {
@@ -215,7 +220,7 @@ body:has(.landing-page) { overflow: hidden;
 
 .top-header.title-collapsed .header-inline-title {
   opacity: 1;
-  color: #FFFFFF;
+  color: var(--on-sage);
 }
 
 .header-actions {
@@ -286,7 +291,7 @@ body:has(.landing-page) {
   margin-top: 12px;
   padding: 48px 0 max(48px, calc(80px + env(safe-area-inset-bottom)));
   background: var(--tone-green);
-  color: #FFFFFF;
+  color: var(--on-sage);
   transition: background-color var(--dur-fade) var(--ease-in-out);
 }
 
@@ -318,7 +323,7 @@ body:has(.landing-page) {
 }
 
 .footer-links-main a {
-  color: #FFFFFF;
+  color: var(--on-sage);
   text-decoration: none;
   font-size: var(--type-subhead);
   font-weight: 700;
@@ -334,7 +339,7 @@ body:has(.landing-page) {
 }
 
 .footer-links-sub a {
-  color: #FFFFFF;
+  color: var(--on-sage);
   text-decoration: none;
   font-size: var(--type-footnote);
   font-weight: 600;
@@ -414,7 +419,7 @@ body:has(.landing-page) {
 
 .footer-news-btn {
   background: #FFFFFF;
-  color: var(--tone-green);
+  color: #4C6F24;
   border: none;
   border-radius: 20px;
   padding: 8px 24px;

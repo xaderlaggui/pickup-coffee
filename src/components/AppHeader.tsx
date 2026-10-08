@@ -1,14 +1,14 @@
 import { RefObject } from "react"
 import { CartIcon, ChevronLeftIcon, MoonIcon, SunIcon } from "./Icons"
 
-export function AppHeader({ headerRef, checkout, darkMode, scrolled, titleCollapsed, itemCount, loading, onBack, onRestart, onCart, onTheme }: {
-  headerRef: RefObject<HTMLElement | null>; checkout: boolean; darkMode: boolean; scrolled: boolean; titleCollapsed: boolean; itemCount: number; loading: boolean; onBack: () => void; onRestart: () => void; onCart: () => void; onTheme: () => void
+export function AppHeader({ headerRef, checkout, darkMode, scrolled, titleCollapsed, itemCount, loading, onBack, onHome, onCart, onTheme }: {
+  headerRef: RefObject<HTMLElement | null>; checkout: boolean; darkMode: boolean; scrolled: boolean; titleCollapsed: boolean; itemCount: number; loading: boolean; onBack: () => void; onHome: () => void; onCart: () => void; onTheme: () => void
 }) {
   return (
     <header ref={headerRef} className={`top-header ${scrolled ? "scrolled" : ""} ${titleCollapsed ? "title-collapsed" : ""}`}>
       <div className="header-inner" style={checkout ? { display: "grid", gridTemplateColumns: "1fr auto 1fr" } : {}}>
         {checkout && <div style={{ display: "flex", justifyContent: "flex-start" }}><button className="back-button back-icon-only" onClick={onBack} aria-label="Go back"><ChevronLeftIcon /></button></div>}
-        <button className="wordmark" onClick={onRestart} type="button" style={checkout ? { textAlign: "center", justifySelf: "center", gridColumn: 2 } : {}}>
+        <button className="wordmark" onClick={onHome} type="button" style={checkout ? { textAlign: "center", justifySelf: "center", gridColumn: 2 } : {}}>
           {!checkout ? <>PICKUP<br />COFFEE</> : <>COFFEE<br />CHECKOUT</>}
         </button>
         <div className="header-actions" style={checkout ? { justifySelf: "end", gridColumn: 3 } : {}}>

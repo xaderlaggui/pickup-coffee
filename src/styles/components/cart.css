@@ -1,4 +1,8 @@
 
+/* ============================================================
+   CART — Cart view, items, breakdown, and totals
+   ============================================================ */
+
 .cart-temp-badge {
   display: inline-block;
   margin-left: 6px;
@@ -85,6 +89,9 @@
   position: relative;
   overflow: hidden;
   border-radius: 20px;
+  /* Shadow lives on the wrap: its own overflow:hidden would clip an
+     item-level shadow. --shadow-2 remaps to the dark token in .dark. */
+  box-shadow: var(--shadow-2);
 }
 
 .cart-list-item {
@@ -97,7 +104,9 @@
   z-index: 1;
   transition: transform 280ms var(--spring-smooth);
   will-change: transform;
+  background: var(--surface-raised);
 }
+
 .cart-list-item-wrap.swiped .cart-list-item {
   transform: translateX(-88px);
 }
@@ -107,7 +116,7 @@
   top: 0;
   bottom: 0;
   width: 88px;
-  background: #E55B5B;
+  background: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)), var(--error);
   color: #fff;
   border: none;
   cursor: pointer;
@@ -119,12 +128,14 @@
   font-size: var(--type-caption1);
   font-weight: 700;
   border-radius: 0 20px 20px 0;
-  transition: background var(--dur-fade) var(--ease-out);
+  transition:
+    background var(--dur-fade) var(--ease-out),
+    filter var(--dur-fade) var(--ease-out);
   z-index: 0;
 }
 
 .swipe-delete-btn:hover {
-  background: #cc4444;
+  filter: brightness(0.9);
 }
 
 .swipe-delete-btn svg {

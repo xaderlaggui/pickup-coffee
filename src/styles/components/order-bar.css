@@ -1,4 +1,8 @@
 
+/* ============================================================
+   ORDER BAR — Sticky bottom order summary bar
+   ============================================================ */
+
 .order-bar {
   position: fixed;
   z-index: 15;
@@ -31,8 +35,7 @@
   background: var(--surface);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    0 2px 8px rgba(0, 0, 0, 0.08);
+    var(--shadow-3);
   border: 1px solid rgba(255, 255, 255, 0.55);
   transition:
     background-color var(--dur-fade) var(--ease-in-out),
@@ -43,8 +46,7 @@
   background: rgba(28, 30, 29, 0.72);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 8px 32px rgba(0, 0, 0, 0.40),
-    0 2px 8px rgba(0, 0, 0, 0.24);
+    var(--shadow-3);
   border: 1px solid rgba(255, 255, 255, 0.09);
 }
 @supports (backdrop-filter: url(#glass-refract)) {

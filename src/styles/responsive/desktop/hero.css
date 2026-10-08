@@ -21,9 +21,8 @@
   .company-hero-visual {
   perspective: 1200px;
   box-shadow:
-    0 30px 75px rgba(28, 39, 21, 0.16),
-    0 12px 28px rgba(28, 39, 21, 0.11),
-    inset 0 1px 0 rgba(255, 255, 255, 0.48); min-height: 380px; border-radius: 36px; }
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    var(--shadow-5); min-height: 380px; border-radius: 36px; }
 
   .company-hero-cup { width: 58%; max-height: 320px; }
 
@@ -43,8 +42,7 @@
 
   .company-hero-visual { perspective: 1200px;
     box-shadow:
-      0 30px 75px rgba(28, 39, 21, .16),
-      0 12px 28px rgba(28, 39, 21, .11),
-      inset 0 1px 0 rgba(255, 255, 255, .48);
+      inset 0 1px 0 rgba(255, 255, 255, 0.48),
+      var(--shadow-5);
   }
 }

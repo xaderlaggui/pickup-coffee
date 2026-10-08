@@ -31,6 +31,10 @@
 @import "./mobile/order-bar.css";
 @import "./desktop/order-bar.css";
 
+/* cart */
+@import "./mobile/cart.css";
+@import "./tablet/cart.css";
+
 /* checkout */
 @import "./desktop/checkout.css";
 @import "./tablet/checkout.css";

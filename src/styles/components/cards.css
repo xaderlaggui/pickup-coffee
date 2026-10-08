@@ -1,14 +1,23 @@
 
 
+/* ============================================================
+   CARDS — Coffee product cards
+   ============================================================ */
+
+/* ---- Tone backgrounds ---- */
+
 .coffee-card.green .product-visual {
   background: var(--tone-green);
 }
+
+/* ---- Press state ---- */
 .coffee-card:active {
   transform: scale(0.96);
   filter: brightness(0.94);
   transition-duration: var(--dur-press);
 }
 
+/* ---- Price row ---- */
 .price-row {
   display: flex;
   align-items: center;
@@ -35,6 +44,7 @@
   vertical-align: -1px;
 }
 
+/* ---- Staggered entrance delays ---- */
 .coffee-card:nth-child(2) {
   animation-delay: 250ms;
 }
@@ -43,6 +53,7 @@
   animation-delay: 300ms;
 }
 
+/* ---- Product visual ---- */
 .product-visual {
   display: grid;
   height: 200px;
@@ -59,6 +70,8 @@
 .coffee-card:nth-child(3) .product-visual {
   animation-delay: 380ms;
 }
+
+/* ---- Count badge ---- */
 .count-badge {
   position: absolute;
   z-index: 2;
@@ -77,33 +90,34 @@
   font-variant-numeric: tabular-nums;
   animation: tactile-pop var(--dur-bouncy) var(--spring-bouncy) both;
 }
-.coffee-card .product-visual { background: var(--tone-sage);
-}
+
+/* ---- Tone backgrounds per product ---- */
+.coffee-card .product-visual { background: var(--tone-sage); }
 .coffee-card.sage .product-visual { background: var(--tone-sage); }
 .coffee-card.matcha .product-visual { background: var(--tone-matcha); }
-
-.coffee-card.rose .product-visual { background: var(--tone-rose);
-}
+.coffee-card.rose .product-visual { background: var(--tone-rose); }
 .coffee-card.honey .product-visual { background: var(--tone-honey); }
-
-.coffee-card.cream .product-visual { background: var(--tone-cream);
-}
+.coffee-card.cream .product-visual { background: var(--tone-cream); }
 .coffee-card.cocoa .product-visual { background: var(--tone-cocoa); }
 
+/* ---- Product image ---- */
 .product-visual img {
   width: 90%;
   height: 94%;
   object-fit: contain;
   filter: drop-shadow(0 16px 14px rgba(34, 29, 22, 0.22));
   transition:
-    transform var(--dur-snappy) var(--spring-snappy); max-width: 100%;
+    transform var(--dur-snappy) var(--spring-snappy);
+  max-width: 100%;
 }
 
+/* ---- Card copy ---- */
 .card-copy h3 {
   margin: 0;
   font-size: var(--type-headline);
   letter-spacing: -0.43px;
-  line-height: 22px; font-weight: 700;
+  line-height: 22px;
+  font-weight: 700;
 }
 
 .product-detail {
@@ -114,24 +128,29 @@
   letter-spacing: 0.6px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-transform: uppercase; font-weight: 400;
+  text-transform: uppercase;
+  font-weight: 400;
 }
+
 .card-copy p { font-weight: 400; }
 .price-row > span { font-weight: 700; }
-.add-button:hover { color: #FFFFFF; }
+.add-button:hover { color: #04180A; }
+
+/* ---- Grid ---- */
 .coffee-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-4);
 }
 
+/* ---- Coffee card base ---- */
 .coffee-card {
   position: relative;
   overflow: hidden;
   min-width: 0;
   border: 1px solid rgba(20, 24, 21, 0.06);
-  box-shadow:
-    0 2px 8px rgba(33, 38, 34, 0.04),
-    0 10px 32px rgba(33, 38, 34, 0.08);
+  /* Reference elevation: --shadow-2 IS this card's 7-layer recipe (tokens.css) */
+  box-shadow: var(--shadow-2);
   /* press spring via transition */
   transition:
     transform var(--dur-snappy) var(--spring-snappy),
@@ -140,10 +159,12 @@
     border-color var(--dur-snappy) var(--ease-out),
     background-color var(--dur-fade) var(--ease-in-out);
   cursor: pointer;
-  animation: card-arrive var(--dur-smooth) var(--spring-smooth) 200ms backwards; background: var(--surface);
+  animation: card-arrive var(--dur-smooth) var(--spring-smooth) 200ms backwards;
+  background: var(--surface);
   border-radius: var(--radius-card);
 }
 
+/* ---- Card hitbox ---- */
 .card-hitbox {
   position: absolute;
   inset: 0;
@@ -157,10 +178,12 @@
   border-radius: var(--radius-card);
 }
 
+/* ---- Card copy padding ---- */
 .card-copy {
   padding: var(--space-4);
 }
 
+/* ---- Add button ---- */
 .add-button {
   position: relative;
   z-index: 0;
@@ -173,7 +196,8 @@
   transition:
     transform var(--dur-press) var(--spring-snappy),
     background-color var(--dur-press) var(--ease-out);
-  color: #FFFFFF;
+  /* Forest Ink on Matcha — white measured ~2.0:1 */
+  color: #082E12;
   font-family: inherit;
   font-weight: 700;
   letter-spacing: 0;
@@ -181,6 +205,7 @@
   border-radius: var(--radius-control);
 }
 
+/* ---- Pair with section (hidden on mobile) ---- */
 .pair-with-section {
   display: none;
   border-radius: var(--radius-panel);

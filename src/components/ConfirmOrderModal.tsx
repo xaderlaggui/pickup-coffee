@@ -21,6 +21,7 @@ export function ConfirmOrderModal({
   itemPrice,
   onClose,
   onConfirm,
+  error,
 }: {
   coffees: Coffee[]
   cart: Record<number, number>
@@ -38,6 +39,7 @@ export function ConfirmOrderModal({
   itemPrice: (coffee: Coffee, size: CoffeeSize) => number
   onClose: () => void
   onConfirm: () => void
+  error?: string | null
 }) {
   const selected = coffees.filter((coffee) => cart[coffee.id] > 0)
   const pickupTime = day === "Today" && time === "ASAP" ? "ASAP" : time === "Closed" ? "Closed" : time
@@ -106,6 +108,8 @@ export function ConfirmOrderModal({
         <div className="confirm-order-totals">
           <div className="confirm-order-total"><span>Total</span><strong><CountPrice value={total} /></strong></div>
         </div>
+
+        {error && <p className="confirm-order-error" role="alert">{error} — your details are saved, try again.</p>}
 
         <footer className="confirm-order-actions">
           <button type="button" className="confirm-order-cancel" onClick={onClose} disabled={loading}>Back to details</button>

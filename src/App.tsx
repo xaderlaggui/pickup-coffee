@@ -40,7 +40,12 @@ export default function App() {
   const [contact, setContact] = useState("")
   const [payment, setPayment] = useState("Cash at pickup")
   const [loading, setLoading] = useState(false)
-  const [invalid, setInvalid] = useState(0)
+  const [invalid, setInvalid] = useState<Record<string, boolean>>({})
+  // Bumped on every failed submit so the shake animation replays even when
+  // the invalid flags are already true (otherwise the class never changes).
+  const [invalidAttempts, setInvalidAttempts] = useState(0)
+  // Set when submitOrder returns ok:false; shown inside the confirm modal.
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   // Swipe UI state
   const [swipedItem, setSwipedItem] = useState<number | null>(null)
@@ -70,7 +75,7 @@ export default function App() {
         (coffee.category === "pastry" || cart.cups < 5 ? 1 : 0),
     )
     setSheetTemp(cart.cartTemps[coffee.id] || "Iced")
-    setSheetSize("Medium")
+    setSheetSize(cart.cartSizes[coffee.id] || "Medium")
     setSheetNote(cart.cartNotes[coffee.id] || "")
   }
 
@@ -100,10 +105,16 @@ export default function App() {
   const requestOrderConfirmation = (event?: React.FormEvent) => {
     event?.preventDefault()
     if (time === "Closed") return
-    if (!name.trim() || loading || cart.items === 0) {
-      if (!name.trim()) setInvalid((v) => v + 1)
+    const errors: Record<string, boolean> = {}
+    if (!name.trim()) errors.name = true
+    if (cart.items === 0) errors.cart = true
+    if (Object.keys(errors).length > 0) {
+      setInvalid(errors)
+      setInvalidAttempts((attempts) => attempts + 1)
       return
     }
+    setInvalid({})
+    setSubmitError(null)
     setConfirmOrderOpen(true)
   }
 
@@ -125,7 +136,13 @@ export default function App() {
       time,
       payment,
     })
-    await submitOrder(payload)
+    const result = await submitOrder(payload)
+    if (!result.ok) {
+      // Keep the modal open so the user can retry; surface the reason.
+      setSubmitError(result.error)
+      setLoading(false)
+      return
+    }
 
     nav.later(() => {
       nav.setConfirmed(true)
@@ -184,16 +201,18 @@ export default function App() {
       name={name}
       setName={(value) => {
         setName(value)
-        if (value.trim()) setInvalid(0)
+        if (value.trim()) setInvalid((prev) => ({ ...prev, name: false }))
       }}
       contact={contact}
       setContact={setContact}
       invalid={invalid}
+      invalidAttempts={invalidAttempts}
       payment={payment}
       setPayment={setPayment}
       onSubmit={requestOrderConfirmation}
       loading={loading}
       darkMode={darkMode}
+      hasItems={cart.items > 0}
     />
   )
 
@@ -209,6 +228,7 @@ export default function App() {
           contact={contact}
           payment={payment}
           cart={cart.cart}
+          cartSizes={cart.cartSizes}
           pickup={
             day === "Today" && time === "ASAP" ? "ASAP · Today" : time || day
           }
@@ -229,7 +249,7 @@ export default function App() {
         itemCount={cart.items}
         loading={loading}
         onBack={() => nav.navigate("menu")}
-        onRestart={restart}
+        onHome={() => nav.navigate("menu")}
         onCart={() => nav.navigate("cart")}
         onTheme={() => setDarkMode((v) => !v)}
       />
@@ -292,8 +312,9 @@ export default function App() {
           loading={loading}
           darkMode={darkMode}
           itemPrice={itemPrice}
-          onClose={() => setConfirmOrderOpen(false)}
+          onClose={() => { setConfirmOrderOpen(false); setSubmitError(null) }}
           onConfirm={submit}
+          error={submitError}
         />
       )}
       {!nav.checkout && (

@@ -1,21 +1,87 @@
+# Dependencies
 node_modules/
+
+# Build outputs
 dist/
 build/
-.cache/
-.env*
-.vite/
-vite.config.*.timestamp-*
 *.tsbuildinfo
-*-debug.log*
+
+# Cache directories
+.cache/
+.vite/
+.vitest/
+coverage/
+.turbo/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Secrets & keys — never commit
+*.pem
+*.key
+*.p12
+*.pfx
+
+# IDE & Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
 logs/
 *.log
-.claude-replay.*
-.tmp-*
-/.figma/design-context/
+*-debug.log*
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
-# Platform-managed agentplat state, not project source. In the
-# client-initiated single-repo workspace layout (make's `Path: "."` spec) the
-# repo root IS the workspace root, so these land inside this repo rather than
-# beside it.
+# Temporary & backup files
+.tmp-*/
+*-backup/
+.backup/
+*.tmp
+*.temp
+
+# Vite specific
+vite.config.*.timestamp-*
+
+# Test artifacts
+.nyc_output/
+
+# Package/zip files
+*.zip
+*.tgz
+
+# Misc
+.eslintcache
+.stylelintcache
+
+# Track markdown docs
+!*.md
+
+# AI & agent tool state — never commit
+.claude/
+.claude-replay.*
+.codex/
+.cursor/
+.impeccable/
+.zcode/
 /.plugins/
 /.opencode-skills/
+
+# AI-written docs & one-off tooling scripts
+AGENTS.md
+CLAUDE.md
+DESIGN.md
+PRODUCT.md
+scripts/

@@ -55,7 +55,7 @@
   margin-top: var(--label-gap);
   background: var(--surface-raised);
   border: 1px solid var(--line);
-  box-shadow: 0 1px 2px rgba(33, 38, 34, 0.05);
+  box-shadow: var(--shadow-1);
 }
 
 #checkout-form .name-input:focus {
@@ -71,7 +71,7 @@
   padding: 0 14px;
   background: var(--surface-raised);
   border: 1px solid var(--line);
-  box-shadow: 0 1px 2px rgba(33, 38, 34, 0.05);
+  box-shadow: var(--shadow-1);
   font-size: var(--font-size-description, 13px);
 }
 
@@ -80,11 +80,61 @@
 }
 
 #checkout-form .payment-card {
-  box-shadow: 0 1px 2px rgba(33, 38, 34, 0.05);
+  box-shadow: var(--shadow-1);
 }
 
 #checkout-form .payment-card.selected {
   box-shadow: 0 4px 12px rgba(134, 171, 93, 0.28);
+}
+
+/* ── 2b. Validation states (must outrank the ID-scoped base
+       rules above: (1,3,0) > focus (1,2,0) > base (1,1,0)) ── */
+#checkout-form .name-input[aria-invalid="true"],
+#checkout-form .note-input[aria-invalid="true"] {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px var(--error-soft);
+}
+
+#checkout-form .name-input[aria-invalid="true"]:focus {
+  border-color: var(--error);
+}
+
+#checkout-form .payment-card[aria-invalid="true"],
+#checkout-form .payment-card input[type="radio"][aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+#checkout-form .name-field:has(.name-input[aria-invalid="true"]):focus-within::after {
+  box-shadow: 0 0 0 3px var(--error-soft);
+}
+
+/* Inline validation copy: strip the label's uppercase/lime styling.
+   Lives outside .name-field so the focus ring (::after, bottom:0) stays
+   anchored to the input. */
+#checkout-form .details-field {
+  min-width: 0;
+}
+
+#checkout-form .field-error {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--error);
+}
+
+/* Submit failure shown inside the confirm modal */
+.confirm-order-error {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-control, 12px);
+  background: var(--error-soft);
+  color: var(--error);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 /* ── 3. Place Order: soft glow when enabled ────────────────── */
@@ -138,6 +188,8 @@
   .checkout-page .checkout-cart-column .cart-list-item-wrap {
     border-bottom: 0;
     padding-bottom: 12px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-3);
   }
 
   .checkout-page .checkout-cart-column .cart-list-item {
@@ -145,9 +197,8 @@
     border: 1px solid var(--line);
     border-radius: 16px;
     background: var(--surface-raised);
-    box-shadow:
-      0 2px 6px rgba(33, 38, 34, 0.06),
-      0 12px 28px rgba(33, 38, 34, 0.10);
+    /* no box-shadow here: the wrap's overflow:hidden would clip it —
+       the wrap carries the shadow instead */
   }
 }
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useId, useRef, useState } from "react"
 
 const ITEM_H = 44
 
@@ -33,6 +33,8 @@ export function WheelPicker({
     Math.floor(VISIBLE / 2) * ITEM_H - index * ITEM_H
 
   const trackRef = useRef<HTMLDivElement>(null)
+
+  const uid = useId()
 
   const [hovered, setHovered] = useState(selectedIndex)
 
@@ -208,11 +210,29 @@ export function WheelPicker({
     if (drag.current.active) onMove(event.clientY)
   }
 
+  // Keyboard support: focus the drum, then arrows / Home / End change the
+  // selection. The selectedIndex effect above re-centres the track.
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    if (disabled) return
+    let next: number | null = null
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") next = clamp(selectedIndex + 1, 0, items.length - 1)
+    else if (event.key === "ArrowUp" || event.key === "ArrowLeft") next = clamp(selectedIndex - 1, 0, items.length - 1)
+    else if (event.key === "Home") next = 0
+    else if (event.key === "End") next = items.length - 1
+    if (next === null) return
+    event.preventDefault()
+    if (next !== selectedIndex) onChange(next)
+  }
+
   return (
     <div
       className="wheel-drum"
       role="listbox"
       aria-label={label}
+      aria-disabled={disabled || undefined}
+      aria-activedescendant={`${uid}-${selectedIndex}`}
+      tabIndex={disabled ? -1 : 0}
+      onKeyDown={onKeyDown}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onEnd}
@@ -255,6 +275,7 @@ export function WheelPicker({
           return (
             <div
               key={item}
+              id={`${uid}-${index}`}
               role="option"
               aria-selected={index === selectedIndex}
               className={`wheel-row${

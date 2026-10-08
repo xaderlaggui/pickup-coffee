@@ -130,16 +130,10 @@
 .roll-new {
   animation: roll-arrive var(--dur-snappy) var(--spring-snappy) both;
 }
-.limit-shake {
-  animation: limit-shake 320ms var(--ease-in-out);
-}
-.invalid-field {
-  animation: limit-shake 320ms var(--ease-in-out);
-}
 
-.shake-even {
-  animation-name: limit-shake;
-}
+/* .limit-shake / .invalid-field / .shake-even live in animations.css
+   (canonical: "All @keyframes and animation assignments"). */
+
 .price-crossfade {
   display: inline-block;
   animation: motion-fade var(--dur-press) var(--ease-in-out);

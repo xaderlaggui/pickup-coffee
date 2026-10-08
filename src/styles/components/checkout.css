@@ -1,5 +1,9 @@
 
 
+/* ============================================================
+   CHECKOUT — Checkout form sections, quantity adjuster, payment
+   ============================================================ */
+
 .checkout-cup-count {
   font-size: var(--type-subhead);
   font-weight: 400;
@@ -20,14 +24,6 @@
 
 #checkout-form>section:nth-of-type(3) {
   animation-delay: calc(var(--dur-stagger) * 2);
-}
-.app :is(.coffee-card,
-  .schedule-card,
-  .top-header,
-  #checkout-form > section) {
-  transition:
-    background-color var(--dur-fade) var(--ease-in-out),
-    border-color var(--dur-fade) var(--ease-in-out);
 }
 
 .quantity-adjuster {
@@ -62,11 +58,11 @@
   cursor: not-allowed;
 }
 .quantity-adjuster button.qty-trash {
-  color: #E55B5B;
+  color: var(--error);
 }
 
 .quantity-adjuster button.qty-trash:hover {
-  background: rgba(229, 91, 91, 0.12);
+  background: var(--error-soft);
 }
 
 .quantity-adjuster button.qty-trash svg {
@@ -99,9 +95,7 @@
   background: var(--surface);
   display: grid;
   gap: 16px;
-  box-shadow:
-    0 2px 8px rgba(33, 38, 34, 0.04),
-    0 8px 24px rgba(33, 38, 34, 0.06);
+  box-shadow: var(--shadow-2);
   transition: background-color var(--dur-fade) var(--ease-in-out);
   border-radius: var(--radius-panel);
 }

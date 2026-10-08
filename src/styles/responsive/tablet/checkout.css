@@ -1,4 +1,6 @@
-/* Checkout — Tablet / in-between widths */
+/* ============================================================
+   CHECKOUT — Tablet / in-between widths
+   ============================================================ */
 
 @media (max-width: 899px) {
   .checkout-page .cart-list-item::before {

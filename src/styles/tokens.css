@@ -14,11 +14,16 @@
   --green-text: #4C6F24;
   --tone-green: #A0BA78;
   --tone-sage: #A0BA78;
+  /* Text on sage/matcha slabs (header, footer): Forest Ink passes ~6.9:1 */
+  --on-sage: #082E12;
   --tone-matcha: #B8C98F;
   --tone-rose: #E6C8B8;
   --tone-honey: #E8CE91;
   --tone-cream: #EBE7DD;
-  --tone-cocoa: #CBB09A}
+  --tone-cocoa: #CBB09A;
+  --error: #c96858;
+  --error-soft: rgba(201, 104, 88, 0.15);
+}
 .app.dark {
   --tone-sage:   #37462B;
   --tone-matcha: #2E3D24;
@@ -41,7 +46,11 @@
 
   --tone-cream: #3A352A;
   --tone-rose: #423C27;
-  --tone-green: #37462B}
+  --tone-green: #37462B;
+  --on-sage: #F2F5ED;
+  --error: #e88d7a;
+  --error-soft: rgba(232, 141, 122, 0.15);
+}
 
 :root {
   --type-subtitle:    var(--font-size-subtitle);
@@ -147,6 +156,84 @@
   --mobile-gap: 12px;
   --container-gutter: clamp(16px, 3vw, 32px)
 ;
+
+  /* ---- Shadow tokens (elevation scale) ----
+     ONE recipe for every elevation: .coffee-card's 7-layer whisper stack.
+     Tiers step alpha (and geometry at 4/5) — never write one-off shadows.
+     Base color: rgba(33, 38, 34, alpha) for light, rgba(0, 0, 0, alpha) for dark.
+     Light alphas cap at 4.5%; dark stays inside the documented 8–28%. */
+  /* 1 — tight contact shadow: fields, recessed controls (layers 1–4, ×1.6) */
+  --shadow-1: 0 0 1px rgba(33, 38, 34, 0.016),
+    0 0.5px 3px rgba(33, 38, 34, 0.019),
+    0 1.5px 6px rgba(33, 38, 34, 0.024),
+    0 3px 12px rgba(33, 38, 34, 0.029);
+  /* 2 — the reference: exactly .coffee-card at rest */
+  --shadow-2: 0 0 1px rgba(33, 38, 34, 0.01),
+    0 0.5px 3px rgba(33, 38, 34, 0.012),
+    0 1.5px 6px rgba(33, 38, 34, 0.015),
+    0 3px 12px rgba(33, 38, 34, 0.018),
+    0 6px 20px rgba(33, 38, 34, 0.02),
+    0 12px 36px rgba(33, 38, 34, 0.022),
+    0 24px 64px rgba(33, 38, 34, 0.025);
+  /* 3 — panels above content (reference geometry, alphas ×1.5) */
+  --shadow-3: 0 0 1px rgba(33, 38, 34, 0.015),
+    0 0.5px 3px rgba(33, 38, 34, 0.018),
+    0 1.5px 6px rgba(33, 38, 34, 0.023),
+    0 3px 12px rgba(33, 38, 34, 0.027),
+    0 6px 20px rgba(33, 38, 34, 0.03),
+    0 12px 36px rgba(33, 38, 34, 0.033),
+    0 24px 64px rgba(33, 38, 34, 0.038);
+  /* 4 — floating chrome: header, sticky bars (geometry ×2) */
+  --shadow-4: 0 0 2px rgba(33, 38, 34, 0.02),
+    0 1px 6px rgba(33, 38, 34, 0.024),
+    0 3px 12px rgba(33, 38, 34, 0.03),
+    0 6px 24px rgba(33, 38, 34, 0.036),
+    0 12px 40px rgba(33, 38, 34, 0.04),
+    0 24px 72px rgba(33, 38, 34, 0.044),
+    0 48px 128px rgba(33, 38, 34, 0.045);
+  /* 5 — overlays: modals, hero panel (geometry ×2.5, alphas capped) */
+  --shadow-5: 0 0 2px rgba(33, 38, 34, 0.024),
+    0 1px 8px rgba(33, 38, 34, 0.029),
+    0 4px 15px rgba(33, 38, 34, 0.036),
+    0 8px 30px rgba(33, 38, 34, 0.042),
+    0 15px 50px rgba(33, 38, 34, 0.045),
+    0 30px 90px rgba(33, 38, 34, 0.045),
+    0 60px 160px rgba(33, 38, 34, 0.045);
+
+  /* Dark mode overrides — same recipe, black alpha (8–28%) */
+  --shadow-1-dark: 0 0 1px rgba(0, 0, 0, 0.12),
+    0 0.5px 3px rgba(0, 0, 0, 0.14),
+    0 1.5px 6px rgba(0, 0, 0, 0.16),
+    0 3px 12px rgba(0, 0, 0, 0.18);
+  --shadow-2-dark: 0 0 1px rgba(0, 0, 0, 0.08),
+    0 0.5px 3px rgba(0, 0, 0, 0.1),
+    0 1.5px 6px rgba(0, 0, 0, 0.12),
+    0 3px 12px rgba(0, 0, 0, 0.14),
+    0 6px 20px rgba(0, 0, 0, 0.16),
+    0 12px 36px rgba(0, 0, 0, 0.18),
+    0 24px 64px rgba(0, 0, 0, 0.2);
+  --shadow-3-dark: 0 0 1px rgba(0, 0, 0, 0.12),
+    0 0.5px 3px rgba(0, 0, 0, 0.14),
+    0 1.5px 6px rgba(0, 0, 0, 0.17),
+    0 3px 12px rgba(0, 0, 0, 0.2),
+    0 6px 20px rgba(0, 0, 0, 0.22),
+    0 12px 36px rgba(0, 0, 0, 0.24),
+    0 24px 64px rgba(0, 0, 0, 0.26);
+  --shadow-4-dark: 0 0 2px rgba(0, 0, 0, 0.14),
+    0 1px 6px rgba(0, 0, 0, 0.17),
+    0 3px 12px rgba(0, 0, 0, 0.2),
+    0 6px 24px rgba(0, 0, 0, 0.23),
+    0 12px 40px rgba(0, 0, 0, 0.25),
+    0 24px 72px rgba(0, 0, 0, 0.27),
+    0 48px 128px rgba(0, 0, 0, 0.28);
+  --shadow-5-dark: 0 0 2px rgba(0, 0, 0, 0.16),
+    0 1px 8px rgba(0, 0, 0, 0.19),
+    0 4px 15px rgba(0, 0, 0, 0.22),
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 15px 50px rgba(0, 0, 0, 0.26),
+    0 30px 90px rgba(0, 0, 0, 0.27),
+    0 60px 160px rgba(0, 0, 0, 0.28);
+
   --background: #EBE7DD;
   --surface: #F7F5F0;
   --surface-raised: #FFFFFF;
@@ -170,6 +257,13 @@
   --green: #9DC374;
   --green-soft: rgba(157, 195, 116, 0.2);
   --green-text: #C3DBA3;
+
+  /* Shadow tokens — dark mode */
+  --shadow-1: var(--shadow-1-dark);
+  --shadow-2: var(--shadow-2-dark);
+  --shadow-3: var(--shadow-3-dark);
+  --shadow-4: var(--shadow-4-dark);
+  --shadow-5: var(--shadow-5-dark);
 }
 
 

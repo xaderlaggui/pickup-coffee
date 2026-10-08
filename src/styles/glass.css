@@ -1,23 +1,7 @@
 /* ============================================================
    GLASS MATERIAL SYSTEM
    Three reusable glass classes + specular / shadow layers
-   ============================================================ */
-
-/* Hidden SVG refraction filter */
-
-/* ---- Shared: position context + pseudo layers ---- */
-
-/* Specular edge highlight */
-
-/* Pointer-following specular highlight */
-
-/* ---- glass-regular ---- */
-
-/* ---- glass-thick ---- */
-
-/* ---- glass-clear ---- *//* ============================================================
-   GLASS MATERIAL SYSTEM
-   Three reusable glass classes + specular / shadow layers
+   Uses shadow tokens from tokens.css for consistent elevation
    ============================================================ */
 
 /* Hidden SVG refraction filter */
@@ -96,7 +80,7 @@
   );
 }
 
-/* ---- glass-regular ---- */
+/* ---- glass-regular (elevation level 2) ---- */
 .glass-regular {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
@@ -104,8 +88,7 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.6),
     inset 0 -1px 0 rgba(255, 255, 255, 0.15),
-    0 8px 32px rgba(0, 0, 0, 0.10),
-    0 2px 8px rgba(0, 0, 0, 0.06);
+    var(--shadow-2);
   border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
@@ -114,12 +97,11 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 -1px 0 rgba(255, 255, 255, 0.04),
-    0 8px 32px rgba(0, 0, 0, 0.24),
-    0 2px 8px rgba(0, 0, 0, 0.16);
+    var(--shadow-2);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ---- glass-thick ---- */
+/* ---- glass-thick (elevation level 3) ---- */
 .glass-thick {
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(40px) saturate(190%) brightness(1.04);
@@ -127,8 +109,7 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.75),
     inset 0 -1px 0 rgba(255, 255, 255, 0.2),
-    0 8px 32px rgba(0, 0, 0, 0.10),
-    0 2px 8px rgba(0, 0, 0, 0.06);
+    var(--shadow-3);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -137,19 +118,18 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.14),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-    0 8px 32px rgba(0, 0, 0, 0.36),
-    0 2px 8px rgba(0, 0, 0, 0.18);
+    var(--shadow-3);
   border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
-/* ---- glass-clear ---- */
+/* ---- glass-clear (elevation level 1) ---- */
 .glass-clear {
   background: rgba(255, 255, 255, 0.32);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 4px 16px rgba(0, 0, 0, 0.08);
+    var(--shadow-1);
   border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
@@ -157,7 +137,7 @@
   background: rgba(40, 42, 41, 0.28);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 4px 16px rgba(0, 0, 0, 0.24);
+    var(--shadow-1);
   border: 1px solid rgba(255, 255, 255, 0.07);
 }
 

@@ -1,3 +1,13 @@
+/* ============================================================
+   CSS ENTRY — import order IS the cascade. Do not reorder.
+   1. globals → tokens → glass → animations → typography → layout
+   2. component styles (components/*.css)
+   3. responsive/index.css  (mobile ≤720px, tablet, desktop, shared, overrides)
+   4. polish/fit layers (checkout-fit, checkout-polish, *.mobile, *.desktop)
+      — these intentionally load LAST so their overrides win.
+      Merge a polish file into its component only if its rules keep
+      this position in the cascade; otherwise leave it here.
+   ============================================================ */
 @import "./styles/global.css";
 @import "./styles/tokens.css";
 @import "./styles/glass.css";

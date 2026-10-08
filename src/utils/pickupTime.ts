@@ -5,12 +5,10 @@ export function generateTimeSlots(isToday: boolean) {
 
   const startHour = 8
 
-  const endHour = 18
+  const endHour = 18 // 6:00 PM close; last bookable slot is 5:45 PM
 
-  for (let hour = startHour; hour <= endHour; hour++) {
+  for (let hour = startHour; hour < endHour; hour++) {
     for (let minute = 0; minute < 60; minute += 15) {
-      if (hour === endHour && minute > 0) continue
-
       const isPast =
         isToday &&
         (now.getHours() > hour ||

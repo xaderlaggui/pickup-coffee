@@ -1,4 +1,6 @@
-/* Cards — Desktop / web (min-width queries) */
+/* ============================================================
+   CARDS — Desktop (min-width queries)
+   ============================================================ */
 
 @media (min-width: 640px) {
   .coffee-grid {

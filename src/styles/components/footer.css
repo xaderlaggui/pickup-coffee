@@ -23,7 +23,7 @@
 }
 
 .footer-links-main a {
-  color: #FFFFFF;
+  color: var(--on-sage);
   text-decoration: none;
   font-size: var(--type-subhead);
   font-weight: 700;
@@ -39,7 +39,7 @@
 }
 
 .footer-links-sub a {
-  color: #FFFFFF;
+  color: var(--on-sage);
   text-decoration: none;
   font-size: var(--type-footnote);
   font-weight: 600;
@@ -138,7 +138,7 @@
   z-index: 20;
   background: var(--surface);
   border-top: 1px solid var(--line);
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-4);
   padding: 14px 20px max(20px, env(safe-area-inset-bottom));
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(140px, 1fr);
@@ -188,7 +188,7 @@
   padding: 48px 0 max(48px, calc(80px + env(safe-area-inset-bottom)));
   border-top: 1px solid transparent;
   background: var(--tone-green);
-  color: #FFFFFF;
+  color: var(--on-sage);
   transition: background-color var(--dur-fade) var(--ease-in-out); margin-top: 12px;
 }
 
@@ -210,7 +210,7 @@
 
 .footer-news-btn {
   background: #FFFFFF;
-  color: var(--tone-green);
+  color: #4C6F24;
   border: none;
   padding: 8px 24px;
   font-size: var(--font-size-button-small);

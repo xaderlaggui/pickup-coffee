@@ -1,4 +1,6 @@
-/* Checkout — Desktop / web (min-width queries) */
+/* ============================================================
+   CHECKOUT — Desktop / web (min-width queries)
+   ============================================================ */
 
 @media (min-width: 900px) {
   body:has(.checkout-page) .main-content {
@@ -85,8 +87,9 @@
     min-height: 0;
     overflow: hidden;
     border: 1px solid var(--line);
+    border-radius: var(--radius-panel);
     background: var(--surface);
-    box-shadow: 0 8px 28px rgba(33, 38, 34, .06);
+    box-shadow: var(--shadow-3);
   }
 
   .checkout-cart-column {

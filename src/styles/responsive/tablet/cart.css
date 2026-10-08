@@ -1,0 +1,9 @@
+/* Cart — Tablet (in-between band: 721px up to the 1024px desktop floor) */
+
+@media (min-width: 721px) and (max-width: 1023px) {
+  /* Same tall rows as mobile */
+  .cart-list-item {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}

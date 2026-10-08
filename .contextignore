@@ -28,4 +28,3 @@ coverage/
 # Local and editor noise
 .claude-replay.*
 .tmp-*
-.figma/

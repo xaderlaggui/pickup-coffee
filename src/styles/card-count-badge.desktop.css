@@ -19,7 +19,7 @@
     font-size: 15px;
     font-weight: 800;
     line-height: 1;
-    box-shadow: 0 4px 14px rgba(33, 38, 34, 0.22);
+    box-shadow: var(--shadow-3);
     pointer-events: none;
     transition: scale 320ms var(--spring-snappy);
   }
@@ -40,9 +40,7 @@
   .coffee-card:hover {
     transform: translateY(-6px) scale(1.012);
     border-color: #A0BA78;
-    box-shadow:
-      0 6px 14px rgba(33, 38, 34, 0.07),
-      0 22px 48px rgba(33, 38, 34, 0.14);
+    box-shadow: var(--shadow-4);
   }
 
   /* cup: floats up and tilts a touch */
