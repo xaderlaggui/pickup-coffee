@@ -100,7 +100,7 @@
     font-size: 13px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
   }
 
   .checkout-cart-column {
@@ -136,18 +136,18 @@
   #checkout-form {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 12px;
   }
 
   #checkout-form > .checkout-section {
     margin: 0;
-    padding: 10px;
+    padding: 14px;
     border: 1px solid var(--line);
     border-radius: var(--radius-panel);
     background: var(--surface);
     box-shadow: none;
     display: grid;
-    gap: 8px;
+    gap: 10px;
   }
 
   #checkout-form .checkout-section-title {

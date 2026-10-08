@@ -30,8 +30,6 @@
 }
 
 @media (max-width: 720px) {
-  .app.landing-page .company-hero { min-height: calc(100svh - var(--header-height) - 28px); }
-
   .hero-flip-inner { min-height: 190px; }
 
   .hero-flip-back { display: none; }

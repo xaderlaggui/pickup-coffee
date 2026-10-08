@@ -83,7 +83,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
     height: 100%;
-    margin-top: 30px;
+    margin-top: 12px;
     min-height: 0;
     overflow: hidden;
     border: 1px solid var(--line);

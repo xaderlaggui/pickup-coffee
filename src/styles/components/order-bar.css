@@ -187,14 +187,6 @@
   }
 }
 
-.app:has(.order-bar) .main-content {
-  padding-bottom: max(32px, calc(24px + env(safe-area-inset-bottom)));
-}
-
-.app.landing-page:has(.order-bar) .main-content {
-  padding-bottom: max(32px, calc(24px + env(safe-area-inset-bottom)));
-}
-
 .checkout-button {
   display: flex;
   align-items: center;

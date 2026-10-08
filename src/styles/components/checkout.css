@@ -11,9 +11,6 @@
   letter-spacing: -0.24px;
 }
 
-.place-order-btn {
-  margin-top: 32px;
-}
 #checkout-form>section {
   animation: rise-16 var(--dur-smooth) var(--spring-smooth) both;
 }
@@ -89,17 +86,6 @@
   letter-spacing: -0.43px;
   line-height: 1.2;
 }
-.checkout-section {
-  margin-bottom: 24px;
-  padding: 24px;
-  background: var(--surface);
-  display: grid;
-  gap: 16px;
-  box-shadow: var(--shadow-2);
-  transition: background-color var(--dur-fade) var(--ease-in-out);
-  border-radius: var(--radius-panel);
-}
-
 .details-section {
   margin-top: 0;
 }

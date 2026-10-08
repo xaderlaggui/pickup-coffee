@@ -30,7 +30,9 @@
 
   .app.landing-page .company-hero-cup { max-height: 270px; }
 
-  .app.landing-page .company-hero { gap: 36px; min-height: calc(100svh - var(--header-height) - 24px); padding-bottom: 24px; align-items: start; padding-top: clamp(36px, 8vh, 64px); }
+  /* min-height removed: full-viewport hero left 130px+ of dead space above the
+     review strip; hero now sizes to its content (base rule: min-height 0). */
+  .app.landing-page .company-hero { gap: 36px; padding-bottom: 24px; align-items: start; padding-top: clamp(36px, 8vh, 64px); }
 }
 
 @media (hover: hover) and (min-width: 721px) {

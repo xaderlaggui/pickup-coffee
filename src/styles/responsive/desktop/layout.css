@@ -1,7 +1,7 @@
 /* Layout — Desktop / web (min-width queries) */
 
 @media (min-width: 721px) {
-  .menu-filters { justify-content: center; width: auto; margin: 0 auto 28px; padding: 0; overflow: visible; }
+  .menu-filters { justify-content: flex-start; width: auto; margin: 0 auto 24px; padding: 0; overflow: visible; }
 
   .app.landing-page .main-content { padding-top: calc(var(--header-height) + -5px); }
 

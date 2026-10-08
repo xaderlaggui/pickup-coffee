@@ -351,10 +351,6 @@
   min-height: var(--control-height);
   border-radius: var(--radius-control);
 }
-.schedule-section {
-  margin-top: 64px;
-  border-radius: var(--radius-panel);
-}
 
 .temp-toggle {
   min-width: 180px;

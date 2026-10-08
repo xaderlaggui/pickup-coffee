@@ -35,10 +35,6 @@
     width: 98%;
   }
 
-  .card-copy {
-    padding: 14px;
-  }
-
   .price-row {
     align-items: flex-end;
     gap: 6px;
@@ -53,26 +49,16 @@
   .add-button span {
     display: none;
   }
-
-  .coffee-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-}
-
-@media (max-width: 360px) {
-  .coffee-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {
   .coffee-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    gap: 12px;
   }
 }
 
 @media (max-width: 380px) {
-  .coffee-grid {
-    gap: 12px;
-  }
-
   .coffee-card {
     min-height: 304px;
   }
