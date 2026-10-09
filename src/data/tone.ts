@@ -12,7 +12,7 @@ export function resolveProductTone(name: string, category: ProductCategory): Pro
   if (roseWords.some((word) => value.includes(word))) return "rose"
   if (honeyWords.some((word) => value.includes(word))) return "honey"
   if (cocoaWords.some((word) => value.includes(word))) return "cocoa"
-  return category === "non-coffee" ? "sage" : "sage"
+  return "sage"
 }
 
 const toneOrder: ProductTone[] = ["matcha", "sage", "rose", "honey", "cocoa", "cream"]

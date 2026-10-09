@@ -1,5 +1,8 @@
 import type { Coffee, CoffeeSize } from "../types"
 
+/* Maximum drink cups per order. Pastries are exempt. */
+export const MAX_CUPS = 5
+
 /* ============================================================
    PRICING
    ============================================================ */
@@ -21,6 +24,10 @@ export const cupCount = (
   coffees
     .filter((c) => c.category !== "pastry")
     .reduce((sum, c) => sum + (cart[c.id] || 0), 0)
+
+/* True only on the transition that lands exactly on the drink cap. */
+export const reachedCupLimit = (prevCups: number, nextCups: number): boolean =>
+  nextCups === MAX_CUPS && prevCups < MAX_CUPS
 
 export const itemCount = (cart: Record<number, number>): number =>
   Object.values(cart).reduce((sum, n) => sum + n, 0)

@@ -26,12 +26,12 @@
   .top-header {
     backdrop-filter: none !important;
     /* Header is a solid brand color â€” keep it green even without transparency */
-    background: #A0BA78 !important;
+    background: var(--sage-header) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25) !important;
   }
 
   .app.dark .top-header {
-    background: #37462B !important;
+    background: var(--sage-header) !important;
   }
 }
 
@@ -40,12 +40,12 @@
   .top-header {
     backdrop-filter: none !important;
     /* Header is a solid brand color â€” keep it green for high-contrast mode */
-    background: #A0BA78 !important;
+    background: var(--sage-header) !important;
     border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
   }
 
   .app.dark .top-header {
-    background: #37462B !important;
+    background: var(--sage-header) !important;
   }
 }
 .main-content.checkout-page-active {
@@ -173,7 +173,7 @@ body:has(.landing-page) { overflow: hidden;
   left: 0;
   width: 100%;
   z-index: 50;
-  background: #A0BA78;
+  background: var(--sage-header);
   color: var(--on-sage);
   border-bottom: 1px solid transparent;
   box-shadow: var(--shadow-4);
@@ -185,7 +185,7 @@ body:has(.landing-page) { overflow: hidden;
 
 .app.dark .top-header {
   /* Dark mode: use the dark tone-green to stay consistent with footer */
-  background: #37462B;
+  background: var(--sage-header);
 }
 
 .top-header.scrolled {

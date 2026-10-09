@@ -57,11 +57,11 @@
 .company-hero > .review-strip .review-strip-track { gap: 12px; }
 .company-hero > .review-strip .review-card strong { display: none; }
 .app.dark .review-strip {
-  background: #37462B;
+  background: var(--sage-header);
   color: #F2F5ED;
 }
 .app.dark .company-hero > .review-strip {
-  background: #37462B;
+  background: var(--sage-header);
   color: #F2F5ED;
 }
 

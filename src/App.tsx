@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import { coffees } from "./data"
 import type { Coffee, CoffeeSize } from "./types"
-import { itemPrice } from "./utils/cart"
+import { MAX_CUPS, itemPrice } from "./utils/cart"
 import { playAddToCartAnimation } from "./utils/addToCartAnimation"
 import { buildOrderPayload, submitOrder } from "./api/orders"
 import { motionDelay } from "./utils/motion"
@@ -18,7 +18,9 @@ import { MenuSection } from "./components/MenuSection"
 import { CartView } from "./components/CartView"
 import { PairWith } from "./components/PairWith"
 import { CheckoutView } from "./components/CheckoutView"
+import { LimitNotice } from "./components/LimitNotice"
 import { ConfirmOrderModal } from "./components/ConfirmOrderModal"
+import { ConfirmRemoveModal } from "./components/ConfirmRemoveModal"
 import { OrderSuccess } from "./components/OrderSuccess"
 
 export default function App() {
@@ -46,12 +48,19 @@ export default function App() {
   const [invalidAttempts, setInvalidAttempts] = useState(0)
   // Set when submitOrder returns ok:false; shown inside the confirm modal.
   const [submitError, setSubmitError] = useState<string | null>(null)
+  // Order reference from submitOrder (server id live, formatted ref in the mock).
+  const [orderRef, setOrderRef] = useState("")
 
   // Swipe UI state
   const [swipedItem, setSwipedItem] = useState<number | null>(null)
+  // Item awaiting remove confirmation (both the swipe delete and qty-1 trash route here).
+  const [removeTarget, setRemoveTarget] = useState<Coffee | null>(null)
 
   const headerRef = useRef<HTMLElement>(null)
   const menuRef = useRef<HTMLElement>(null)
+  // Synchronous submit lock: the `loading` state lags one render, so a fast
+  // double-click could otherwise pass the guard and fire two orders.
+  const submittingRef = useRef(false)
 
   const cart = useCart(coffees)
   const nav = useNavigation()
@@ -72,7 +81,7 @@ export default function App() {
     setActiveCoffee(coffee)
     setSheetQuantity(
       cart.cart[coffee.id] ||
-        (coffee.category === "pastry" || cart.cups < 5 ? 1 : 0),
+        (coffee.category === "pastry" || cart.cups < MAX_CUPS ? 1 : 0),
     )
     setSheetTemp(cart.cartTemps[coffee.id] || "Iced")
     setSheetSize(cart.cartSizes[coffee.id] || "Medium")
@@ -91,7 +100,7 @@ export default function App() {
           sheetQuantity,
           coffee.category === "pastry"
             ? 99
-            : 5 - cart.cups + (cart.cart[coffee.id] || 0),
+            : MAX_CUPS - cart.cups + (cart.cart[coffee.id] || 0),
         ),
         sheetTemp,
         sheetSize,
@@ -101,13 +110,18 @@ export default function App() {
     closeSheet()
   }
 
+  // ---- Remove item ----
+  const requestRemove = (id: number) => {
+    setSwipedItem(null)
+    setRemoveTarget(coffees.find((coffee) => coffee.id === id) || null)
+  }
+
   // ---- Order ----
   const requestOrderConfirmation = (event?: React.FormEvent) => {
     event?.preventDefault()
     if (time === "Closed") return
     const errors: Record<string, boolean> = {}
     if (!name.trim()) errors.name = true
-    if (cart.items === 0) errors.cart = true
     if (Object.keys(errors).length > 0) {
       setInvalid(errors)
       setInvalidAttempts((attempts) => attempts + 1)
@@ -120,6 +134,8 @@ export default function App() {
 
   const submit = async () => {
     if (time === "Closed" || !name.trim() || loading || cart.items === 0) return
+    if (submittingRef.current) return
+    submittingRef.current = true
     setLoading(true)
 
     // Prepare the submission as if sending it to an API (see src/api/orders.ts;
@@ -139,11 +155,13 @@ export default function App() {
     const result = await submitOrder(payload)
     if (!result.ok) {
       // Keep the modal open so the user can retry; surface the reason.
+      submittingRef.current = false
       setSubmitError(result.error)
       setLoading(false)
       return
     }
 
+    setOrderRef(result.orderId)
     nav.later(() => {
       nav.setConfirmed(true)
       setLoading(false)
@@ -159,6 +177,8 @@ export default function App() {
     setContact("")
     setDay("Today")
     setTime("ASAP")
+    setOrderRef("")
+    submittingRef.current = false
     nav.setTransition("screen-out")
     nav.later(() => nav.setTransition(""), motionDelay(220))
   }
@@ -186,7 +206,7 @@ export default function App() {
       total={cart.total}
       swipedItem={swipedItem}
       setSwipedItem={setSwipedItem}
-      removeItem={cart.removeItem}
+      removeItem={requestRemove}
       updateQuantity={cart.updateQuantity}
       itemPrice={itemPrice}
     />
@@ -221,6 +241,7 @@ export default function App() {
       <div ref={nav.appRef} className={appClass}>
         <GlassRefractionDefs />
         <OrderSuccess
+          orderRef={orderRef}
           amount={cart.total}
           items={cart.items}
           onRestart={restart}
@@ -317,6 +338,17 @@ export default function App() {
           error={submitError}
         />
       )}
+      {removeTarget && (
+        <ConfirmRemoveModal
+          itemName={removeTarget.name}
+          darkMode={darkMode}
+          onClose={() => setRemoveTarget(null)}
+          onConfirm={() => {
+            cart.removeItem(removeTarget.id)
+            setRemoveTarget(null)
+          }}
+        />
+      )}
       {!nav.checkout && (
         <AppFooter
           footerRef={scroll.footerRef}
@@ -334,7 +366,7 @@ export default function App() {
         max={
           activeCoffee?.category === "pastry"
             ? 99
-            : 5 -
+            : MAX_CUPS -
               cart.cups +
               (activeCoffee ? cart.cart[activeCoffee.id] || 0 : 0)
         }
@@ -352,6 +384,7 @@ export default function App() {
         note={sheetNote}
         setNote={setSheetNote}
       />
+      {cart.limit > 0 && <LimitNotice key={cart.limit} />}
     </div>
   )
 }

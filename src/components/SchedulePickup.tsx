@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { WheelPicker } from "./WheelPicker"
 import { generateTimeSlots } from "../utils/pickupTime"
+import { useFocusTrap } from "../hooks/useFocusTrap"
 /* ============================================================
    SCHEDULE PICKUP
    ============================================================ */
@@ -39,6 +40,8 @@ export function SchedulePickup({
   darkMode: boolean
 }) {
   const [isEditing, setIsEditing] = useState(false)
+  const dialogRef = useRef<HTMLElement>(null)
+  useFocusTrap(dialogRef, isEditing)
   const generatedTimes = generateTimeSlots(day === "Today")
   const isClosed = day === "Today" && generatedTimes[0] === "Closed"
   const availableTimes = isClosed
@@ -109,6 +112,7 @@ export function SchedulePickup({
             }}
           >
             <section
+              ref={dialogRef}
               className="schedule-dialog"
               role="dialog"
               aria-modal="true"

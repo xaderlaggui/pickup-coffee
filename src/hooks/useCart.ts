@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react"
 import type { Coffee, CoffeeSize } from "../types"
 import {
+  MAX_CUPS,
   cartTotal,
   cupCount as computeCupCount,
   itemCount as computeItemCount,
+  reachedCupLimit,
 } from "../utils/cart"
 
 type CartTemps = Record<number, "Iced" | "Hot">
@@ -25,8 +27,15 @@ export function useCart(coffees: Coffee[]) {
   const showLimit = () => {
     setLimit((v) => v + 1)
     if (timerRef.current) clearTimeout(timerRef.current)
-    timerRef.current = setTimeout(() => setLimit(0), 1000)
+    timerRef.current = setTimeout(() => setLimit(0), 2400)
   }
+
+  // Announce the moment the order lands exactly on the drink cap (pastries exempt).
+  const prevCupsRef = useRef(cups)
+  useEffect(() => {
+    if (reachedCupLimit(prevCupsRef.current, cups)) showLimit()
+    prevCupsRef.current = cups
+  }, [cups])
 
   useEffect(
     () => () => {
@@ -44,8 +53,7 @@ export function useCart(coffees: Coffee[]) {
       const drinks = coffees
         .filter((c) => c.category !== "pastry")
         .reduce((sum, c) => sum + (c.id === id ? qty : next[c.id] || 0), 0)
-      if (item?.category !== "pastry" && drinks > 5) {
-        showLimit()
+      if (item?.category !== "pastry" && drinks > MAX_CUPS) {
         return current
       }
       next[id] = qty

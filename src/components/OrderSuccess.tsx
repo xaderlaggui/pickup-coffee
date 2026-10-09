@@ -1,16 +1,15 @@
-import React from "react"
 import { coffees } from "../data"
 import type { CoffeeSize } from "../types"
 import { itemPrice } from "../utils/cart"
 import { CheckIcon } from "./Icons"
 import { Price } from "./Price"
 
-export function OrderSuccess({ items, amount, pickup, onRestart, name, contact, payment, cart, cartSizes }: { items: number; amount: number; pickup: string; onRestart: () => void; name: string; contact: string; payment: string; cart: Record<number, number>; cartSizes: Record<number, CoffeeSize> }) {
+export function OrderSuccess({ orderRef, items, amount, pickup, onRestart, name, contact, payment, cart, cartSizes }: { orderRef: string; items: number; amount: number; pickup: string; onRestart: () => void; name: string; contact: string; payment: string; cart: Record<number, number>; cartSizes: Record<number, CoffeeSize> }) {
   return (
     <main className="success-screen">
       <div className="success-content">
         <div className="success-mark"><CheckIcon /></div>
-        <p className="eyebrow">ORDER #PC-2418</p>
+        <p className="eyebrow">ORDER #{orderRef}</p>
         <h1>Order Confirmed</h1>
         <p className="success-lead">Your coffee is in the queue. We'll have it ready when you arrive.</p>
         <div className="success-summary">

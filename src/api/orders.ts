@@ -37,6 +37,13 @@ export type OrderResult =
   | { ok: true; orderId: string }
   | { ok: false; error: string }
 
+/* Display-only reference for the assessment mock. Real orders use the
+   server-issued orderId (the commented fetch returns it verbatim). */
+export function formatOrderRef(id: string): string {
+  const compact = id.replace(/[^a-z0-9]/gi, "").toUpperCase()
+  return `PC-${compact.slice(0, 6) || "000000"}`
+}
+
 type BuildOrderInput = {
   coffees: Coffee[]
   cart: Record<number, number>
@@ -112,5 +119,5 @@ export async function submitOrder(payload: OrderPayload): Promise<OrderResult> {
   ------------------------------------------------------------- */
 
   // Assessment: assume every order is successful.
-  return { ok: true, orderId: payload.clientOrderId }
+  return { ok: true, orderId: formatOrderRef(payload.clientOrderId) }
 }

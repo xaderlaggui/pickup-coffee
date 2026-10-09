@@ -9,6 +9,9 @@
   --green: #9DC374;
   --green-pressed: #86AB5D;
   --green-soft: rgba(157, 195, 116, 0.25);
+  --sage-header: #A0BA78;
+  /* Fixed brand sage for accents that must not remap in dark mode. */
+  --brand-sage: #A0BA78;
   --yellow: #FDF0CA;
   --header: rgba(235, 231, 221, 0.85);
   --green-text: #4C6F24;
@@ -40,6 +43,7 @@
   --green: #9DC374;
   --green-pressed: #B0D18C;
   --green-soft: rgba(157, 195, 116, 0.2);
+  --sage-header: #37462B;
   --yellow: #4E472D;
   --header: rgba(25, 33, 19, 0.85);
   --green-text: #C3DBA3;

@@ -9,13 +9,14 @@ npm install
 npm run dev      # dev server → http://localhost:8443 (strict port)
 npm run build    # production build
 npm run preview  # serve the production build
+npm test         # run unit tests (Vitest)
 npm run format   # format with oxfmt
 ```
 
 - Plain **npm** — `npm install` is enough (`package-lock.json` included for reproducible installs).
 - Node version is pinned in `.mise.toml`.
 - Type-check: `npx tsc --noEmit` (passes clean).
-- No test suite — verify visually via the dev server.
+- Unit tests: `npm test` (Vitest) — pure helpers under `src/**/*.test.ts`.
 
 ## Features
 
@@ -30,7 +31,7 @@ npm run format   # format with oxfmt
 **`src/api/orders.ts`**
 
 - `buildOrderPayload()` — builds the exact JSON payload a real API would receive (idempotency key, customer, pickup slot, line items with unit price + line totals, PHP currency totals).
-- `submitOrder()` — contains the **real `fetch()`, commented out** for the assessment; the mock resolves with `{ ok: true }` for every order after 600 ms.
+- `submitOrder()` — contains the **real `fetch()`, commented out** for the assessment; the mock resolves immediately with `{ ok: true }` for every order and returns a formatted order reference (`formatOrderRef`). The 600 ms success delay is a UI transition in `src/App.tsx` (`submit`), not a network wait.
 
 To go live: uncomment the fetch block inside `submitOrder()` and define `VITE_API_URL` (the endpoint constant is stubbed directly above it).
 

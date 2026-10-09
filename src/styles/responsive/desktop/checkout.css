@@ -31,20 +31,6 @@
     margin: 0;
   }
 
-  .checkout-cart-column .cart-list-item {
-    gap: 12px;
-    width: 100%;
-    padding: 9px 20px;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  .checkout-cart-column .cart-list-item-wrap {
-    border-bottom: 1px solid var(--line);
-    border-radius: 0;
-  }
-
   .checkout-cart-column .swipe-delete-btn {
     display: none;
   }

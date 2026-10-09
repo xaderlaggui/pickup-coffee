@@ -32,11 +32,12 @@ export function CheckoutView({ day, setDay, time, setTime, name, setName, contac
       <fieldset className="payment-fieldset">
         <legend className="payment-legend">Payment method</legend>
         <p className="payment-note">Pay at the counter when you pick up your coffee.</p>
-        <div className="payment-options">{["Cash at pickup", "Card at pickup"].map((option) => <label key={option} className={`payment-card ${payment === option ? "selected" : ""} ${invalid.payment ? "invalid" : ""}`} aria-invalid={invalid.payment}><input type="radio" name="payment" value={option} checked={payment === option} onChange={() => setPayment(option)} aria-invalid={invalid.payment} />{option}</label>)}</div>
+        <div className="payment-options">{["Cash at pickup", "Card at pickup"].map((option) => <label key={option} className={`payment-card ${payment === option ? "selected" : ""}`}><input type="radio" name="payment" value={option} checked={payment === option} onChange={() => setPayment(option)} />{option}</label>)}</div>
       </fieldset>
     </section>
     <div className="checkout-submit-area">
       <PickupReadyNote day={day} time={time} />
+      {!hasItems && <span className="field-error" role="alert">Add at least one item to place your order.</span>}
       <button type="submit" className="primary-button desktop-place-order" disabled={loading || pickupClosed || !hasItems} aria-busy={loading}>{loading ? <span className="loading-dots" role="status"><i /><i /><i /></span> : "Place Order"}</button>
     </div>
   </form>

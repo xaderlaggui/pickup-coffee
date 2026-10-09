@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { Coffee, CoffeeSize } from "../types"
+import { useFocusTrap } from "../hooks/useFocusTrap"
 import { CountPrice } from "./MotionText"
 import { Price } from "./Price"
 
@@ -45,8 +46,10 @@ export function ConfirmOrderModal({
   const pickupTime = day === "Today" && time === "ASAP" ? "ASAP" : time === "Closed" ? "Closed" : time
   const onCloseRef = useRef(onClose)
   const loadingRef = useRef(loading)
+  const dialogRef = useRef<HTMLElement>(null)
   onCloseRef.current = onClose
   loadingRef.current = loading
+  useFocusTrap(dialogRef)
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
@@ -68,7 +71,7 @@ export function ConfirmOrderModal({
         if (event.target === event.currentTarget && !loading) onClose()
       }}
     >
-      <section className="confirm-order-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-order-title">
+      <section ref={dialogRef} className="confirm-order-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-order-title">
         <header className="confirm-order-header">
           <div>
             <p className="eyebrow">FINAL CHECK</p>

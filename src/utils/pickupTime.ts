@@ -1,7 +1,7 @@
-export function generateTimeSlots(isToday: boolean) {
+// `now` is injectable so callers (and tests) can pin the clock; it defaults to
+// the current local time, which is what every app call site relies on.
+export function generateTimeSlots(isToday: boolean, now: Date = new Date()) {
   const slots: string[] = []
-
-  const now = new Date()
 
   const startHour = 8
 

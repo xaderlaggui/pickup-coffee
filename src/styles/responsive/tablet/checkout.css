@@ -3,14 +3,6 @@
    ============================================================ */
 
 @media (max-width: 899px) {
-  .checkout-page .cart-list-item::before {
-    display: none;
-  }
-
-  .checkout-page .cart-list-item::after {
-    display: none;
-  }
-
   .checkout-page .swipe-delete-btn {
     top: 50%;
     right: 6px;

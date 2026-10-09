@@ -5,7 +5,7 @@
 @media (hover: hover) {
   .coffee-card:hover {
     transform: translateY(-3px);
-    border-color: #A0BA78;
+    border-color: var(--brand-sage);
     /* hover lift = one tier up the uniform scale */
     box-shadow: var(--shadow-3);
   }

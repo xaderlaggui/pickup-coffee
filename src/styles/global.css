@@ -116,12 +116,12 @@ a:focus-visible {
 
   .top-header {
     backdrop-filter: none !important;
-    background: #A0BA78 !important;
+    background: var(--sage-header) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25) !important;
   }
 
   .app.dark .top-header {
-    background: #37462B !important;
+    background: var(--sage-header) !important;
   }
 }
 
@@ -143,12 +143,12 @@ a:focus-visible {
 
   .top-header {
     backdrop-filter: none !important;
-    background: #A0BA78 !important;
+    background: var(--sage-header) !important;
     border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
   }
 
   .app.dark .top-header {
-    background: #37462B !important;
+    background: var(--sage-header) !important;
   }
 }
 
