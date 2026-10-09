@@ -48,6 +48,7 @@ pnpm-debug.log*
 # Temporary & backup files
 .tmp-*/
 *-backup/
+.*-backup/
 .backup/
 *.tmp
 *.temp
